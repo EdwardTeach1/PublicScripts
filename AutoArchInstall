@@ -2,17 +2,15 @@
 ##
 ##
 ##
-##
+##Part 1 START
 ## This edits the Mirrorlist file to only have Australian repositories
-echo "Modifying the Mirrorlist file to point only to Australian Repositories !!!"
-sleep 2
-sudo sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sudo sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
-echo "Command executed"
-##
-##
-echo " "
-echo "Gary is the best"
-echo " "
+#echo "Modifying the Mirrorlist file to point only to Australian Repositories !!!"
+#sleep 2
+#sudo sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sudo sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
+#echo "Command executed"
+#sleep 2s
+##Part 1 END
+##Part 2 START
 sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk ${TGTDEV}
 o # clear the in memory partition table
 n # new partition
@@ -31,3 +29,4 @@ p # print the in-memory partition table
 w # write the partition table
 q # and we're done
 EOF
+##Part 2 END
