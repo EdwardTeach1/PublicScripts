@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+
+
+## This edits the Mirrorlist file to only have Australian repositories
+
+sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sed -i '/## Austalia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
+echo "Command executed"
