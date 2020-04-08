@@ -11,22 +11,20 @@
 #sleep 2s
 ##Part 1 END
 ##Part 2 START
-sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | fdisk ${TGTDEV}
-	o # clear the in memory partition table
-	n # new partition
-	p # primary partition
-	1 # partition number 1
-	 # default - start at beginning of disk 
-	+100M # 100 MB boot parttion
-	n # new partition
-	p # primary partition
-	2 # partion number 2
-	 # default, start immediately after preceding partition
-	 # default, extend partition to end of disk
-	a # make a partition bootable
-	1 # bootable partition is partition 1 -- /dev/sda1
-	p # print the in-memory partition table
-	w # write the partition table
-	q # and we're done
-EOF
+echo "Partitioning Drives"
+sleep 2s
+echo "label: gpt" > partition-table
+echo "device: /dev/sda" >> partition-table
+echo "unit: sectors" >> partition-table
+echo "first-lba: 2048" >> partition-table
+echo "last-lba: 104857566" >> partition-table
+echo " " >> partition-table
+echo "/dev/sda1 : start=        2048, size=   104855519, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" >> partition-table
+sfdisk /dev/sda < partition-table
 ##Part 2 END
+##Part 3 START
+##Part 3 END
+##Part 4 START
+##Part 4 END
+##Part 4 START
+##Part 4 END
