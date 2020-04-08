@@ -1,14 +1,17 @@
 #!/bin/bash
 ##
-##
-##sudo pacman -Syu
+echo "Optimizing Package Manager"
+sleep 2s
+sudo sed -i "s/#color/color/" /etc/pacman.conf && sudo sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
+echo "Grabing Updates"
+sleep 2s
+sudo pacman -Syyu
 ##Part 1 START
 ## This edits the Mirrorlist file to only have Australian repositories
-#echo "Modifying the Mirrorlist file to point only to Australian Repositories !!!"
-#sleep 2
-#sudo sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sudo sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
-#echo "Command executed"
-#sleep 2s
+echo "Modifying the Mirrorlist file to point only to Australian Repositories !!!"
+sleep 2
+sudo sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sudo sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
+sleep 2s
 ##Part 1 END
 ##Part 2 START
 echo "Partitioning Drives"
