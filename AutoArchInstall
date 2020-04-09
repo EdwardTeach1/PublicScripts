@@ -1,7 +1,7 @@
 #!/bin/bash
 ##
 ##Part 1 START
-echo "Optimizing Package Manager"
+echo "Customising Package Manager"
 sleep 2s
 sudo sed -i "s/#color/color/" /etc/pacman.conf && sudo sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
 sleep 2s
@@ -11,7 +11,7 @@ sudo sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sudo sed -i '/## A
 sleep 2s
 echo "Updating Packages"
 sleep 2s
-sudo pacman -Syyyu
+sudo pacman -Syyy && sudo pacman -Syu
 ##Part 1 END
 ##Part 2 START
 echo "Partitioning Drives"
@@ -20,12 +20,16 @@ echo "label: gpt" > partition-table
 echo "device: /dev/sda" >> partition-table
 echo "unit: sectors" >> partition-table
 echo "first-lba: 2048" >> partition-table
-echo "last-lba: 104857566" >> partition-table
+echo "last-lba: 1000215182" >> partition-table
+echo "sector-size: 512" >> partition-table
 echo " " >> partition-table
-echo "/dev/sda1 : start=        2048, size=   104855519, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" >> partition-table
+echo "/dev/sda1 : start=           2048, size=   1048576, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" >> partition-table
+echo "/dev/sda2 : start=        1050624, size=   1048576, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" >> partition-table
+echo "/dev/sda3 : start=      2099200, size=   998115983, type=E6D6D379-F507-44C2-A23C-238FZA3DF928" >> partition-table
 sfdisk /dev/sda < partition-table
 ##Part 2 END
 ##Part 3 START
+echo "Setup of Full Disk Encryption"
 
 ##Part 3 END
 ##Part 4 START
