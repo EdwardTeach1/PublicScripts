@@ -11,7 +11,7 @@ sudo sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sudo sed -i '/## A
 sleep 2s
 echo "Updating Packages"
 sleep 2s
-sudo pacman -Syyy && sudo pacman -Syu
+sudo pacman -Syyy
 ##Part 1 END
 ##Part 2 START
 echo "Partitioning Drives"
