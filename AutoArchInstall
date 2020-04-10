@@ -29,8 +29,8 @@ sfdisk /dev/sda < partition-table
 ##Part 2 END
 ##Part 3 START
 echo "Setup of Full Disk Encryption"
-#mkfs.fat -F32 /dev/sda1
-#mkfs.ext4 /dev/sda2
+mkfs.fat -F32 /dev/sda1
+printf 'y\n' | mkfs.ext4 /dev/sda2
 #printf 'YES\n1234567890\n1234567890\n' | cryptsetup lukFormat /dev/sda3
 #printf '1234567890\n' | cryptsetup open --type luks /dev/sda3 LVM
 #pvcreate --dataalignment 1m /dev/mapper/LVM
