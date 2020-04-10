@@ -32,6 +32,10 @@ echo "Setup of Full Disk Encryption"
 mkfs.fat -F32 /dev/sda1
 printf 'y\n' | mkfs.ext4 /dev/sda2
 #printf 'YES\n1234567890\n1234567890\n' | cryptsetup lukFormat /dev/sda3
+cryptsetup lukFormat /dev/sda3
+echo "YES"
+echo "passphrase"
+echo "passphrase"
 #printf '1234567890\n' | cryptsetup open --type luks /dev/sda3 LVM
 #pvcreate --dataalignment 1m /dev/mapper/LVM
 #vgcreate volgroup0 /dev/mapper/LVM
