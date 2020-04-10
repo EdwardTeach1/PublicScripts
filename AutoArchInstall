@@ -12,6 +12,7 @@ sleep 2s
 echo "Updating Packages"
 sleep 2s
 sudo pacman -Syyy
+sudo pacman -Syy expect
 ##Part 1 END
 ##Part 2 START
 echo "Partitioning Drives"
@@ -31,11 +32,18 @@ sfdisk /dev/sda < partition-table
 echo "Setup of Full Disk Encryption"
 mkfs.fat -F32 /dev/sda1
 printf 'y\n' | mkfs.ext4 /dev/sda2
-#printf 'YES\n1234567890\n1234567890\n' | cryptsetup lukFormat /dev/sda3
-cryptsetup lukFormat /dev/sda3
-echo "YES"
-echo "passphrase"
-echo "passphrase"
+##printf 'YES\n1234567890\n1234567890\n' | cryptsetup lukFormat /dev/sda3
+#echo "#!/usr/bin/expect -f" > expectfile
+#echo "spawn cryptsetup luksFormat /dev/sda3" > expectfile
+#echo "expect "Are you sure? (Type 'yes' in capital letters):\r"" > expectfile
+#echo "send -- "YES\r"" > expectfile
+#echo "expect "Enter passphrase for /dev/sda3:\r"" > expectfile
+#echo "send -- "1234567890\r"" > expectfile
+#echo "expect "Verify passphrase:\r"" > expectfile
+#echo "send "1234567890\r"" > expectfile
+#echo "expect eof" > expectfile
+#chmod 777 expectfile
+#sudo expect expectfile
 #printf '1234567890\n' | cryptsetup open --type luks /dev/sda3 LVM
 #pvcreate --dataalignment 1m /dev/mapper/LVM
 #vgcreate volgroup0 /dev/mapper/LVM
