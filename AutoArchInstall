@@ -1,22 +1,14 @@
 #!/bin/bash
-##
+## This Script will build Arch Linux
 ##Part 1 START
-echo "Customising Package Manager"
-sleep 2s
 sudo sed -i "s/#color/color/" /etc/pacman.conf && sudo sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
-sleep 2s
 echo "Modifying the Mirrorlist file to point only to Australian Repositories !!!"
-sleep 2
 sudo sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sudo sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
-sleep 2s
-echo "Updating Packages"
-sleep 2s
 sudo pacman -Syyy
 sudo pacman -Syy expect
 ##Part 1 END
+
 ##Part 2 START
-echo "Partitioning Drives"
-sleep 2s
 echo "label: gpt" > partition-table
 echo "device: /dev/sda" >> partition-table
 echo "unit: sectors" >> partition-table
@@ -28,34 +20,30 @@ echo "/dev/sda2 : start=        1050624, size=   1048576, type=0FC63DAF-8483-477
 echo "/dev/sda3 : start=      2099200, size=   998115983, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
 sfdisk /dev/sda < partition-table
 ##Part 2 END
+
 ##Part 3 START
-echo "Setup of Full Disk Encryption"
 mkfs.fat -F32 /dev/sda1
 printf 'y\n' | mkfs.ext4 /dev/sda2
-##printf 'YES\n1234567890\n1234567890\n' | cryptsetup lukFormat /dev/sda3
-
-#echo "#\!/usr/bin/expect -f" > expectfile
-#echo "set timeout -1" >> expectfile
-#echo "spawn cryptsetup luksFormat /dev/sda3" >> expectfile
-#echo "expect \"Are you sure? (Type 'yes' in capital letters):\\\r\"" >> expectfile
-#echo \"send -- "YES\\r\"" >> expectfile
-#echo "expect \"Enter passphrase for /dev/sda3:\\\r\"" >> expectfile
-#echo "send -- \"1234567890\\\r\"" >> expectfile
-#echo "expect \"Verify passphrase:\\\r\"" >> expectfile
-#echo "send \"1234567890\\\r\"" >> expectfile
-#echo "expect eof" >> expectfile
-
-#chmod 777 expectfile
-#sudo expect expectfile
-#printf '1234567890\n' | cryptsetup open --type luks /dev/sda3 LVM
-#pvcreate --dataalignment 1m /dev/mapper/LVM
-#vgcreate volgroup0 /dev/mapper/LVM
-#lvcreate -L 50GB volgroup -n LVM_root
-#lvcreate -L 350GB volgroup -n LVM_home
+echo "#\!/usr/bin/expect -f" > expectfile
+echo "set timeout -1" >> expectfile
+echo "spawn cryptsetup luksFormat /dev/sda3" >> expectfile
+echo "expect \"Are you sure? (Type 'yes' in capital letters):\\\r\"" >> expectfile
+echo \"send -- "YES\\r\"" >> expectfile
+echo "expect \"Enter passphrase for /dev/sda3:\\\r\"" >> expectfile
+echo "send -- \"1234567890\\\r\"" >> expectfile
+echo "expect \"Verify passphrase:\\\r\"" >> expectfile
+echo "send \"1234567890\\\r\"" >> expectfile
+echo "expect eof" >> expectfile
+chmod 777 expectfile
+sudo expect expectfile
+printf '1234567890\n' | cryptsetup open --type luks /dev/sda3 LVM
+pvcreate --dataalignment 1m /dev/mapper/LVM
+vgcreate volgroup0 /dev/mapper/LVM
+lvcreate -L 50GB volgroup -n LVM_root
+lvcreate -L 350GB volgroup -n LVM_home
 ##Part 3 END
-##Part 4 START
 
+##Part 4 START
 ##Part 4 END
 ##Part 4 START
-
 ##Part 4 END
