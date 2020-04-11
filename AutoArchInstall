@@ -4,8 +4,7 @@
 sudo sed -i "s/#color/color/" /etc/pacman.conf && sudo sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
 echo "Modifying the Mirrorlist file to point only to Australian Repositories !!!"
 sudo sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sudo sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
-sudo pacman -Syyy
-print '\n' | sudo pacman -Syyy expect
+print '\n' | sudo pacman -Syy expect
 ##Part 1 END
 
 ##Part 2 START
@@ -25,7 +24,7 @@ sfdisk /dev/sda < partition-table
 #mkfs.fat -F32 /dev/sda1
 #printf 'y\n' | mkfs.ext4 /dev/sda2
 #echo "#\!/usr/bin/expect -f" > expectfile
-#echo "set timeout -1" >> expectfile
+#echo "set timeout -2" >> expectfile
 #echo "spawn cryptsetup luksFormat /dev/sda3" >> expectfile
 #echo "expect \"Are you sure? (Type 'yes' in capital letters):\\\r\"" >> expectfile
 #echo \"send -- "YES\\r\"" >> expectfile
