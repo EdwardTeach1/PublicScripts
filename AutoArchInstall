@@ -23,7 +23,7 @@ sfdisk /dev/sda < partition-table
 mkfs.fat -F32 /dev/sda1
 printf 'y\n' | mkfs.ext4 /dev/sda2
 echo "#!/usr/bin/expect -f" > expectfile
-echo "set timeout 2" >> expectfile
+echo "set timeout 5" >> expectfile
 echo "spawn cryptsetup luksFormat /dev/sda3" >> expectfile
 echo "expect \"Are you sure? (Type 'yes' in capital letters):\\r\"" >> expectfile
 echo "send -- \"YES\\r\"" >> expectfile
@@ -37,8 +37,8 @@ sudo expect expectfile
 printf '1234567890\n' | cryptsetup open --type luks /dev/sda3 LVM
 pvcreate --dataalignment 1m /dev/mapper/LVM
 vgcreate volgroup0 /dev/mapper/LVM
-lvcreate -L 50GB volgroup -n LVM_root
-lvcreate -L 350GB volgroup -n LVM_home
+lvcreate -L 50GB volgroup0 -n LVM_root
+lvcreate -L 350GB volgroup0 -n LVM_home
 ###Part 3 END
 ##Part 4 START
 ##Part 4 END
