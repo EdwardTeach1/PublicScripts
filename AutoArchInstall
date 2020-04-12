@@ -35,7 +35,8 @@ echo "spawn cryptsetup open --type luks /dev/sda3 LVM" >> expectfile
 echo "send -s \"1234567890\\r\"" >> expectfile
 echo "interact" >> expectfile
 chmod 777 expectfile
-sudo expect expectfile
+sudo expect expectfile && sleep 10
+sleep 10
 #printf '1234567890\n' | cryptsetup open --type luks /dev/sda3 LVM
 pvcreate --dataalignment 1m /dev/mapper/LVM
 vgcreate volgroup0 /dev/mapper/LVM
