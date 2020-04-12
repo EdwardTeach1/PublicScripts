@@ -22,7 +22,7 @@ sfdisk /dev/sda < partition-table
 ##Part 3 START
 mkfs.fat -F32 /dev/sda1
 printf 'y\n' | mkfs.ext4 /dev/sda2
-echo "#!/usr/bin/expect" > expectfile
+echo "#!/usr/bin/expect -f" > expectfile
 echo "set timeout 3" >> expectfile
 echo "spawn cryptsetup luksFormat /dev/sda3" >> expectfile
 echo "expect \"Are you sure? (Type 'yes' in capital letters):\\r\"" >> expectfile
