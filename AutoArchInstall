@@ -22,18 +22,18 @@ sfdisk /dev/sda < partition-table
 ##Part 3 START
 mkfs.fat -F32 /dev/sda1
 printf 'y\n' | mkfs.ext4 /dev/sda2
-echo "#!/usr/bin/expect -f" > expectfile
-echo "set timeout 5" >> expectfile
+echo "#!/usr/bin/expect" > expectfile
+echo "set timeout 3" >> expectfile
 echo "spawn cryptsetup luksFormat /dev/sda3" >> expectfile
 echo "expect \"Are you sure? (Type 'yes' in capital letters):\\r\"" >> expectfile
-echo "send -- \"YES\\r\"" >> expectfile
+echo "send -s \"YES\\r\"" >> expectfile
 echo "expect \"Enter passphrase for /dev/sda3:\\r\"" >> expectfile
-echo "send -- \"1234567890\\r\"" >> expectfile
+echo "send -s \"1234567890\\r\"" >> expectfile
 echo "expect \"Verify passphrase:\\r\"" >> expectfile
-echo "send \"1234567890\\r\"" >> expectfile
+echo "send -s \"1234567890\\r\"" >> expectfile
 echo "spawn cryptsetup open --type luks /dev/sda3 LVM" >> expectfile
-echo "send -- \"1234567890\\r\"" >> expectfile
-echo "expect eof" >> expectfile
+echo "send -s \"1234567890\\r\"" >> expectfile
+echo "interact" >> expectfile
 chmod 777 expectfile
 sudo expect expectfile
 #printf '1234567890\n' | cryptsetup open --type luks /dev/sda3 LVM
