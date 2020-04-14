@@ -75,7 +75,9 @@ sudo mkdir /mnt/etc
 sudo sleep 5s
 sudo genfstab -U -p /mnt >> /mnt/etc/fstab
 sudo sleep 5s
-sudo printf 'y\n' | pacstrap -i /mnt base
+sudo cat /mnt/etc/fstab
+sudo sleep 5s
+sudo printf '\n' | pacstrap -i /mnt base
 sudo sleep 5s
 sudo printf 'pacman -Syyy linux linux-headers \n\n\nsudo pacman -Syyy nano vim vi\n\n\nThis was a test\nexit\n' | sudo arch-chroot /mnt
 sudo sleep 5s
