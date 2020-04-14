@@ -79,10 +79,9 @@ sudo cat /mnt/etc/fstab
 sudo sleep 5s
 sudo printf '\n' | pacstrap -i /mnt base
 sudo sleep 5s
-sudo printf 'pacman -Syyy linux linux-headers \n\n\nsudo pacman -Syyy nano vim vi\n\n\nThis was a test\nexit\n' | sudo arch-chroot /mnt
+sudo printf 'pacman -Syyy linux linux-headers \n\n\nexit\n' | sudo arch-chroot /mnt
 sudo sleep 5s
-sudo printf '\n\n\n' | pacman -S linux linux-headers
-sudo printf '\n\n\n' | sudo pacman -Syyy nano vim vi
+sudo printf 'sudo pacman -Syyy nano vim vi\n\n\nexit\n' | sudo arch-chrrot /mnt
 sudo echo "Part 3 END"
 sudo echo "Part 4 START"
 sudo echo "Part 4 END"
