@@ -1,6 +1,8 @@
 #!/bin/bash
 ## This Script will build Arch Linux
 sudo echo "Part 1 START"
+sudo dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
+sudo sleep 5s
 sudo sed -i "s/#color/color/" /etc/pacman.conf && sudo sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
 sudo sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sudo sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
 sudo printf '\n' | sudo pacman -Syy expect
@@ -37,11 +39,13 @@ sudo echo "send -s \"1234567890\\r\"" >> expectfile
 sudo echo "expect \"Verify passphrase:\\r\"" >> expectfile
 sudo echo "send -s \"1234567890\\r\"" >> expectfile
 sudo echo "interact" >> expectfile
+sudo echo "EOF" >> expectfile
 sudo sleep 10s
 sudo chmod 777 expectfile
 sudo sleep 10s
 sudo expect expectfile
 sudo sleep 30s
+sudo rm expectfile
 sudo printf '1234567890\n' | cryptsetup open --type luks /dev/sda3 LVM
 sudo sleep 5s
 sudo pvcreate --dataalignment 1m /dev/mapper/LVM
@@ -51,6 +55,16 @@ sudo sleep 5s
 sudo lvcreate -L 50GB volgroup0 -n LVM_root
 sudo sleep 5s
 sudo lvcreate -L 350GB volgroup0 -n LVM_home
+# or sudo lvcreate -l 100%FREE volgroup0 -n LVM_home to use 100% of remaining space
+sudo mkfs.ext4 /dev/volgroup0/LVM_root
+sudo mkfs.ext4 /dev/volgroup0/LVM_home
+sudo mount /dev/volgroup0/LVM_root /mnt
+sudo mkdir /mnt/home
+sudo mount /dev/volgroup0/LVM_home /mnt/home
+sudo mkdir /mnt/boot
+sudo mount /dev/sda2 /mnt/boot
+sudo mkdir /mnt/etc
+sudo genfstab -U -p /mnt >> /mnt/etc/fstab
 sudo echo "Part 3 END"
 sudo echo "Part 4 START"
 sudo echo "Part 4 END"
