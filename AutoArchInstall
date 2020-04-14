@@ -111,6 +111,33 @@ sudo echo "Section 6 END"
 
 #################### Section 7 ####################
 
+##TEST START
+sudo echo "#!/usr/bin/expect -f" > expectfile1
+sudo echo "set send_slow {2 0.5}" >> expectfile1
+sudo echo "spawn arch-chroot /mnt" >> expectfile1
+sudo echo "send -s \"printf '\n\n\n' | pacman -S linux linux-headers\\r\"" >> expectfile1
+sudo echo "send -s \"sleep 5s\\r\"" >> expectfile1
+sudo echo "send -s \"printf '\n\n\n' | pacman -S nano vim\\r\"" >> expectfile1
+sudo echo "send -s \"sleep 5s\\r\"" >> expectfile1
+sudo echo "send -s \"printf '\n\n\n' | pacman -S base-devel openssh\\r\"" >> expectfile1
+sudo echo "send -s \"sleep 5s\\r\"" >> expectfile1
+sudo echo "send -s \"printf '\n\n\n' | pacman -S networkmanager wpa_supplicant wireless_tools netctl\\r\"" >> expectfile1
+sudo echo "send -s \"sleep 5s\\r\"" >> expectfile1
+sudo echo "send -s \"printf '\n\n\n' | systemctl enable sshd\\r\"" >> expectfile1
+sudo echo "send -s \"sleep 5s\\r\"" >> expectfile1
+sudo echo "send -s \"printf '\n\n\n' | systemctl enable NetworkManager\\r\"" >> expectfile1
+sudo echo "send -s \"sleep 5s\\r\"" >> expectfile1
+sudo echo "send -s \"printf '\n\n\n' | pacman -S lvm2\\r\"" >> expectfile1
+sudo echo "send -s \"sleep 5s\\r\"" >> expectfile1
+sudo echo "interact" >> expectfile1
+sudo sleep 10s
+sudo chmod 777 expectfile1
+sudo sleep 10s
+sudo expect expectfile1
+sudo rm expectfile1
+sudo sleep 20s
+##TEST END
+
 sudo echo "Section 7 START"
 sudo printf 'pacman -Syyy linux linux-headers \n\n\nexit\n' | sudo arch-chroot /mnt
 sudo sleep 5s
