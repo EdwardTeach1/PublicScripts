@@ -1,4 +1,14 @@
-#################### Section 7 Continue in chroot ####################
+#!/bin/bash
+#################### Continued Script ####################
+
+#################### Section 7 ####################
+
+sudo echo "Section 7 START"
+##TEST
+
+sudo echo "this worked"
+sudo echo "so did this"
+
 sudo printf 'pacman -Syyy linux linux-headers \n\n\nexit\n' | sudo arch-chroot /mnt
 sudo echo "Installed Linux and Linux Headers"
 sudo sleep 5s
@@ -16,11 +26,11 @@ sudo printf 'sudo systemctl enable NetworkManager\nexit\n' | sudo arch-chrrot /m
 sudo printf 'sudo pacman -Syyy lvm2\n\n\nexit\n' | sudo arch-chrrot /mnt
 sudo echo "Installed LVM2 package"
 sudo sleep 5s
-sudo echo "Section 6 END"
+sudo echo "Section 7 END"
 
-#################### Section 7 ####################
+#################### Section 8 ####################
 
-sudo echo "Section 7 START"
+sudo echo "Section 8 START"
 sudo sed -i 'HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/block/block encrypt lvm2' /etc/mkinitcpio.conf
 sudo mkinitcpio -p linux
 sudo sleep 5s
@@ -30,11 +40,11 @@ sudo locale-gen
 # sudo useradd -m -g users USERNAME
 # sudo passwd USERNAME
 # create a group for admins???
-sudo echo "Section 7 END"
+sudo echo "Section 8 END"
 
-#################### Section 8 ####################
+#################### Section 9 ####################
 
-sudo echo "Section 8 START"
+sudo echo "Section 9 START"
 sudo printf 'sudo pacman -S grub efibootmgr dosfstools os-prober mtools\n\n\nexit\n' | sudo arch-chrrot /mnt
 sudo sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
 sudo sed -i 'GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet/quiet/cryptdevice=/dev/sda3:volgroup0:allow-discards quiet' /etc/default/grub
@@ -49,13 +59,16 @@ sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo cp /etc/fstab /etc/fstab.bak
 sudo echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
-sudo echo "Section 8 END"
-#################### Section 9 ####################
-sudo echo "Section 9 START"
+sudo echo "Section 9 END"
+
+#################### Section 10 ####################
+
+sudo echo "Section 10 START"
 sudo printf 'sudo pacman -S intel-ucode\n\n\nexit\n' | sudo arch-chroot /mnt
 sudo printf 'sudo pacman -S xorg-server\n\n\nexit\n' | sudo arch-chroot /mnt
 sudo printf 'sudo pacman -S mesa\n\n\nexit\n' | sudo arch-chroot /mnt
 sudo umount -a
 sudo poweroff
-sudo echo "Section 9 END"
+sudo echo "Section 10 END"
+
 #################### END OF SCRIPT ####################
