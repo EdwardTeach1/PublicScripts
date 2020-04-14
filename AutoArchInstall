@@ -129,6 +129,7 @@ sudo echo "send -s \"printf '\n\n\n' | systemctl enable NetworkManager\\r\"" >> 
 sudo echo "send -s \"sleep 5s\\r\"" >> expectfile1
 sudo echo "send -s \"printf '\n\n\n' | pacman -S lvm2\\r\"" >> expectfile1
 sudo echo "send -s \"sleep 5s\\r\"" >> expectfile1
+sudo echo "send -s \"exit\\r\"" >> expectfile1
 sudo echo "interact" >> expectfile1
 sudo sleep 10s
 sudo chmod 777 expectfile1
