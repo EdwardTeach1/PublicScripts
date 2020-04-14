@@ -55,20 +55,30 @@ sudo vgcreate volgroup0 /dev/mapper/LVM
 sudo sleep 5s
 sudo lvcreate -L 50GB volgroup0 -n LVM_root
 sudo sleep 5s
-sudo lvcreate -L 350GB volgroup0 -n LVM_home
-# or sudo lvcreate -l 100%FREE volgroup0 -n LVM_home to use 100% of remaining space
+## sudo lvcreate -L 350GB volgroup0 -n LVM_home
+sudo lvcreate -l 100%FREE volgroup0 -n LVM_home
+sudo sleep 5s
 sudo mkfs.ext4 /dev/volgroup0/LVM_root
+sudo sleep 5s
 sudo mkfs.ext4 /dev/volgroup0/LVM_home
+sudo sleep 5s
 sudo mount /dev/volgroup0/LVM_root /mnt
+sudo sleep 5s
 sudo mkdir /mnt/home
 sudo mount /dev/volgroup0/LVM_home /mnt/home
+sudo sleep 5s
 sudo mkdir /mnt/boot
 sudo mount /dev/sda2 /mnt/boot
+sudo sleep 5s
 sudo mkdir /mnt/etc
+sudo sleep 5s
 sudo genfstab -U -p /mnt >> /mnt/etc/fstab
+sudo sleep 5s
 sudo printf 'y\n' | pacstrap -i /mnt base
+sudo sleep 5s
 sudo arch-chroot /mnt
-sudo printf '\n\n\n' | pacman -S linux
+sudo sleep 5s
+sudo printf '\n\n\n' | pacman -S linux linux-headers
 sudo echo "Part 3 END"
 sudo echo "Part 4 START"
 sudo echo "Part 4 END"
