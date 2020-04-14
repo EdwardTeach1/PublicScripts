@@ -42,7 +42,6 @@ sudo echo "send -s \"1234567890\\r\"" >> expectfile
 sudo echo "expect \"Verify passphrase:\\r\"" >> expectfile
 sudo echo "send -s \"1234567890\\r\"" >> expectfile
 sudo echo "interact" >> expectfile
-sudo echo "EOF" >> expectfile
 sudo sleep 10s
 sudo chmod 777 expectfile
 sudo sleep 10s
