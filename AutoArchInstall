@@ -1,6 +1,9 @@
 #!/bin/bash
 ## This Script will build Arch Linux
-sudo echo "Part 1 START"
+
+#################### Section 1 ####################
+
+sudo echo "Section 1 START"
 sudo dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
 sudo sleep 5s
 sudo sed -i "s/#Color/Color/" /etc/pacman.conf && sudo sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
@@ -11,9 +14,13 @@ sudo sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archli
 sudo printf '\n' | sudo pacman -Syy expect
 sudo sleep 5s
 sudo pacman -Syyy
-sudo sleep 5s
 sudo echo "Part 1 END"
-sudo echo "Part 2 START"
+sudo sleep 5s
+sudo echo "Section 1 END"
+
+#################### Section 2 ####################
+
+sudo echo "Section 2 START"
 sudo echo "label: gpt" > partition-table
 sudo echo "device: /dev/sda" >> partition-table
 sudo echo "unit: sectors" >> partition-table
@@ -26,8 +33,11 @@ sudo echo "/dev/sda3 : start=      2099200, size=   998115983, type=E6D6D379-F50
 sudo sleep 5s
 sudo sfdisk /dev/sda < partition-table
 sudo sleep 5s
-sudo echo "Part 2 END"
-sudo echo "Part 3 START"
+sudo echo "Section 2 END"
+
+#################### Section 3 ####################
+
+sudo echo "Section 3 START"
 sudo mkfs.fat -F32 /dev/sda1
 sudo sleep 10s
 sudo printf 'y\n' | mkfs.ext4 /dev/sda2
@@ -46,8 +56,13 @@ sudo sleep 10s
 sudo chmod 777 expectfile
 sudo sleep 10s
 sudo expect expectfile
-sudo sleep 30s
+sudo sleep 20s
 sudo rm expectfile
+sudo echo "Section 3 END"
+
+#################### Section 4 ####################
+
+sudo echo "Section 4 START"
 sudo printf '1234567890\n' | cryptsetup open --type luks /dev/sda3 LVM
 sudo sleep 5s
 sudo pvcreate --dataalignment 1m /dev/mapper/LVM
@@ -59,6 +74,11 @@ sudo sleep 5s
 ## sudo lvcreate -L 350GB volgroup0 -n LVM_home
 sudo lvcreate -l 100%FREE volgroup0 -n LVM_home
 sudo sleep 5s
+sudo echo "Section 4 END"
+
+#################### Section 5 ####################
+
+sudo echo "Section 5 START"
 sudo mkfs.ext4 /dev/volgroup0/LVM_root
 sudo sleep 5s
 sudo mkfs.ext4 /dev/volgroup0/LVM_home
@@ -74,10 +94,16 @@ sudo sleep 5s
 sudo mkdir /mnt/etc
 sudo sleep 5s
 sudo genfstab -U -p /mnt >> /mnt/etc/fstab
+sudo echo "Section 5 END"
+
+#################### Section 6 ####################
+
+sudo echo "Section 6 START"
 sudo sleep 5s
 sudo cat /mnt/etc/fstab
 sudo sleep 5s
 sudo printf '\n' | pacstrap -i /mnt base
+sudo echo "Pacstrap Completed"
 sudo sleep 5s
 sudo printf 'pacman -Syyy linux linux-headers \n\n\nexit\n' | sudo arch-chroot /mnt
 sudo echo "Installed Linux and Linux Headers"
@@ -85,8 +111,42 @@ sudo sleep 5s
 sudo printf 'sudo pacman -Syyy nano vim vi\n\n\nexit\n' | sudo arch-chrrot /mnt
 sudo echo "Installed Text Editors"
 sudo sleep 5s
-sudo echo "Part 3 END"
-sudo echo "Part 4 START"
-sudo echo "Part 4 END"
-sudo echo "Part 4 START"
-sudo echo "Part 4 END"
+sudo printf 'sudo pacman -Syyy base-devel openssh\n\n\nexit\n' | sudo arch-chrrot /mnt
+sudo echo "Installed Developers Base and SSH"
+sudo sleep 5s
+sudo printf 'sudo pacman -Syyy networkmanager wpa_supplicant wireless_tools netctl\n\n\nexit\n' | sudo arch-chrrot /mnt
+sudo echo "Installed Networking Packages"
+sudo sleep 5s
+sudo printf 'sudo systemctl enable sshd\nexit\n' | sudo arch-chrrot /mnt
+sudo printf 'sudo systemctl enable NetworkManager\nexit\n' | sudo arch-chrrot /mnt
+sudo printf 'sudo pacman -Syyy lvm2\n\n\nexit\n' | sudo arch-chrrot /mnt
+sudo echo "Installed LVM2 package"
+sudo sleep 5s
+sudo echo "Section 6 END"
+#################### Section 7 ####################
+sudo echo "Section 7 START"
+sudo sed -i 'HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/block/block encrypt lvm2' /etc/mkinitcpio.conf
+sudo mkinitcpio -p linux
+sudo sleep 5s
+sudo sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen && sudo sed -i "s/en_US.UTF-8/#en_US.UTF-8/" /etc/locale.gen
+sudo locale-gen
+# sudo passwd
+# sudo useradd -m -g users USERNAME
+# sudo passwd USERNAME
+# create a group for admins???
+sudo printf 'sudo pacman -S grub efibootmgr dosfstools os-prober mtools\n\n\nexit\n' | sudo arch-chrrot /mnt
+sudo sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
+sudo sed -i 'GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet/quiet/cryptdevice=/dev/sda3:volgroup0:allow-discards quiet' /etc/default/grub
+sudo mkdir /boot/EFI
+sudo mount /dev/sda1 /boot/EFI
+sudo grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
+sudo mkdir /boot/grub/locale
+sudo cp /usr/share/locale/en@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo cp /etc/fstab /etc/fstab.bak
+sudo echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
+sudo printf 'sudo pacman -S intel-ucode\n\n\nexit\n' | sudo arch-chroot /mnt
+sudo echo "Section 7 END"
