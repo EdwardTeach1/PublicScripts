@@ -7,16 +7,16 @@
 
 sudo echo "Section 1 START"
 sudo dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
-sudo sleep 5s
+sudo sleep 2s
 sudo sed -i "s/#Color/Color/" /etc/pacman.conf && sudo sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
 sudo sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sudo sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
 sudo sed -i '/## Generated on/a Server = https://mirror.aarnet.edu.au/pub/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
 sudo sed -i '/## Generated on/a Server = https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist
 sudo sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
 sudo printf '\n' | sudo pacman -Syy expect
-sudo sleep 5s
+sudo sleep 2s
 sudo pacman -Syyy
-sudo sleep 5s
+sudo sleep 2s
 sudo echo "Section 1 END"
 
 #################### Section 2 ####################
@@ -31,19 +31,18 @@ sudo echo " " >> partition-table
 sudo echo "/dev/sda1 : start=           2048, size=   1048576, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B" >> partition-table
 sudo echo "/dev/sda2 : start=        1050624, size=   1048576, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" >> partition-table
 sudo echo "/dev/sda3 : start=      2099200, size=   998115983, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
-sudo sleep 5s
+sudo sleep 2s
 sudo sfdisk /dev/sda < partition-table
 sudo rm partition-table
-sudo sleep 5s
-sudo echo "Section 2 END"
+sudo echo "Section 2 END" && sleep 5s
 
 #################### Section 3 ####################
 
 sudo echo "Section 3 START"
 sudo mkfs.fat -F32 /dev/sda1
-sudo sleep 10s
+sudo sleep 5s
 sudo printf 'y\n' | mkfs.ext4 /dev/sda2
-sudo sleep 10s
+sudo sleep 5s
 sudo echo "#!/usr/bin/expect -f" > expectfile
 sudo echo "set send_slow {2 0.5}" >> expectfile
 sudo echo "spawn cryptsetup luksFormat /dev/sda3" >> expectfile
@@ -54,13 +53,11 @@ sudo echo "send -s \"1234567890\\r\"" >> expectfile
 sudo echo "expect \"Verify passphrase:\\r\"" >> expectfile
 sudo echo "send -s \"1234567890\\r\"" >> expectfile
 sudo echo "interact" >> expectfile
-sudo sleep 10s
 sudo chmod 777 expectfile
-sudo sleep 10s
 sudo expect expectfile
 sudo sleep 20s
 sudo rm expectfile
-sudo echo "Section 3 END"
+sudo echo "Section 3 END" && sleep 5s
 
 #################### Section 4 ####################
 
@@ -68,46 +65,44 @@ sudo echo "Section 4 START"
 sudo printf '1234567890\n' | cryptsetup open --type luks /dev/sda3 LVM
 sudo sleep 5s
 sudo pvcreate --dataalignment 1m /dev/mapper/LVM
-sudo sleep 5s
+sudo sleep 2s
 sudo vgcreate volgroup0 /dev/mapper/LVM
-sudo sleep 5s
+sudo sleep 2s
 sudo lvcreate -L 50GB volgroup0 -n LVM_root
-sudo sleep 5s
+sudo sleep 2s
 ## sudo lvcreate -L 350GB volgroup0 -n LVM_home
 sudo lvcreate -l 100%FREE volgroup0 -n LVM_home
-sudo sleep 5s
-sudo echo "Section 4 END"
+sudo sleep 2s
+sudo echo "Section 4 END" && sleep 5s
 
 #################### Section 5 ####################
 
 sudo echo "Section 5 START"
 sudo mkfs.ext4 /dev/volgroup0/LVM_root
-sudo sleep 5s
+sudo sleep 2s
 sudo mkfs.ext4 /dev/volgroup0/LVM_home
-sudo sleep 5s
+sudo sleep 2s
 sudo mount /dev/volgroup0/LVM_root /mnt
-sudo sleep 5s
+sudo sleep 2s
 sudo mkdir /mnt/home
 sudo mount /dev/volgroup0/LVM_home /mnt/home
-sudo sleep 5s
+sudo sleep 2s
 sudo mkdir /mnt/boot
 sudo mount /dev/sda2 /mnt/boot
-sudo sleep 5s
+sudo sleep 2s
 sudo mkdir /mnt/etc
-sudo sleep 5s
+sudo sleep 2s
 sudo genfstab -U -p /mnt >> /mnt/etc/fstab
-sudo echo "Section 5 END"
+sudo echo "Section 5 END" && sleep 5s
 
 #################### Section 6 ####################
 
 sudo echo "Section 6 START"
-sudo sleep 5s
 sudo cat /mnt/etc/fstab
-sudo sleep 5s
+sudo sleep 2s
 sudo printf '\n' | pacstrap -i /mnt base
 sudo echo "Pacstrap Completed"
-sudo sleep 5s
-sudo echo "Section 6 END"
+sudo echo "Section 6 END" && sleep 5s
 
 #################### Section 7 ####################
 
