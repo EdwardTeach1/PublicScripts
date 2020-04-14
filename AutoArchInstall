@@ -149,4 +149,8 @@ sudo mkswap /swapfile
 sudo cp /etc/fstab /etc/fstab.bak
 sudo echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
 sudo printf 'sudo pacman -S intel-ucode\n\n\nexit\n' | sudo arch-chroot /mnt
+sudo printf 'sudo pacman -S xorg-server\n\n\nexit\n' | sudo arch-chroot /mnt
+sudo printf 'sudo pacman -S mesa\n\n\nexit\n' | sudo arch-chroot /mnt
+sudo umount -a
+sudo poweroff
 sudo echo "Section 7 END"
