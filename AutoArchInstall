@@ -65,6 +65,9 @@ sudo mkdir /mnt/boot
 sudo mount /dev/sda2 /mnt/boot
 sudo mkdir /mnt/etc
 sudo genfstab -U -p /mnt >> /mnt/etc/fstab
+sudo printf 'y\n' | pacstrap -i /mnt base
+sudo arch-chroot /mnt
+sudo printf '\n\n\n' | pacman -S linux
 sudo echo "Part 3 END"
 sudo echo "Part 4 START"
 sudo echo "Part 4 END"
