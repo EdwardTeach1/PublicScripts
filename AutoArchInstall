@@ -16,7 +16,6 @@ sudo sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archli
 sudo printf '\n' | sudo pacman -Syy expect
 sudo sleep 5s
 sudo pacman -Syyy
-sudo echo "Part 1 END"
 sudo sleep 5s
 sudo echo "Section 1 END"
 
@@ -108,20 +107,21 @@ sudo printf '\n' | pacstrap -i /mnt base
 sudo echo "Pacstrap Completed"
 sudo sleep 5s
 sudo printf 'pacman -Syyy linux linux-headers \n\n\nexit\n' | sudo arch-chroot /mnt
+sudo sleep 5s
 sudo echo "Installed Linux and Linux Headers"
+sudo printf 'sudo pacman -Syyy nano vim vi\n\n\nexit\n' | sudo arch-chroot /mnt
 sudo sleep 5s
-sudo printf 'sudo pacman -Syyy nano vim vi\n\n\nexit\n' | sudo arch-chrrot /mnt
 sudo echo "Installed Text Editors"
-sudo sleep 5s
 sudo printf 'sudo pacman -Syyy base-devel openssh\n\n\nexit\n' | sudo arch-chrrot /mnt
-sudo echo "Installed Developers Base and SSH"
 sudo sleep 5s
-sudo printf 'sudo pacman -Syyy networkmanager wpa_supplicant wireless_tools netctl\n\n\nexit\n' | sudo arch-chrrot /mnt
+sudo echo "Installed Developers Base and SSH"
+sudo printf 'sudo pacman -Syyy networkmanager wpa_supplicant wireless_tools netctl\n\n\nexit\n' | sudo arch-chroot /mnt
+sudo sleep 5s
 sudo echo "Installed Networking Packages"
 sudo sleep 5s
-sudo printf 'sudo systemctl enable sshd\nexit\n' | sudo arch-chrrot /mnt
-sudo printf 'sudo systemctl enable NetworkManager\nexit\n' | sudo arch-chrrot /mnt
-sudo printf 'sudo pacman -Syyy lvm2\n\n\nexit\n' | sudo arch-chrrot /mnt
+sudo printf 'sudo systemctl enable sshd\nexit\n' | sudo arch-chroot /mnt
+sudo printf 'sudo systemctl enable NetworkManager\nexit\n' | sudo arch-chroot /mnt
+sudo printf 'sudo pacman -Syyy lvm2\n\n\nexit\n' | sudo arch-chroot /mnt
 sudo echo "Installed LVM2 package"
 sudo sleep 5s
 sudo echo "Section 6 END"
@@ -143,7 +143,7 @@ sudo echo "Section 7 END"
 #################### Section 8 ####################
 
 sudo echo "Section 8 START"
-sudo printf 'sudo pacman -S grub efibootmgr dosfstools os-prober mtools\n\n\nexit\n' | sudo arch-chrrot /mnt
+sudo printf 'sudo pacman -S grub efibootmgr dosfstools os-prober mtools\n\n\nexit\n' | sudo arch-chroot /mnt
 sudo sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
 sudo sed -i 'GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet/quiet/cryptdevice=/dev/sda3:volgroup0:allow-discards quiet' /etc/default/grub
 sudo mkdir /boot/EFI
