@@ -80,8 +80,11 @@ sudo sleep 5s
 sudo printf '\n' | pacstrap -i /mnt base
 sudo sleep 5s
 sudo printf 'pacman -Syyy linux linux-headers \n\n\nexit\n' | sudo arch-chroot /mnt
+sudo echo "Installed Linux and Linux Headers"
 sudo sleep 5s
 sudo printf 'sudo pacman -Syyy nano vim vi\n\n\nexit\n' | sudo arch-chrrot /mnt
+sudo echo "Installed Text Editors"
+sudo sleep 5s
 sudo echo "Part 3 END"
 sudo echo "Part 4 START"
 sudo echo "Part 4 END"
