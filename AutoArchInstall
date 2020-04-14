@@ -1,13 +1,14 @@
 #!/bin/bash
 ## This Script will build Arch Linux
-##Part 1 START
+sudo echo "Part 1 START"
 sudo sed -i "s/#color/color/" /etc/pacman.conf && sudo sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
-sudo echo "Modifying the Mirrorlist file to point only to Australian Repositories !!!"
 sudo sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sudo sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
 sudo printf '\n' | sudo pacman -Syy expect
+sudo sleep 10s
 sudo pacman -Syyy
-##Part 1 END
-##Part 2 START
+sudo sleep 10s
+sudo echo "Part 1 END"
+sudo echo "Part 2 START"
 sudo echo "label: gpt" > partition-table
 sudo echo "device: /dev/sda" >> partition-table
 sudo echo "unit: sectors" >> partition-table
@@ -17,11 +18,15 @@ sudo echo " " >> partition-table
 sudo echo "/dev/sda1 : start=           2048, size=   1048576, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B" >> partition-table
 sudo echo "/dev/sda2 : start=        1050624, size=   1048576, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" >> partition-table
 sudo echo "/dev/sda3 : start=      2099200, size=   998115983, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
+sudo sleep 10s
 sudo sfdisk /dev/sda < partition-table
-##Part 2 END
-##Part 3 START
+sudo sleep 10s
+sudo echo "Part 2 END"
+sudo echo "Part 3 START"
 sudo mkfs.fat -F32 /dev/sda1
+sudo sleep 10s
 sudo printf 'y\n' | mkfs.ext4 /dev/sda2
+sudo sleep 10s
 sudo echo "#!/usr/bin/expect -f" > expectfile
 sudo echo "set send_slow {2 0.5}" >> expectfile
 sudo echo "spawn cryptsetup luksFormat /dev/sda3" >> expectfile
@@ -32,16 +37,22 @@ sudo echo "send -s \"1234567890\\r\"" >> expectfile
 sudo echo "expect \"Verify passphrase:\\r\"" >> expectfile
 sudo echo "send -s \"1234567890\\r\"" >> expectfile
 sudo echo "interact" >> expectfile
+sudo sleep 10s
 sudo chmod 777 expectfile
+sudo sleep 10s
 sudo expect expectfile
-sudo sleep 25
+sudo sleep 30s
 sudo printf '1234567890\n' | cryptsetup open --type luks /dev/sda3 LVM
+sudo sleep 5s
 sudo pvcreate --dataalignment 1m /dev/mapper/LVM
+sudo sleep 5s
 sudo vgcreate volgroup0 /dev/mapper/LVM
+sudo sleep 5s
 sudo lvcreate -L 50GB volgroup0 -n LVM_root
+sudo sleep 5s
 sudo lvcreate -L 350GB volgroup0 -n LVM_home
-###Part 3 END
-##Part 4 START
-##Part 4 END
-##Part 4 START
-##Part 4 END
+sudo echo "Part 3 END"
+sudo echo "Part 4 START"
+sudo echo "Part 4 END"
+sudo echo "Part 4 START"
+sudo echo "Part 4 END"
