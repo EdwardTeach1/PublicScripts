@@ -5,7 +5,9 @@ sudo dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
 sudo sleep 5s
 sudo sed -i "s/#color/color/" /etc/pacman.conf && sudo sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
 sudo sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sudo sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
-sudo sed -i "s/Server = http:/##Server = http:/g" /etc/pacman.d/mirrorlist
+sudo sed -i '/## Generated on/a Server = https://mirror.aarnet.edu.au/pub/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
+sudo sed -i '/## Generated on/a Server = https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist
+sudo sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
 sudo printf '\n' | sudo pacman -Syy expect
 sudo sleep 5s
 sudo pacman -Syyy
