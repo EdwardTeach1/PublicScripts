@@ -108,34 +108,35 @@ sudo echo "Section 6 END" && sleep 5s
 
 ##TEST START
 sudo echo "#!/usr/bin/expect -f" > expectfile1
+sudo echo "set timeout 2" >> expectfile1
 sudo echo "set send_slow {2 0.5}" >> expectfile1
 sudo echo "spawn arch-chroot /mnt" >> expectfile1
 sudo echo "expect \"\\r\"" >> expectfile1
-sudo echo "send -s \"printf '\n\n\n' | pacman -S linux linux-headers\r\"" >> expectfile1
+sudo echo "send -s \"printf 'y\n' | pacman -S linux linux-headers\r\"" >> expectfile1
 sudo echo "expect \"\\r\"" >> expectfile1
 sudo echo "send -s \"sleep 5s\r\"" >> expectfile1
 sudo echo "expect \"\\r\"" >> expectfile1
-sudo echo "send -s \"printf '\n\n\n' | pacman -S nano vim\r\"" >> expectfile1
+sudo echo "send -s \"printf 'y\n' | pacman -S nano vim\r\"" >> expectfile1
 sudo echo "expect \"\\r\"" >> expectfile1
 sudo echo "send -s \"sleep 5s\r\"" >> expectfile1
 sudo echo "expect \"\\r\"" >> expectfile1
-sudo echo "send -s \"printf '\n\n\n' | pacman -S base-devel openssh\r\"" >> expectfile1
+sudo echo "send -s \"printf 'y\n' | pacman -S base-devel openssh\r\"" >> expectfile1
 sudo echo "expect \"\\r\"" >> expectfile1
 sudo echo "send -s \"sleep 5s\r\"" >> expectfile1
 sudo echo "expect \"\\r\"" >> expectfile1
-sudo echo "send -s \"printf '\n\n\n' | pacman -S networkmanager wpa_supplicant wireless_tools netctl\r\"" >> expectfile1
+sudo echo "send -s \"printf 'y\n' | pacman -S networkmanager wpa_supplicant wireless_tools netctl\r\"" >> expectfile1
 sudo echo "expect \"\\r\"" >> expectfile1
 sudo echo "send -s \"sleep 5s\r\"" >> expectfile1
 sudo echo "expect \"\\r\"" >> expectfile1
-sudo echo "send -s \"printf '\n\n\n' | systemctl enable sshd\r\"" >> expectfile1
+sudo echo "send -s \"printf 'y\n' | systemctl enable sshd\r\"" >> expectfile1
 sudo echo "expect \"\\r\"" >> expectfile1
 sudo echo "send -s \"sleep 5s\r\"" >> expectfile1
 sudo echo "expect \"\\r\"" >> expectfile1
-sudo echo "send -s \"printf '\n\n\n' | systemctl enable NetworkManager\r\"" >> expectfile1
+sudo echo "send -s \"printf 'y\n' | systemctl enable NetworkManager\r\"" >> expectfile1
 sudo echo "expect \"\\r\"" >> expectfile1
 sudo echo "send -s \"sleep 5s\r\"" >> expectfile1
 sudo echo "expect \"\\r\"" >> expectfile1
-sudo echo "send -s \"printf '\n\n\n' | pacman -S lvm2\r\"" >> expectfile1
+sudo echo "send -s \"printf 'y\n' | pacman -S lvm2\r\"" >> expectfile1
 sudo echo "expect \"\\r\"" >> expectfile1
 sudo echo "send -s \"sleep 5s\r\"" >> expectfile1
 sudo echo "expect \"\\r\"" >> expectfile1
