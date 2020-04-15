@@ -190,11 +190,22 @@ sudo arch-chroot /mnt /bin/sh << EOF
 printf '\n\n\n' | pacman -S intel-ucode
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n\n\n' |  pacman -S xorg-server
+printf '\n\n\n' |  pacman -S xorg xorg-server
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
 printf '\n\n\n' |  pacman -S mesa
 EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+printf '\n\n\n' |  pacman -S gnome
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+systemctl start gdm.service
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+systemctl enable gdm.service
+EOF
+##sudo umount all
+##sudo reboot
 ##TEST END
 
 sudo echo "Section 7 END"
