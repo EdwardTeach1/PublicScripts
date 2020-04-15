@@ -9,7 +9,7 @@
 #@
 #@
 #@
-
+read -p "Hostname of the System?: " Hostname
 read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
 
 ##read -p "WARNING: This script will wipe all data from the Harddrive /dev/sda. Are you sure you want to continue? Y or N? " InstallStart
@@ -188,13 +188,19 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
 #@mkinitcpio -p linux
 #@EOF
 
-#################### Section 25.0 (Set Location Settings for Australia) ####################
+#################### Section 25.0 (Setup and Locale) ####################
 
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@echo "$Hostname" /etc/hostname
+#@EOF
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen && sed -i "s/en_US.UTF-8/#en_US.UTF-8/" /etc/locale.gen
 #@EOF
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@locale-gen
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 #@EOF
 
 #################### Section 26.0 (Install Sudo and Setup Root Level Password) ####################
