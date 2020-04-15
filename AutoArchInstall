@@ -106,48 +106,10 @@ sudo echo "Section 6 END" && sleep 5s
 
 #################### Section 7 ####################
 
+sudo echo "Section 7 START"
+
 ##TEST START
-#sudo echo "#!/usr/bin/expect -f" > expectfile1
-#sudo echo "set timeout 2" >> expectfile1
-#sudo echo "set send_slow {2 0.5}" >> expectfile1
-#sudo echo "spawn arch-chroot /mnt" >> expectfile1
-#sudo echo "expect \"archiso*/]#\\r\"" >> expectfile1
-#sudo echo "send -s \"printf 'y\n' | pacman -S linux linux-headers\r\"" >> expectfile1
-#sudo echo "expect \"archiso*/]#\\r\"" >> expectfile1
-#sudo echo "send -s \"sleep 5s\r\"" >> expectfile1
-#sudo echo "expect \"archiso*/]#\\r\"" >> expectfile1
-#sudo echo "send -s \"printf 'y\n' | pacman -S nano vim\r\"" >> expectfile1
-#sudo echo "expect \"archiso*/]#\\r\"" >> expectfile1
-#sudo echo "send -s \"sleep 5s\r\"" >> expectfile1
-#sudo echo "expect \"archiso*/]#\\r\"" >> expectfile1
-#sudo echo "send -s \"printf 'y\n' | pacman -S base-devel openssh\r\"" >> expectfile1
-#sudo echo "expect \"archiso*/]#\\r\"" >> expectfile1
-#sudo echo "send -s \"sleep 5s\r\"" >> expectfile1
-#sudo echo "expect \"archiso*/]#\\r\"" >> expectfile1
-#sudo echo "send -s \"printf 'y\n' | pacman -S networkmanager wpa_supplicant wireless_tools netctl\r\"" >> expectfile1
-#sudo echo "expect \"archiso*/]#\\r\"" >> expectfile1
-#sudo echo "send -s \"sleep 5s\r\"" >> expectfile1
-#sudo echo "expect \"archiso*/]#\\r\"" >> expectfile1
-#sudo echo "send -s \"printf 'y\n' | systemctl enable sshd\r\"" >> expectfile1
-#sudo echo "expect \"archiso*/]#\\r\"" >> expectfile1
-#sudo echo "send -s \"sleep 5s\r\"" >> expectfile1
-#sudo echo "expect \"archiso*/]#\\r\"" >> expectfile1
-#sudo echo "send -s \"printf 'y\n' | systemctl enable NetworkManager\r\"" >> expectfile1
-#sudo echo "expect \"archiso*/]#\\r\"" >> expectfile1
-#sudo echo "send -s \"sleep 5s\r\"" >> expectfile1
-#sudo echo "expect \"archiso*/]#\\r\"" >> expectfile1
-#sudo echo "send -s \"printf 'y\n' | pacman -S lvm2\r\"" >> expectfile1
-#sudo echo "expect \"archiso*/]#\\r\"" >> expectfile1
-#sudo echo "send -s \"sleep 5s\r\"" >> expectfile1
-#sudo echo "expect \"archiso*/]#\\r\"" >> expectfile1
-#sudo echo "send -s \"exit\r\"" >> expectfile1
-#sudo echo "interact" >> expectfile1
-#sudo sleep 5s
-#sudo chmod 777 expectfile1
-#sudo sleep 5s
-#sudo expect expectfile1
-#sudo sleep 20s
-#sudo rm expectfile1
+
 ###note need to install firmware(isci;qed;qla1280;aic94xx;cxgb3;cxgb4;advansys;wd719x;csiostor;qla2xxx;bfa;ums_eneub6250;smsmdtv)
 sudo arch-chroot /mnt /bin/sh << EOF
 printf '\n\n\n' | pacman -S linux linux-headers
@@ -224,37 +186,22 @@ EOF
 sudo arch-chroot /mnt /bin/sh << EOF
 echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
 EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+printf '\n\n\n' | pacman -S intel-ucode
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+printf '\n\n\n' |  pacman -S xorg-server
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+printf '\n\n\n' |  pacman -S mesa
+EOF
 ##TEST END
 
-sudo echo "Section 7 START"
-sudo printf 'pacman -Syyy linux linux-headers \n\n\nexit\n' | arch-chroot /mnt
-sudo sleep 5s
-sudo echo "Installed Linux and Linux Headers"
-sudo printf 'sudo pacman -Syyy nano vim vi\n\n\nexit\n' | arch-chroot /mnt
-sudo sleep 5s
-sudo echo "Installed Text Editors"
-sudo printf 'sudo pacman -Syyy base-devel openssh\n\n\nexit\n' | arch-chrrot /mnt
-sudo sleep 5s
-sudo echo "Installed Developers Base and SSH"
-sudo printf 'sudo pacman -Syyy networkmanager wpa_supplicant wireless_tools netctl\n\n\nexit\n' | sudo arch-chroot /mnt
-sudo sleep 5s
-sudo echo "Installed Networking Packages"
-sudo sleep 5s
-sudo printf 'sudo systemctl enable sshd\nexit\n' | sudo arch-chroot /mnt
-sudo printf 'sudo systemctl enable NetworkManager\nexit\n' | sudo arch-chroot /mnt
-sudo printf 'sudo pacman -Syyy lvm2\n\n\nexit\n' | sudo arch-chroot /mnt
-sudo echo "Installed LVM2 package"
-sudo sleep 5s
 sudo echo "Section 7 END"
 
 #################### Section 8 ####################
 
 sudo echo "Section 8 START"
-sudo sed -i 'HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/block/block encrypt lvm2' /etc/mkinitcpio.conf
-sudo mkinitcpio -p linux
-sudo sleep 5s
-sudo sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen && sudo sed -i "s/en_US.UTF-8/#en_US.UTF-8/" /etc/locale.gen
-sudo locale-gen
 # sudo passwd
 # sudo useradd -m -g users USERNAME
 # sudo passwd USERNAME
@@ -264,28 +211,13 @@ sudo echo "Section 8 END"
 #################### Section 9 ####################
 
 sudo echo "Section 9 START"
-sudo printf 'sudo pacman -S grub efibootmgr dosfstools os-prober mtools\n\n\nexit\n' | sudo arch-chroot /mnt
-sudo sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
-sudo sed -i 'GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet/quiet/cryptdevice=/dev/sda3:volgroup0:allow-discards quiet' /etc/default/grub
-sudo mkdir /boot/EFI
-sudo mount /dev/sda1 /boot/EFI
-sudo grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
-sudo mkdir /boot/grub/locale
-sudo cp /usr/share/locale/en@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
-sudo grub-mkconfig -o /boot/grub/grub.cfg
-sudo fallocate -l 2G /swapfile
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo cp /etc/fstab /etc/fstab.bak
-sudo echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
+
 sudo echo "Section 9 END"
 
 #################### Section 10 ####################
 
 sudo echo "Section 10 START"
-sudo printf 'sudo pacman -S intel-ucode\n\n\nexit\n' | sudo arch-chroot /mnt
-sudo printf 'sudo pacman -S xorg-server\n\n\nexit\n' | sudo arch-chroot /mnt
-sudo printf 'sudo pacman -S mesa\n\n\nexit\n' | sudo arch-chroot /mnt
+
 sudo umount -a
 sudo poweroff
 sudo echo "Section 10 END"
