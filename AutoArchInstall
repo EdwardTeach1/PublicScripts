@@ -5,19 +5,19 @@
 
 #################### Section # (Collection of data) ####################
 
-#sudo read -p "Create an Arch Linux System Password: " RootPassword
-#
-#
-#
-#sudo read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
-#
-#
-#
-#sudo read -p "WARNING: This script will wipe all data from the Harddrive /dev/sda. Are you sure you want to continue? Y or N? " InstallStart
-#if      [ "${InstallStart,,}" = "yes" ] || [ "${InstallStart,,}" = "y" ]
-#then    echo "Installing Arch Linux !!!" && sleep 2s
-#else    exit && echo "Installation Aborted !!!"
-#fi
+#@sudo read -p "Create an Arch Linux System Password: " RootPassword
+#@
+#@
+#@
+#@sudo read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
+#@
+#@
+#@
+#@sudo read -p "WARNING: This script will wipe all data from the Harddrive /dev/sda. Are you sure you want to continue? Y or N? " InstallStart
+#@if      [ "${InstallStart,,}" = "yes" ] || [ "${InstallStart,,}" = "y" ]
+#@then    echo "Installing Arch Linux !!!" && sleep 2s
+#@else    exit && echo "Installation Aborted !!!"
+#@fi
 
 #################### Section # (Delete Hard Drive Partitions) ####################
 
