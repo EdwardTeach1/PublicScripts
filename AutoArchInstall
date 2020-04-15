@@ -148,48 +148,48 @@ sudo echo "Section 6 END" && sleep 5s
 #sudo expect expectfile1
 #sudo sleep 20s
 #sudo rm expectfile1
-
+###note need to install firmware(isci;qed;qla1280;aic94xx;cxgb3;cxgb4;advansys;wd719x;csiostor;qla2xxx;bfa;ums_eneub6250;smsmdtv)
 sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n' | pacman -S linux linux-headers
+printf '\n\n\n' | pacman -S linux linux-headers
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n' | pacman -S nano vim
+printf '\n\n\n' | pacman -S nano vim
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n' | pacman -S base-devel openssh
+printf '\n\n\n' | pacman -S base-devel openssh
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n' | pacman -S networkmanager wpa_supplicant wireless_tools netctl
+printf '\n\n\n' | pacman -S networkmanager wpa_supplicant wireless_tools netctl
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n' | systemctl enable sshd
+systemctl enable sshd
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n' | systemctl enable NetworkManager
+systemctl enable NetworkManager
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n' | pacman -S lvm2
+printf '\n\n\n' | pacman -S lvm2
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
-sed -i 'HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/block/block encrypt lvm2' /etc/mkinitcpio.conf
+sed -i '/HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/{s/block/block encrypt lvm2}' /etc/mkinitcpio.conf
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
 mkinitcpio -p linux
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
-sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen && sudo sed -i "s/en_US.UTF-8/#en_US.UTF-8/" /etc/locale.gen
+sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen && sed -i "s/en_US.UTF-8/#en_US.UTF-8/" /etc/locale.gen
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
 locale-gen
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n' |pacman -S grub efibootmgr dosfstools os-prober mtools
+printf '\n\n\n' |pacman -S grub efibootmgr dosfstools os-prober mtools
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
 sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
-sed -i 'GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet/quiet/cryptdevice=/dev/sda3:volgroup0:allow-discards quiet' /etc/default/grub
+sed -i "/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet/{s/quiet/cryptdevice=\/dev\/sda3:volgroup0:allow-discards quiet/}' /etc/default/grub
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
 mkdir /boot/EFI
