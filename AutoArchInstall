@@ -3,7 +3,7 @@
 
 ######################################## START OF SCRIPT ########################################
 
-#################### Section # (Collection of data) ####################
+#################### Section 1.0 (Collection of data) ####################
 
 #@sudo read -p "Create an Arch Linux System Password: " RootPassword
 #@
@@ -19,12 +19,12 @@
 #@else    exit && echo "Installation Aborted !!!"
 #@fi
 
-#################### Section # (Delete Hard Drive Partitions) ####################
+#################### Section 2.0 (Delete Hard Drive Partitions) ####################
 
 #@sudo dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
 #@sudo sleep 2s
 
-#################### Section # (Configure Repository Locations - HTTPS priority) ####################
+#################### Section 3.0 (Configure Repository Locations - HTTPS priority) ####################
 
 #@sudo sed -i "s/#Color/Color/" /etc/pacman.conf && sudo sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
 #@sudo sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sudo sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
@@ -32,17 +32,17 @@
 #@sudo sed -i '/## Generated on/a Server = https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist
 #@sudo sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
 
-#################### Section # (Install Expect Shell) ####################
+#################### Section 4.0 (Install Expect Shell) ####################
 
 #@sudo printf '\n' | sudo pacman -Syy expect
 #@sudo sleep 2s
 
-#################### Section # (Download Latest Arch Linux Packages) ####################
+#################### Section 5.0 (Download Latest Arch Linux Packages) ####################
 
 #@sudo pacman -Syyy
 #@sudo sleep 2s
 
-#################### Section # (Setup HDD Partitions for Installation) ####################
+#################### Section 6.0 (Setup HDD Partitions for Installation) ####################
 
 #@sudo echo "label: gpt" > partition-table
 #@sudo echo "device: /dev/sda" >> partition-table
@@ -58,17 +58,17 @@
 #@sudo rm partition-table
 #@sleep 5s
 
-#################### Section # () ####################
+#################### Section 7.0 (Format SDA1 Partition) ####################
 
 #@sudo mkfs.fat -F32 /dev/sda1
 #@sudo sleep 5s
 
-#################### Section # () ####################
+#################### Section 8.0 (Format SDA2 Partition) ####################
 
 #@sudo printf 'y\n' | mkfs.ext4 /dev/sda2
 #@sudo sleep 5s
 
-#################### Section # (Setup of LUKS Encrypted Container) ####################
+#################### Section 9.0 (Setup of LUKS Encrypted Container) ####################
 
 #@sudo echo "#!/usr/bin/expect -f" > expectfile
 #@sudo echo "set send_slow {2 0.5}" >> expectfile
@@ -86,41 +86,41 @@
 #@sudo rm expectfile
 #@sleep 5s
 
-#################### Section # (Open LUKS Container) ####################
+#################### Section 10.0 (Open LUKS Container) ####################
 
 #@sudo printf '$LuksPassphrase\n' | cryptsetup open --type luks /dev/sda3 LVM
 #@sudo sleep 5s
 
-#################### Section # (Setup Physical Volume) ####################
+#################### Section 11.0 (Setup Physical Volume) ####################
 
 #@sudo pvcreate --dataalignment 1m /dev/mapper/LVM
 #@sudo sleep 2s
 
-#################### Section # (Setup Virtual Volume Group) ####################
+#################### Section 12.0 (Setup Virtual Volume Group) ####################
 
 #@sudo vgcreate volgroup0 /dev/mapper/LVM
 #@sudo sleep 2s
 
-#################### Section # (Setup Live Volumes for LUKS Encrypted Drive) ####################
+#################### Section 13.0 (Setup Live Volumes for LUKS Encrypted Drive) ####################
 
 #@sudo lvcreate -L 50GB volgroup0 -n LVM_root
 #@sudo sleep 2s
-## sudo lvcreate -L 350GB volgroup0 -n LVM_home
+#@## sudo lvcreate -L 350GB volgroup0 -n LVM_home
 #@sudo lvcreate -l 100%FREE volgroup0 -n LVM_home
 #@sudo sleep 2s
 #@sleep 5s
 
-#################### Section # (Create Root Filesystem for LUKS encrypted drive) ####################
+#################### Section 14.0 (Create Root Filesystem for LUKS encrypted drive) ####################
 
 #@sudo mkfs.ext4 /dev/volgroup0/LVM_root
 #@sudo sleep 2s
 
-#################### Section # (Create Home Filesystem for LUKS encrypted drive) ####################
+#################### Section 15.0 (Create Home Filesystem for LUKS encrypted drive) ####################
 
 #@sudo mkfs.ext4 /dev/volgroup0/LVM_home
 #@sudo sleep 2s
 
-#################### Section # (Mount Home and Boot Volumes) ####################
+#################### Section 16.0 (Mount Home and Boot Volumes) ####################
 
 #@sudo mount /dev/volgroup0/LVM_root /mnt
 #@sudo sleep 2s
@@ -133,30 +133,30 @@
 #@sudo mkdir /mnt/etc
 #@sudo sleep 2s
 
-#################### Section # () ####################
+#################### Section 17.0 () ####################
 
 #@sudo genfstab -U -p /mnt >> /mnt/etc/fstab
 #@sudo sleep 2s
 
-#################### Section # (Download Base Arch Linux into Mount location) ####################
+#################### Section 18.0 (Download Base Arch Linux into Mount location) ####################
 
 #@sudo printf '\n' | pacstrap -i /mnt base
 #@sudo sleep 5s
 
-#################### Section # (Install base Linux Packages to CHROOT) ####################
+#################### Section 19.0 (Install base Linux Packages to CHROOT) ####################
 
 ###note need to install firmware(isci;qed;qla1280;aic94xx;cxgb3;cxgb4;advansys;wd719x;csiostor;qla2xxx;bfa;ums_eneub6250;smsmdtv)
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' | pacman -S linux linux-headers
 #@EOF
 
-#################### Section # (Install Text Editor Packages to CHROOT) ####################
+#################### Section 20.0 (Install Text Editor Packages to CHROOT) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' | pacman -S nano vim
 #@EOF
 
-#################### Section # (Install Base Developer Packages and SSH to CHROOT) ####################
+#################### Section 21.0 (Install Base Developer Packages and SSH to CHROOT) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' | pacman -S base-devel openssh
@@ -165,7 +165,7 @@
 #@systemctl enable sshd
 #@EOF
 
-#################### Section # (Install Networking Utility Packages to CHROOT) ####################
+#################### Section 22.0 (Install Networking Utility Packages to CHROOT) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' | pacman -S networkmanager wpa_supplicant wireless_tools netctl
@@ -174,13 +174,13 @@
 #@systemctl enable NetworkManager
 #@EOF
 
-#################### Section # (Install LVM2 Packages to CHROOT) ####################
+#################### Section 23.0 (Install LVM2 Packages to CHROOT) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' | pacman -S lvm2
 #@EOF
 
-#################### Section # (Enable Encryption and LVM2 functionality to CHROOT) ####################
+#################### Section 24.0 (Enable Encryption and LVM2 functionality to CHROOT) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@sed -i '/HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/{s/block/block encrypt lvm2}' /etc/mkinitcpio.conf
@@ -189,7 +189,7 @@
 #@mkinitcpio -p linux
 #@EOF
 
-#################### Section # (Set Location Settings for Australia) ####################
+#################### Section 25.0 (Set Location Settings for Australia) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen && sed -i "s/en_US.UTF-8/#en_US.UTF-8/" /etc/locale.gen
@@ -198,23 +198,23 @@
 #@locale-gen
 #@EOF
 
-#################### Section # (Setting Root Level Password) ####################
+#################### Section 26.0 (Setting Root Level Password) ####################
 
 #@ #sudo printf '$RootPassword\n$SystemPassword\n' | sudo passwd
 
-#################### Section # (Setup Users and Groups) ####################
+#################### Section 27.0 (Setup Users and Groups) ####################
 
 #@ #sudo useradd -m -g users USERNAME
 #@ # sudo passwd USERNAME
 #@# create a group for admins???
 
-#################### Section # (Download GRUB Bootloader Software Packages) ####################
+#################### Section 28.0 (Download GRUB Bootloader Software Packages) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' |pacman -S grub efibootmgr dosfstools os-prober mtools
 #@EOF
 
-#################### Section # (Configure Encryption GRUB Boot) ####################
+#################### Section 29.0 (Configure Encryption GRUB Boot) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
@@ -223,7 +223,7 @@
 #@sed -i "/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet/{s/quiet/cryptdevice=\/dev\/sda3:volgroup0:allow-discards quiet/}' /etc/default/grub
 #@EOF
 
-#################### Section # (Setup and Enable EFI Booting) ####################
+#################### Section 30.0 (Setup and Enable EFI Booting) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@mkdir /boot/EFI
@@ -232,13 +232,13 @@
 #@mount /dev/sda1 /boot/EFI
 #@EOF
 
-#################### Section # (Install GRUB Bootloader) ####################
+#################### Section 31.0 (Install GRUB Bootloader) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 #@EOF
 
-#################### Section # (Setup and Enable Location Settings for Boot) ####################
+#################### Section 32.0 (Setup and Enable Location Settings for Boot) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@mkdir /boot/grub/locale
@@ -250,7 +250,7 @@
 #@grub-mkconfig -o /boot/grub/grub.cfg
 #@EOF
 
-#################### Section # (Create and Setup Swapfile) ####################
+#################### Section 33.0 (Create and Setup Swapfile) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@fallocate -l 2G /swapfile
@@ -262,37 +262,37 @@
 #@mkswap /swapfile
 #@EOF
 
-#################### Section # (Backup FSTAB file) ####################
+#################### Section 34.0 (Backup FSTAB file) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@cp /etc/fstab /etc/fstab.bak
 #@EOF
 
-#################### Section # (Setup Swapfile Boot Configuration) ####################
+#################### Section 35.0 (Setup Swapfile Boot Configuration) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
 #@EOF
 
-#################### Section # (Install Intel Software Packages) ####################
+#################### Section 36.0 (Install Intel Software Packages) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' | pacman -S intel-ucode
 #@EOF
 
-#################### Section # (Install GUI Base Software) ####################
+#################### Section 37.0 (Install GUI Base Software) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' |  pacman -S xorg xorg-server
 #@EOF
 
-#################### Section # (Install Mesa) ####################
+#################### Section 38.0 (Install Mesa) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' |  pacman -S mesa
 #@EOF
 
-#################### Section # (Install GNOME Desktop and Configuration for Boot) ####################
+#################### Section 39.0 (Install GNOME Desktop and Configuration for Boot) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' |  pacman -S gnome
@@ -304,7 +304,7 @@
 #@systemctl enable gdm.service
 #@EOF
 
-#################### Section # (Power Off and Remove USB) ####################
+#################### Section 40.0 (Power Off and Remove USB) ####################
 
 #@ #sudo echo "Shutting System Down. Once System has Powered off, remove USB thumbdrive and then Power ON !!!"
 #@ # press any key to continue funtion
