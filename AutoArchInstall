@@ -1,23 +1,34 @@
 #!/bin/bash
 ## This Script will build Arch Linux
 
-#################### START OF SCRIPT ####################
+######################################## START OF SCRIPT ########################################
+
+#################### Section # (Collection of data) ####################
+
 
 #################### Section # (Description) ####################
 
 sudo echo "Section 1 START"
 sudo dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
 sudo sleep 2s
+
+#################### Section # (Description) ####################
+
 sudo sed -i "s/#Color/Color/" /etc/pacman.conf && sudo sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
 sudo sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sudo sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
 sudo sed -i '/## Generated on/a Server = https://mirror.aarnet.edu.au/pub/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
 sudo sed -i '/## Generated on/a Server = https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist
 sudo sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
+
+#################### Section # (Description) ####################
+
 sudo printf '\n' | sudo pacman -Syy expect
 sudo sleep 2s
+
+#################### Section # (Description) ####################
+
 sudo pacman -Syyy
 sudo sleep 2s
-sudo echo "Section 1 END"
 
 #################### Section # (Description) ####################
 
@@ -272,4 +283,4 @@ systemctl enable gdm.service
 EOF
 
 #################### Section # (Description) ####################
-#################### END OF SCRIPT ####################
+######################################## END OF SCRIPT ########################################
