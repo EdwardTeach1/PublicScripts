@@ -146,6 +146,9 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
 
 ###note need to install firmware(isci;qed;qla1280;aic94xx;cxgb3;cxgb4;advansys;wd719x;csiostor;qla2xxx;bfa;ums_eneub6250;smsmdtv)
 #@sudo arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' | pacman -S
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' | pacman -S linux linux-headers
 #@EOF
 
@@ -188,7 +191,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
 #@mkinitcpio -p linux
 #@EOF
 
-#################### Section 25.0 (Setup and Locale) ####################
+#################### Section 25.0 (Configure Language and Locale Settings) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@echo "$Hostname" /etc/hostname
@@ -200,6 +203,21 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
 #@locale-gen
 #@EOF
 #@cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@echo "LANG=en_AU.UTF-8" > /etc/locale.conf
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@export LANG=en_AU.UTF-8
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@rm /etc/localtime
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@ln -s /usr/share/zoneinfo/Australia/Adelaide /etc/localtime
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@hwclock --systohc --utc
+#@EOF
 
 #################### Section 26.0 (Install Sudo and Setup Root Level Password) ####################
 
