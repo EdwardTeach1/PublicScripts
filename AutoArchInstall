@@ -88,7 +88,7 @@
 
 #################### Section 10.0 (Open LUKS Container) ####################
 
-#@sudo printf '$LuksPassphrase\n' | cryptsetup open --type luks /dev/sda3 LVM
+#@sudo printf '%s\n' "$LuksPassphrase" | cryptsetup open --type luks /dev/sda3 LVM
 #@sudo sleep 5s
 
 #################### Section 11.0 (Setup Physical Volume) ####################
