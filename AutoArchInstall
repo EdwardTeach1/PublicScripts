@@ -219,7 +219,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
 #@sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
 #@EOF
 #@sudo arch-chroot /mnt /bin/sh << EOF
-#@sed -i "/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet/{s/quiet/cryptdevice=\/dev\/sda3:volgroup0:allow-discards quiet/}' /etc/default/grub
+#@sed -i "/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet/{s/quiet/cryptdevice=\/dev\/sda3:volgroup0:allow-discards quiet/}" /etc/default/grub
 #@EOF
 
 #################### Section 30.0 (Setup and Enable EFI Booting) ####################
