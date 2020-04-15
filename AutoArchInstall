@@ -150,32 +150,79 @@ sudo echo "Section 6 END" && sleep 5s
 #sudo rm expectfile1
 
 sudo arch-chroot /mnt /bin/sh << EOF
-sudo printf '\n' | pacman -S linux linux-headers
-sudo printf '\n' | pacman -S nano vim
-sudo printf '\n' | pacman -S base-devel openssh
-sudo printf '\n' | pacman -S networkmanager wpa_supplicant wireless_tools netctl
-sudo printf '\n' | systemctl enable sshd
-sudo printf '\n' | systemctl enable NetworkManager
-sudo printf '\n' | pacman -S lvm2
-sudo sed -i 'HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/block/block encrypt lvm2' /etc/mkinitcpio.conf
-sudo mkinitcpio -p linux
-sudo sleep 5s
-sudo sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen && sudo sed -i "s/en_US.UTF-8/#en_US.UTF-8/" /etc/locale.gen
-sudo locale-gen
-sudo printf '\n' |pacman -S grub efibootmgr dosfstools os-prober mtools
-sudo sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
-sudo sed -i 'GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet/quiet/cryptdevice=/dev/sda3:volgroup0:allow-discards quiet' /etc/default/grub
-sudo mkdir /boot/EFI
-sudo mount /dev/sda1 /boot/EFI
-sudo grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
-sudo mkdir /boot/grub/locale
-sudo cp /usr/share/locale/en@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
-sudo grub-mkconfig -o /boot/grub/grub.cfg
-sudo fallocate -l 2G /swapfile
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo cp /etc/fstab /etc/fstab.bak
-sudo echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
+printf '\n' | pacman -S linux linux-headers
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+printf '\n' | pacman -S nano vim
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+printf '\n' | pacman -S base-devel openssh
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+printf '\n' | pacman -S networkmanager wpa_supplicant wireless_tools netctl
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+printf '\n' | systemctl enable sshd
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+printf '\n' | systemctl enable NetworkManager
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+printf '\n' | pacman -S lvm2
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+sed -i 'HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/block/block encrypt lvm2' /etc/mkinitcpio.conf
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+mkinitcpio -p linux
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen && sudo sed -i "s/en_US.UTF-8/#en_US.UTF-8/" /etc/locale.gen
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+locale-gen
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+printf '\n' |pacman -S grub efibootmgr dosfstools os-prober mtools
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+sed -i 'GRUB_CMDLINE_LINUX_DEFAULT='loglevel=3 quiet/quiet/cryptdevice=/dev/sda3:volgroup0:allow-discards quiet' /etc/default/grub
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+mkdir /boot/EFI
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+mount /dev/sda1 /boot/EFI
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+mkdir /boot/grub/locale
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+cp /usr/share/locale/en@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+grub-mkconfig -o /boot/grub/grub.cfg
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+fallocate -l 2G /swapfile
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+chmod 600 /swapfile
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+mkswap /swapfile
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+cp /etc/fstab /etc/fstab.bak
+EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
 EOF
 ##TEST END
 
