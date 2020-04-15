@@ -197,15 +197,23 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
 #@locale-gen
 #@EOF
 
-#################### Section 26.0 (Setting Root Level Password) ####################
+#################### Section 26.0 (Install Sudo and Setup Root Level Password) ####################
 
-#@ #sudo printf '$RootPassword\n$SystemPassword\n' | sudo passwd
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' |pacman -S sudo
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@ #sudo printf '%s\n%s\n' "$RootPassword" | sudo passwd
+#@EOF
 
 #################### Section 27.0 (Setup Users and Groups) ####################
 
-#@ #sudo useradd -m -g users USERNAME
-#@ # sudo passwd USERNAME
-#@# create a group for admins???
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@useradd -m -g admins <USERNAME> passwd PASSWORD
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@useradd -m -g users <USERNAME> passwd PASSWORD
+#@EOF
 
 #################### Section 28.0 (Download GRUB Bootloader Software Packages) ####################
 
@@ -285,7 +293,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
 #@printf '\n\n\n' |  pacman -S xorg xorg-server
 #@EOF
 
-#################### Section 38.0 (Install Mesa) ####################
+#################### Section 38.0 (Install MESA Package) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' |  pacman -S mesa
