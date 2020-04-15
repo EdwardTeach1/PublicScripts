@@ -21,7 +21,6 @@
 
 #################### Section # (Delete Hard Drive Partitions) ####################
 
-#@sudo echo "Section 1 START"
 #@sudo dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
 #@sudo sleep 2s
 
@@ -45,7 +44,6 @@
 
 #################### Section # (Setup HDD Partitions for Installation) ####################
 
-#@sudo echo "Section 2 START"
 #@sudo echo "label: gpt" > partition-table
 #@sudo echo "device: /dev/sda" >> partition-table
 #@sudo echo "unit: sectors" >> partition-table
@@ -58,11 +56,10 @@
 #@sudo sleep 2s
 #@sudo sfdisk /dev/sda < partition-table
 #@sudo rm partition-table
-#@sudo echo "Section 2 END" && sleep 5s
+#@sleep 5s
 
 #################### Section # () ####################
 
-#@sudo echo "Section 3 START"
 #@sudo mkfs.fat -F32 /dev/sda1
 #@sudo sleep 5s
 
@@ -87,11 +84,10 @@
 #@sudo expect expectfile
 #@sudo sleep 20s
 #@sudo rm expectfile
-#@sudo echo "Section 3 END" && sleep 5s
+#@sleep 5s
 
 #################### Section # (Open LUKS Container) ####################
 
-#@sudo echo "Section 4 START"
 #@sudo printf '$LuksPassphrase\n' | cryptsetup open --type luks /dev/sda3 LVM
 #@sudo sleep 5s
 
@@ -112,11 +108,10 @@
 ## sudo lvcreate -L 350GB volgroup0 -n LVM_home
 #@sudo lvcreate -l 100%FREE volgroup0 -n LVM_home
 #@sudo sleep 2s
-#@sudo echo "Section 4 END" && sleep 5s
+#@sleep 5s
 
 #################### Section # (Create Root Filesystem for LUKS encrypted drive) ####################
 
-#@sudo echo "Section 5 START"
 #@sudo mkfs.ext4 /dev/volgroup0/LVM_root
 #@sudo sleep 2s
 
@@ -150,7 +145,6 @@
 
 #################### Section # (Install base Linux Packages to CHROOT) ####################
 
-#@sudo echo "Section 7 START"
 ###note need to install firmware(isci;qed;qla1280;aic94xx;cxgb3;cxgb4;advansys;wd719x;csiostor;qla2xxx;bfa;ums_eneub6250;smsmdtv)
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' | pacman -S linux linux-headers
