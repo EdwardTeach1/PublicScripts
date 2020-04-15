@@ -5,8 +5,20 @@
 
 #################### Section # (Collection of data) ####################
 
+#sudo read -p "Create an Arch Linux System Password: " SystemPassword
+#
+#
+#
+#sudo read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
+#
+#
+#
+#sudo read -p "WARNING: This script will wipe all data from the Harddrive /dev/sda. Are you sure you want to continue? Y or N? " InstallStart
+#if
+#
+#fi
 
-#################### Section # (Description) ####################
+#################### Section # (Delete any) ####################
 
 sudo echo "Section 1 START"
 sudo dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
@@ -184,7 +196,7 @@ EOF
 
 #################### Section # (Description) ####################
 
-# sudo passwd
+# sudo printf '$SystemPassword\n$SystemPassword\n' | sudo passwd
 # sudo useradd -m -g users USERNAME
 # sudo passwd USERNAME
 # create a group for admins???
