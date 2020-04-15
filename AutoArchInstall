@@ -162,31 +162,31 @@ sudo arch-chroot /mnt /bin/sh << EOF
 printf '\n\n\n' | pacman -S nano vim
 EOF
 
-#################### Section # (Install Base Developer Packages to CHROOT) ####################
+#################### Section # (Install Base Developer Packages and SSH to CHROOT) ####################
 
 sudo arch-chroot /mnt /bin/sh << EOF
 printf '\n\n\n' | pacman -S base-devel openssh
 EOF
+sudo arch-chroot /mnt /bin/sh << EOF
+systemctl enable sshd
+EOF
 
-#################### Section # (Description) ####################
+#################### Section # (Install Networking Utility Packages to CHROOT) ####################
 
 sudo arch-chroot /mnt /bin/sh << EOF
 printf '\n\n\n' | pacman -S networkmanager wpa_supplicant wireless_tools netctl
 EOF
 sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n\n\n' | pacman -S lvm2
-EOF
-
-#################### Section # (Description) ####################
-
-sudo arch-chroot /mnt /bin/sh << EOF
-systemctl enable sshd
-EOF
-sudo arch-chroot /mnt /bin/sh << EOF
 systemctl enable NetworkManager
 EOF
 
-#################### Section # (Description) ####################
+#################### Section # (Install LVM2 Packages to CHROOT) ####################
+
+sudo arch-chroot /mnt /bin/sh << EOF
+printf '\n\n\n' | pacman -S lvm2
+EOF
+
+#################### Section # (Enable Encryption and LVM2 functionality to CHROOT) ####################
 
 sudo arch-chroot /mnt /bin/sh << EOF
 sed -i '/HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/{s/block/block encrypt lvm2}' /etc/mkinitcpio.conf
@@ -195,7 +195,7 @@ sudo arch-chroot /mnt /bin/sh << EOF
 mkinitcpio -p linux
 EOF
 
-#################### Section # (Description) ####################
+#################### Section # (Set Location Settings for Australia) ####################
 
 sudo arch-chroot /mnt /bin/sh << EOF
 sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen && sed -i "s/en_US.UTF-8/#en_US.UTF-8/" /etc/locale.gen
@@ -204,18 +204,24 @@ sudo arch-chroot /mnt /bin/sh << EOF
 locale-gen
 EOF
 
-#################### Section # (Description) ####################
+#################### Section # (Setting Root Level Password) ####################
 
 # sudo printf '$RootPassword\n$SystemPassword\n' | sudo passwd
+
+#################### Section # (Setup Users and Groups) ####################
+
 # sudo useradd -m -g users USERNAME
 # sudo passwd USERNAME
 # create a group for admins???
 
-#################### Section # (Description) ####################
+#################### Section # (Download GRUB Bootloader Software Packages) ####################
 
 sudo arch-chroot /mnt /bin/sh << EOF
 printf '\n\n\n' |pacman -S grub efibootmgr dosfstools os-prober mtools
 EOF
+
+#################### Section # (Configure Encryption GRUB Boot) ####################
+
 sudo arch-chroot /mnt /bin/sh << EOF
 sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
 EOF
@@ -223,7 +229,7 @@ sudo arch-chroot /mnt /bin/sh << EOF
 sed -i "/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet/{s/quiet/cryptdevice=\/dev\/sda3:volgroup0:allow-discards quiet/}' /etc/default/grub
 EOF
 
-#################### Section # (Description) ####################
+#################### Section # (Setup and Enable EFI Booting) ####################
 
 sudo arch-chroot /mnt /bin/sh << EOF
 mkdir /boot/EFI
@@ -232,13 +238,13 @@ sudo arch-chroot /mnt /bin/sh << EOF
 mount /dev/sda1 /boot/EFI
 EOF
 
-#################### Section # (Description) ####################
+#################### Section # (Install GRUB Bootloader) ####################
 
 sudo arch-chroot /mnt /bin/sh << EOF
 grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 EOF
 
-#################### Section # (Description) ####################
+#################### Section # (Setup and Enable Location Settings for Boot) ####################
 
 sudo arch-chroot /mnt /bin/sh << EOF
 mkdir /boot/grub/locale
@@ -250,7 +256,7 @@ sudo arch-chroot /mnt /bin/sh << EOF
 grub-mkconfig -o /boot/grub/grub.cfg
 EOF
 
-#################### Section # (Description) ####################
+#################### Section # (Create and Setup Swapfile) ####################
 
 sudo arch-chroot /mnt /bin/sh << EOF
 fallocate -l 2G /swapfile
@@ -262,37 +268,37 @@ sudo arch-chroot /mnt /bin/sh << EOF
 mkswap /swapfile
 EOF
 
-#################### Section # (Description) ####################
+#################### Section # (Backup FSTAB file) ####################
 
 sudo arch-chroot /mnt /bin/sh << EOF
 cp /etc/fstab /etc/fstab.bak
 EOF
 
-#################### Section # (Description) ####################
+#################### Section # (Setup Swapfile Boot Configuration) ####################
 
 sudo arch-chroot /mnt /bin/sh << EOF
 echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
 EOF
 
-#################### Section # (Description) ####################
+#################### Section # (Install Intel Software Packages) ####################
 
 sudo arch-chroot /mnt /bin/sh << EOF
 printf '\n\n\n' | pacman -S intel-ucode
 EOF
 
-#################### Section # (Description) ####################
+#################### Section # (Install GUI Base Software) ####################
 
 sudo arch-chroot /mnt /bin/sh << EOF
 printf '\n\n\n' |  pacman -S xorg xorg-server
 EOF
 
-#################### Section # (Description) ####################
+#################### Section # (Install Mesa) ####################
 
 sudo arch-chroot /mnt /bin/sh << EOF
 printf '\n\n\n' |  pacman -S mesa
 EOF
 
-#################### Section # (Description) ####################
+#################### Section # (Install GNOME Desktop and Configuration for Boot) ####################
 
 sudo arch-chroot /mnt /bin/sh << EOF
 printf '\n\n\n' |  pacman -S gnome
@@ -305,4 +311,8 @@ systemctl enable gdm.service
 EOF
 
 #################### Section # (Description) ####################
+
+#sudo echo "Shutting System Down. Once System has Powered off, remove USB thumbdrive and then Power ON !!!"
+# press any key to continue funtion
+
 ######################################## END OF SCRIPT ########################################
