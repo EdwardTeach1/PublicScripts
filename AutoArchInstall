@@ -132,7 +132,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
 #@sudo mkdir /mnt/etc
 #@sudo sleep 2s
 
-#################### Section 17.0 () ####################
+#################### Section 17.0 (Configures Filesystems for Boot) ####################
 
 #@sudo genfstab -U -p /mnt >> /mnt/etc/fstab
 #@sudo sleep 2s
