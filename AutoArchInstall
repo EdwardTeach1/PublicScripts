@@ -21,298 +21,298 @@
 
 #################### Section # (Delete Hard Drive Partitions) ####################
 
-@@@sudo echo "Section 1 START"
-@@@sudo dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
-@@@sudo sleep 2s
+#@sudo echo "Section 1 START"
+#@sudo dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
+#@sudo sleep 2s
 
 #################### Section # (Configure Repository Locations - HTTPS priority) ####################
 
-@@@sudo sed -i "s/#Color/Color/" /etc/pacman.conf && sudo sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
-@@@sudo sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sudo sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
-@@@sudo sed -i '/## Generated on/a Server = https://mirror.aarnet.edu.au/pub/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
-@@@sudo sed -i '/## Generated on/a Server = https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist
-@@@sudo sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
+#@sudo sed -i "s/#Color/Color/" /etc/pacman.conf && sudo sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
+#@sudo sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sudo sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
+#@sudo sed -i '/## Generated on/a Server = https://mirror.aarnet.edu.au/pub/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
+#@sudo sed -i '/## Generated on/a Server = https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist
+#@sudo sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
 
 #################### Section # (Install Expect Shell) ####################
 
-sudo printf '\n' | sudo pacman -Syy expect
-sudo sleep 2s
+#@sudo printf '\n' | sudo pacman -Syy expect
+#@sudo sleep 2s
 
 #################### Section # (Download Latest Arch Linux Packages) ####################
 
-sudo pacman -Syyy
-sudo sleep 2s
+#@sudo pacman -Syyy
+#@sudo sleep 2s
 
 #################### Section # (Setup HDD Partitions for Installation) ####################
 
-sudo echo "Section 2 START"
-sudo echo "label: gpt" > partition-table
-sudo echo "device: /dev/sda" >> partition-table
-sudo echo "unit: sectors" >> partition-table
-sudo echo "first-lba: 2048" >> partition-table
-sudo echo "last-lba: 1000215182" >> partition-table
-sudo echo " " >> partition-table
-sudo echo "/dev/sda1 : start=           2048, size=   1048576, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B" >> partition-table
-sudo echo "/dev/sda2 : start=        1050624, size=   1048576, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" >> partition-table
-sudo echo "/dev/sda3 : start=      2099200, size=   998115983, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
-sudo sleep 2s
-sudo sfdisk /dev/sda < partition-table
-sudo rm partition-table
-sudo echo "Section 2 END" && sleep 5s
+#@sudo echo "Section 2 START"
+#@sudo echo "label: gpt" > partition-table
+#@sudo echo "device: /dev/sda" >> partition-table
+#@sudo echo "unit: sectors" >> partition-table
+#@sudo echo "first-lba: 2048" >> partition-table
+#@sudo echo "last-lba: 1000215182" >> partition-table
+#@sudo echo " " >> partition-table
+#@sudo echo "/dev/sda1 : start=           2048, size=   1048576, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B" >> partition-table
+#@sudo echo "/dev/sda2 : start=        1050624, size=   1048576, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4" >> partition-table
+#@sudo echo "/dev/sda3 : start=      2099200, size=   998115983, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
+#@sudo sleep 2s
+#@sudo sfdisk /dev/sda < partition-table
+#@sudo rm partition-table
+#@sudo echo "Section 2 END" && sleep 5s
 
 #################### Section # () ####################
 
-sudo echo "Section 3 START"
-sudo mkfs.fat -F32 /dev/sda1
-sudo sleep 5s
+#@sudo echo "Section 3 START"
+#@sudo mkfs.fat -F32 /dev/sda1
+#@sudo sleep 5s
 
 #################### Section # () ####################
 
-sudo printf 'y\n' | mkfs.ext4 /dev/sda2
-sudo sleep 5s
+#@sudo printf 'y\n' | mkfs.ext4 /dev/sda2
+#@sudo sleep 5s
 
 #################### Section # (Setup of LUKS Encrypted Container) ####################
 
-sudo echo "#!/usr/bin/expect -f" > expectfile
-sudo echo "set send_slow {2 0.5}" >> expectfile
-sudo echo "spawn cryptsetup luksFormat /dev/sda3" >> expectfile
-sudo echo "expect \"Are you sure? (Type 'yes' in capital letters):\\r\"" >> expectfile
-sudo echo "send -s \"YES\\r\"" >> expectfile
-sudo echo "expect \"Enter passphrase for /dev/sda3:\\r\"" >> expectfile
-sudo echo "send -s \"$LuksPassphrase\\r\"" >> expectfile
-sudo echo "expect \"Verify passphrase:\\r\"" >> expectfile
-sudo echo "send -s \"$LuksPassphrase\\r\"" >> expectfile
-sudo echo "interact" >> expectfile
-sudo chmod 777 expectfile
-sudo expect expectfile
-sudo sleep 20s
-sudo rm expectfile
-sudo echo "Section 3 END" && sleep 5s
+#@sudo echo "#!/usr/bin/expect -f" > expectfile
+#@sudo echo "set send_slow {2 0.5}" >> expectfile
+#@sudo echo "spawn cryptsetup luksFormat /dev/sda3" >> expectfile
+#@sudo echo "expect \"Are you sure? (Type 'yes' in capital letters):\\r\"" >> expectfile
+#@sudo echo "send -s \"YES\\r\"" >> expectfile
+#@sudo echo "expect \"Enter passphrase for /dev/sda3:\\r\"" >> expectfile
+#@sudo echo "send -s \"$LuksPassphrase\\r\"" >> expectfile
+#@sudo echo "expect \"Verify passphrase:\\r\"" >> expectfile
+#@sudo echo "send -s \"$LuksPassphrase\\r\"" >> expectfile
+#@sudo echo "interact" >> expectfile
+#@sudo chmod 777 expectfile
+#@sudo expect expectfile
+#@sudo sleep 20s
+#@sudo rm expectfile
+#@sudo echo "Section 3 END" && sleep 5s
 
 #################### Section # (Open LUKS Container) ####################
 
-sudo echo "Section 4 START"
-sudo printf '$LuksPassphrase\n' | cryptsetup open --type luks /dev/sda3 LVM
-sudo sleep 5s
+#@sudo echo "Section 4 START"
+#@sudo printf '$LuksPassphrase\n' | cryptsetup open --type luks /dev/sda3 LVM
+#@sudo sleep 5s
 
 #################### Section # (Setup Physical Volume) ####################
 
-sudo pvcreate --dataalignment 1m /dev/mapper/LVM
-sudo sleep 2s
+#@sudo pvcreate --dataalignment 1m /dev/mapper/LVM
+#@sudo sleep 2s
 
 #################### Section # (Setup Virtual Volume Group) ####################
 
-sudo vgcreate volgroup0 /dev/mapper/LVM
-sudo sleep 2s
+#@sudo vgcreate volgroup0 /dev/mapper/LVM
+#@sudo sleep 2s
 
 #################### Section # (Setup Live Volumes for LUKS Encrypted Drive) ####################
 
-sudo lvcreate -L 50GB volgroup0 -n LVM_root
-sudo sleep 2s
+#@sudo lvcreate -L 50GB volgroup0 -n LVM_root
+#@sudo sleep 2s
 ## sudo lvcreate -L 350GB volgroup0 -n LVM_home
-sudo lvcreate -l 100%FREE volgroup0 -n LVM_home
-sudo sleep 2s
-sudo echo "Section 4 END" && sleep 5s
+#@sudo lvcreate -l 100%FREE volgroup0 -n LVM_home
+#@sudo sleep 2s
+#@sudo echo "Section 4 END" && sleep 5s
 
 #################### Section # (Create Root Filesystem for LUKS encrypted drive) ####################
 
-sudo echo "Section 5 START"
-sudo mkfs.ext4 /dev/volgroup0/LVM_root
-sudo sleep 2s
+#@sudo echo "Section 5 START"
+#@sudo mkfs.ext4 /dev/volgroup0/LVM_root
+#@sudo sleep 2s
 
 #################### Section # (Create Home Filesystem for LUKS encrypted drive) ####################
 
-sudo mkfs.ext4 /dev/volgroup0/LVM_home
-sudo sleep 2s
+#@sudo mkfs.ext4 /dev/volgroup0/LVM_home
+#@sudo sleep 2s
 
 #################### Section # (Mount Home and Boot Volumes) ####################
 
-sudo mount /dev/volgroup0/LVM_root /mnt
-sudo sleep 2s
-sudo mkdir /mnt/home
-sudo mount /dev/volgroup0/LVM_home /mnt/home
-sudo sleep 2s
-sudo mkdir /mnt/boot
-sudo mount /dev/sda2 /mnt/boot
-sudo sleep 2s
-sudo mkdir /mnt/etc
-sudo sleep 2s
+#@sudo mount /dev/volgroup0/LVM_root /mnt
+#@sudo sleep 2s
+#@sudo mkdir /mnt/home
+#@sudo mount /dev/volgroup0/LVM_home /mnt/home
+#@sudo sleep 2s
+#@sudo mkdir /mnt/boot
+#@sudo mount /dev/sda2 /mnt/boot
+#@sudo sleep 2s
+#@sudo mkdir /mnt/etc
+#@sudo sleep 2s
 
 #################### Section # () ####################
 
-sudo genfstab -U -p /mnt >> /mnt/etc/fstab
-sudo sleep 2s
+#@sudo genfstab -U -p /mnt >> /mnt/etc/fstab
+#@sudo sleep 2s
 
 #################### Section # (Download Base Arch Linux into Mount location) ####################
 
-sudo printf '\n' | pacstrap -i /mnt base
-sudo sleep 5s
+#@sudo printf '\n' | pacstrap -i /mnt base
+#@sudo sleep 5s
 
 #################### Section # (Install base Linux Packages to CHROOT) ####################
 
-sudo echo "Section 7 START"
+#@sudo echo "Section 7 START"
 ###note need to install firmware(isci;qed;qla1280;aic94xx;cxgb3;cxgb4;advansys;wd719x;csiostor;qla2xxx;bfa;ums_eneub6250;smsmdtv)
-sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n\n\n' | pacman -S linux linux-headers
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' | pacman -S linux linux-headers
+#@EOF
 
 #################### Section # (Install Text Editor Packages to CHROOT) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n\n\n' | pacman -S nano vim
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' | pacman -S nano vim
+#@EOF
 
 #################### Section # (Install Base Developer Packages and SSH to CHROOT) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n\n\n' | pacman -S base-devel openssh
-EOF
-sudo arch-chroot /mnt /bin/sh << EOF
-systemctl enable sshd
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' | pacman -S base-devel openssh
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@systemctl enable sshd
+#@EOF
 
 #################### Section # (Install Networking Utility Packages to CHROOT) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n\n\n' | pacman -S networkmanager wpa_supplicant wireless_tools netctl
-EOF
-sudo arch-chroot /mnt /bin/sh << EOF
-systemctl enable NetworkManager
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' | pacman -S networkmanager wpa_supplicant wireless_tools netctl
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@systemctl enable NetworkManager
+#@EOF
 
 #################### Section # (Install LVM2 Packages to CHROOT) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n\n\n' | pacman -S lvm2
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' | pacman -S lvm2
+#@EOF
 
 #################### Section # (Enable Encryption and LVM2 functionality to CHROOT) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-sed -i '/HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/{s/block/block encrypt lvm2}' /etc/mkinitcpio.conf
-EOF
-sudo arch-chroot /mnt /bin/sh << EOF
-mkinitcpio -p linux
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@sed -i '/HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/{s/block/block encrypt lvm2}' /etc/mkinitcpio.conf
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@mkinitcpio -p linux
+#@EOF
 
 #################### Section # (Set Location Settings for Australia) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen && sed -i "s/en_US.UTF-8/#en_US.UTF-8/" /etc/locale.gen
-EOF
-sudo arch-chroot /mnt /bin/sh << EOF
-locale-gen
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen && sed -i "s/en_US.UTF-8/#en_US.UTF-8/" /etc/locale.gen
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@locale-gen
+#@EOF
 
 #################### Section # (Setting Root Level Password) ####################
 
-# sudo printf '$RootPassword\n$SystemPassword\n' | sudo passwd
+#@ #sudo printf '$RootPassword\n$SystemPassword\n' | sudo passwd
 
 #################### Section # (Setup Users and Groups) ####################
 
-# sudo useradd -m -g users USERNAME
-# sudo passwd USERNAME
-# create a group for admins???
+#@ #sudo useradd -m -g users USERNAME
+#@ # sudo passwd USERNAME
+#@# create a group for admins???
 
 #################### Section # (Download GRUB Bootloader Software Packages) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n\n\n' |pacman -S grub efibootmgr dosfstools os-prober mtools
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' |pacman -S grub efibootmgr dosfstools os-prober mtools
+#@EOF
 
 #################### Section # (Configure Encryption GRUB Boot) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
-EOF
-sudo arch-chroot /mnt /bin/sh << EOF
-sed -i "/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet/{s/quiet/cryptdevice=\/dev\/sda3:volgroup0:allow-discards quiet/}' /etc/default/grub
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@sed -i "/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet/{s/quiet/cryptdevice=\/dev\/sda3:volgroup0:allow-discards quiet/}' /etc/default/grub
+#@EOF
 
 #################### Section # (Setup and Enable EFI Booting) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-mkdir /boot/EFI
-EOF
-sudo arch-chroot /mnt /bin/sh << EOF
-mount /dev/sda1 /boot/EFI
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@mkdir /boot/EFI
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@mount /dev/sda1 /boot/EFI
+#@EOF
 
 #################### Section # (Install GRUB Bootloader) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
+#@EOF
 
 #################### Section # (Setup and Enable Location Settings for Boot) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-mkdir /boot/grub/locale
-EOF
-sudo arch-chroot /mnt /bin/sh << EOF
-cp /usr/share/locale/en@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
-EOF
-sudo arch-chroot /mnt /bin/sh << EOF
-grub-mkconfig -o /boot/grub/grub.cfg
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@mkdir /boot/grub/locale
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@cp /usr/share/locale/en@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@grub-mkconfig -o /boot/grub/grub.cfg
+#@EOF
 
 #################### Section # (Create and Setup Swapfile) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-fallocate -l 2G /swapfile
-EOF
-sudo arch-chroot /mnt /bin/sh << EOF
-chmod 600 /swapfile
-EOF
-sudo arch-chroot /mnt /bin/sh << EOF
-mkswap /swapfile
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@fallocate -l 2G /swapfile
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@chmod 600 /swapfile
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@mkswap /swapfile
+#@EOF
 
 #################### Section # (Backup FSTAB file) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-cp /etc/fstab /etc/fstab.bak
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@cp /etc/fstab /etc/fstab.bak
+#@EOF
 
 #################### Section # (Setup Swapfile Boot Configuration) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
+#@EOF
 
 #################### Section # (Install Intel Software Packages) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n\n\n' | pacman -S intel-ucode
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' | pacman -S intel-ucode
+#@EOF
 
 #################### Section # (Install GUI Base Software) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n\n\n' |  pacman -S xorg xorg-server
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' |  pacman -S xorg xorg-server
+#@EOF
 
 #################### Section # (Install Mesa) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n\n\n' |  pacman -S mesa
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' |  pacman -S mesa
+#@EOF
 
 #################### Section # (Install GNOME Desktop and Configuration for Boot) ####################
 
-sudo arch-chroot /mnt /bin/sh << EOF
-printf '\n\n\n' |  pacman -S gnome
-EOF
-sudo arch-chroot /mnt /bin/sh << EOF
-systemctl start gdm.service
-EOF
-sudo arch-chroot /mnt /bin/sh << EOF
-systemctl enable gdm.service
-EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' |  pacman -S gnome
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@systemctl start gdm.service
+#@EOF
+#@sudo arch-chroot /mnt /bin/sh << EOF
+#@systemctl enable gdm.service
+#@EOF
 
-#################### Section # (Description) ####################
+#################### Section # (Power Off and Remove USB) ####################
 
-#sudo echo "Shutting System Down. Once System has Powered off, remove USB thumbdrive and then Power ON !!!"
-# press any key to continue funtion
+#@ #sudo echo "Shutting System Down. Once System has Powered off, remove USB thumbdrive and then Power ON !!!"
+#@ # press any key to continue funtion
 
 ######################################## END OF SCRIPT ########################################
