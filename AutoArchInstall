@@ -36,12 +36,12 @@ echo
 
 #################### Section 1.0 (Collection of data) ####################
 
-#@read -p "Create an Arch Linux System Password: " RootPassword
+#@read -p "Create an Arch Linux System Password: " ROOTPASSWORD
 #@
 #@
 #@
-read -p "Hostname of the System?: " Hostname
-read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
+read -p "Hostname of the System?: " HOSTNAME
+read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 
 ##read -p "WARNING: This script will wipe all data from the Harddrive /dev/sda. Are you sure you want to continue? Y or N? " InstallStart
 ##if      [ "${InstallStart,,}" = "yes" ] || [ "${InstallStart,,}" = "y" ]
@@ -106,9 +106,9 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
 #@sudo echo "expect \"Are you sure? (Type 'yes' in capital letters):\\r\"" >> expectfile
 #@sudo echo "send -s \"YES\\r\"" >> expectfile
 #@sudo echo "expect \"Enter passphrase for /dev/sda3:\\r\"" >> expectfile
-#@sudo echo "send -s \"$LuksPassphrase\\r\"" >> expectfile
+#@sudo echo "send -s \"$LUKSPASSPHRASE\\r\"" >> expectfile
 #@sudo echo "expect \"Verify passphrase:\\r\"" >> expectfile
-#@sudo echo "send -s \"$LuksPassphrase\\r\"" >> expectfile
+#@sudo echo "send -s \"$LUKSPASSPHRASE\\r\"" >> expectfile
 #@sudo echo "interact" >> expectfile
 #@sudo chmod 777 expectfile
 #@sudo expect expectfile
@@ -118,7 +118,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
 
 #################### Section 10.0 (Open LUKS Container) ####################
 
-#@sudo printf '%s\n' "$LuksPassphrase" | cryptsetup open --type luks /dev/sda3 LVM
+#@sudo printf '%s\n' "$LUKSPASSPHRASE" | cryptsetup open --type luks /dev/sda3 LVM
 #@sudo sleep 5s
 
 #################### Section 11.0 (Setup Physical Volume) ####################
@@ -225,7 +225,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
 #################### Section 25.0 (Configure Language and Locale Settings) ####################
 
 #@sudo arch-chroot /mnt /bin/sh << EOF
-#@echo "$Hostname" /etc/hostname
+#@echo "$HOSTNAME" /etc/hostname
 #@EOF
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen && sed -i "s/en_US.UTF-8/#en_US.UTF-8/" /etc/locale.gen
@@ -256,7 +256,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LuksPassphrase
 #@printf '\n\n\n' |pacman -S sudo
 #@EOF
 #@sudo arch-chroot /mnt /bin/sh << EOF
-#@ #sudo printf '%s\n%s\n' "$RootPassword" | sudo passwd
+#@ #sudo printf '%s\n%s\n' "$ROOTPASSWORD" | sudo passwd
 #@EOF
 
 #################### Section 27.0 (Setup Users and Groups) ####################
