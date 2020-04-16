@@ -26,11 +26,11 @@ echo "
 "
 echo
 echo
-echo "                                     VIPER MASTER BUILD SCRIPT"
-echo "                        WARNING: This will format the provided block device!"
+echo "                                               VIPER MASTER BUILD SCRIPT"
+echo "                                   WARNING: This will format the provided block device!"
 echo
 echo
-#sleep 10s
+echo
 
 ######################################## START OF SCRIPT ########################################
 
