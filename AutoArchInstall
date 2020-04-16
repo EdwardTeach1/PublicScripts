@@ -228,7 +228,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@echo "$HOSTNAME" > /etc/hostname
 #@EOF
 #@sudo arch-chroot /mnt /bin/sh << EOF
-#@sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen && sed -i "s/en_US.UTF-8/#en_US.UTF-8/" /etc/locale.gen
+#@sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen && sed -i "s/#en_AU ISO/en_AU ISO/" /etc/locale.gen && sed -i "s/en_US.UTF-8/#en_US.UTF-8/" /etc/locale.gen
 #@EOF
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@locale-gen
