@@ -88,17 +88,17 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@sudo rm partition-table
 #@sleep 5s
 
-#################### Section 7.0 (Format SDA1 Partition) ####################
+#################### Section 7.0 (Format SDA1 Boot Partition) ####################
 
 #@sudo mkfs.fat -F32 /dev/sda1
 #@sudo sleep 5s
 
-#################### Section 8.0 (Format SDA2 Partition) ####################
+#################### Section 8.0 (Format SDA2 Swap Partition) ####################
 
 #@sudo printf 'y\n' | mkfs.ext4 /dev/sda2
 #@sudo sleep 5s
 
-#################### Section 9.0 (Setup of LUKS Encrypted Container) ####################
+#################### Section 9.0 (Setup of SDA 3 LUKS Partition Encrypted Container) ####################
 
 #@sudo echo "#!/usr/bin/expect -f" > expectfile
 #@sudo echo "set send_slow {2 0.5}" >> expectfile
