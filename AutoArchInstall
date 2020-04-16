@@ -1,28 +1,28 @@
 #!/bin/bash
 clear
 echo "
-        .--'   ..............             '.............'             '..............     ....''    
-     '+dmMMd  'hdmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   :dm:.:yh    
-    +ms.hMMd  'hmmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmdmmmmmmmmmms   :mMmhs+/    
-   hMhoomMMmo/'hmmdmmmmmmmmmy             .dmmdmmmmmmmmmo             .dmdmmmdddmmmms   o-'-/sNM:   
-   ''''/dNNm:''hmmmhyyyyyyyys.............-yyhdddmmmdmdh+.............-yhhhhhhdddmmms   syo//+h+'   
-        ````  'hmmd+//////////////////////////hmmmmmmdd+/////////////////////odddmmms               
-              'hmmd+//////////////////////////hddmmmmdy//////////////////////odddmmms               
-              'hmmd+//////yhy''''.://////////odmmmmmmd+//////:........-yyyyyyhdddmmms               
-      '-/++/' 'hmmd+//////dmy  '-//////////+yddmmmmmds///////.        .dmdmmdddmmmmms               
-   '+dNd/.    'hmmd+//////dmy'.//////////::ddmmmmmmdh///////:--::::::::syhdmmmmmmmmms   .+o//+o/'   
-   hMMMoshmho''hmmdyyyyyyyddy://///////:. .dmdmmmdmdo/////////////////////+ohddmmmmms  oNN-   +MN:  
-   hMMy   NMM+'hmmdmmmmmmdh+/////////:.   .dmdmmmdmy///////::-.....-:////////+hmmmmms 'mMN    -MMs  
-   '+ydsoydy/ 'hmmmmmdmdho/////////:.     .ddddmdmmdddhh+.'          ':////////hmmmms  -hN+''.hNs'  
-              'hmdmddmds/////////:.'  ':://+++dmdmmmmmmdo             '////////smmmms    ':+mNh.'   
-              'hmdmdds/////////:-'    '///////dmmddhhhhh+..           .////////ydmmms       ./+/:'  
-              'hmddy+/////////-'''''''.///////hmmdh////////-'        .:///////odmmmms               
-              'hmdo///////////////////////////hdmmdh+////////:--..--:///////+ydmmmmms               
-    ./+ooo+-' 'hmdo///////////////////////////hddmmmdyo+//////////////////oydmmmmmmms '...'   ....' 
-   oNM+''dMMh 'hmdsooooooooo+::::::::::::::ooohmdmmmddmdo.---:::::::---yddmmdmmmmmmms ':mNNo. -yy-' 
-   '-:./hMNs. 'hmdmmmdddddddy             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   h:oNNo.+o   
-   '/yNNy/'.:''hmmmmmmmmmmmmy             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   h- 'oNNdo   
-   shhhyyyyhy''oyyyyyyyyyyyyo             .syyyyyyyyyyyy/             'syyyyyyyyyyyy+ .:yo-  '+h/ 
+                       .--'   ..............             '.............'             '..............     ....''    
+                    '+dmMMd  'hdmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   :dm:.:yh    
+                   +ms.hMMd  'hmmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmdmmmmmmmmmms   :mMmhs+/    
+                  hMhoomMMmo/'hmmdmmmmmmmmmy             .dmmdmmmmmmmmmo             .dmdmmmdddmmmms   o-'-/sNM:   
+                  ''''/dNNm:''hmmmhyyyyyyyys.............-yyhdddmmmdmdh+.............-yhhhhhhdddmmms   syo//+h+'   
+                       ````  'hmmd+//////////////////////////hmmmmmmdd+/////////////////////odddmmms               
+                             'hmmd+//////////////////////////hddmmmmdy//////////////////////odddmmms               
+                             'hmmd+//////yhy''''.://////////odmmmmmmd+//////:........-yyyyyyhdddmmms               
+                     '-/++/' 'hmmd+//////dmy  '-//////////+yddmmmmmds///////.        .dmdmmdddmmmmms               
+                  '+dNd/.    'hmmd+//////dmy'.//////////::ddmmmmmmdh///////:--::::::::syhdmmmmmmmmms   .+o//+o/'   
+                  hMMMoshmho''hmmdyyyyyyyddy://///////:. .dmdmmmdmdo/////////////////////+ohddmmmmms  oNN-   +MN:  
+                  hMMy   NMM+'hmmdmmmmmmdh+/////////:.   .dmdmmmdmy///////::-.....-:////////+hmmmmms 'mMN    -MMs  
+                  '+ydsoydy/ 'hmmmmmdmdho/////////:.     .ddddmdmmdddhh+.'          ':////////hmmmms  -hN+''.hNs'  
+                             'hmdmddmds/////////:.'  ':://+++dmdmmmmmmdo             '////////smmmms    ':+mNh.'   
+                             'hmdmdds/////////:-'    '///////dmmddhhhhh+..           .////////ydmmms       ./+/:'  
+                             'hmddy+/////////-'''''''.///////hmmdh////////-'        .:///////odmmmms               
+                             'hmdo///////////////////////////hdmmdh+////////:--..--:///////+ydmmmmms               
+                   ./+ooo+-' 'hmdo///////////////////////////hddmmmdyo+//////////////////oydmmmmmmms '...'   ....' 
+                  oNM+''dMMh 'hmdsooooooooo+::::::::::::::ooohmdmmmddmdo.---:::::::---yddmmdmmmmmmms ':mNNo. -yy-' 
+                  '-:./hMNs. 'hmdmmmdddddddy             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   h:oNNo.+o   
+                  '/yNNy/'.:''hmmmmmmmmmmmmy             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   h- 'oNNdo   
+                  shhhyyyyhy''oyyyyyyyyyyyyo             .syyyyyyyyyyyy/             'syyyyyyyyyyyy+ .:yo-  '+h/ 
 "
 echo
 echo
