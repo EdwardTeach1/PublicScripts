@@ -175,7 +175,8 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 
 #################### Section 19.0 (Install Base Linux Packages and Firmware to CHROOT) ####################
 
-###note need to install firmware(isci;qed;qla1280;aic94xx;cxgb3;cxgb4;advansys;wd719x;csiostor;qla2xxx;bfa;ums_eneub6250;smsmdtv)
+###note need to install firmware (aic94xx;wd719x)
+
 #@sudo arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' | pacman -S
 #@EOF
