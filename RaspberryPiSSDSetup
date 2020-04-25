@@ -1,32 +1,45 @@
 #!/bin/bash
 
-# This Script will setup the Raspberry Pi to use an SSD for very fast speeds
-# Firstly flash an old Micro SD Card and the SSD with the exact same System Image so that it is like a clone.
-# Include the file called SSH on both the Micro SD and SSD.
+## This Script will setup the Raspberry Pi to use an SSD for very fast speeds
+## Firstly flash an old Micro SD Card and the SSD with the exact same System Image so that it is like a clone.
+## Include the file called SSH on both the Micro SD and SSD.
 
-# Setup the Partition with the PartUUID of 0xd34db33f using fdisk. Note to Self -  make a partition file and use sfdisk to use it.
+## Setup the Partition with the PartUUID of 0xd34db33f using fdisk. Note to Self -  make a partition file and use sfdisk to use it.
+#@echo "label: dos" > partition-table
+#@echo "label-id: 0xd34db33f" > partition-table
+#@echo "device: /dev/sda" >> partition-table
+#@echo "unit: sectors" >> partition-table
+#@echo " " >> partition-table
+#@echo "/dev/sda1 : start=           8192, size=   524288,   type=c"    >>  partition-table
+#@echo "/dev/sda2 : start=         532480, size=   13770752, type=83"   >>  partition-table
+#@sleep 2s
+#@sfdisk /dev/sda < partition-table
+#@sleep 5s
 
-# Create a backup of the CMDLINE file. Just in case.
-sudo cp /boot/cmdline.txt /boot/cmdline.txt.bak
+## Create a backup of the CMDLINE file. Just in case.
+#@sudo cp /boot/cmdline.txt /boot/cmdline.txt.bak
 
-# Use sed to change PartUUID inside the cmdline file. Find root=PARTUUID=????????-02 and change it to root=PARTUUID=d34db33f-02
-#sed -i "s/root=PARTUUID=[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]-02/root=PARTUUID=d34db33f-02/" /boot/cmdline.txt
+## Use sed to change PartUUID inside the cmdline file. Find root=PARTUUID=????????-02 and change it to root=PARTUUID=d34db33f-02
+#@sed -i "s/root=PARTUUID=[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]-02/root=PARTUUID=d34db33f-02/" /boot/cmdline.txt
 
-# Try to skip over this part to make just the one script.
-#sudo reboot
+## Try to skip over this part to make just the one script.
+#@sudo reboot
 
-# Use sed to change PartUUID in the /etc/fstab from PARTUUID=????????-02 to PARTUUID=d34db33f-02
-#sed -i "s/PARTUUID=[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]-02/PARTUUID=d34db33f-02/" /etc/fstab
+## Use sed to change PartUUID in the /etc/fstab from PARTUUID=????????-02 to PARTUUID=d34db33f-02
+#@sed -i "s/PARTUUID=[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]-02/PARTUUID=d34db33f-02/" /etc/fstab
 
-# Reboot again
-#sudo reboot
+## Reboot again
+#@sudo reboot
 
-# Delete 2nd partition /dev/sda2 using fdisk and recreate it to use the rest of the space on the disk
+## Delete 2nd partition /dev/sda2 using fdisk and recreate it to use the rest of the space on the disk
 
-#sudo resize2fs /dev/sda2
+#@sudo resize2fs /dev/sda2
 
-# Check the partition worked out fine.
-#df -h
+## Check the partition worked out fine.
+#@df -h
 
-# Once completed update the system.
-#sudo apt-get update && sudo apt-get upgrade -y
+## Once completed update the system.
+#@sudo apt-get update && sudo apt-get upgrade -y
+
+## Run Benchmark test to find out if the script works or not.
+#@sudo curl https://raw.githubusercontent.com/TheRemote/PiBenchmarks/master/Storage.sh | sudo bash
