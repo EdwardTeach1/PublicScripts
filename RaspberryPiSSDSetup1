@@ -9,7 +9,7 @@ sudo cp /boot/cmdline.txt /boot/cmdline.txt.bak
 
 ## Setup the Partition with the PartUUID of 0xd34db33f using fdisk. Note to Self -  make a partition file and use sfdisk to use it.
 sudo echo "label: dos" > partition-table
-sudo echo "label-id: 0xd34db33f" > partition-table
+sudo echo "label-id: 0xd34db33f" >> partition-table
 sudo echo "device: /dev/sda" >> partition-table
 sudo echo "unit: sectors" >> partition-table
 sudo echo " " >> partition-table
