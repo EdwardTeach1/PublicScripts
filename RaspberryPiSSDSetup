@@ -10,13 +10,13 @@
 sudo cp /boot/cmdline.txt /boot/cmdline.txt.bak
 
 # Use sed to change PartUUID inside the cmdline file. Find root=PARTUUID=????????-02 and change it to root=PARTUUID=d34db33f-02
-#sed -i "s///" /boot/cmdline.txt
+#sed -i "s/root=PARTUUID=[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]-02/root=PARTUUID=d34db33f-02/" /boot/cmdline.txt
 
 # Try to skip over this part to make just the one script.
 #sudo reboot
 
 # Use sed to change PartUUID in the /etc/fstab from PARTUUID=????????-02 to PARTUUID=d34db33f-02
-#sed -i "s///" /etc/fstab
+#sed -i "s/PARTUUID=[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]-02/PARTUUID=d34db33f-02/" /etc/fstab
 
 # Reboot again
 #sudo reboot
