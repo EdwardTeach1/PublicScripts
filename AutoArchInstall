@@ -197,9 +197,15 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 
 #################### Section 21.0 (Configure Hosts File) ####################
 
-###echo "127.0.0.1  localhost" > /etc/hosts
-###echo "::1  localhost" >> /etc/hosts
-###echo "127.0.1.1  $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
+#@arch-chroot /mnt /bin/sh << EOF
+#@echo "127.0.0.1  localhost" > /etc/hosts
+#@EOF
+#@arch-chroot /mnt /bin/sh << EOF
+#@echo "::1  localhost" >> /etc/hosts
+#@EOF
+#@arch-chroot /mnt /bin/sh << EOF
+#@echo "127.0.1.1  $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
+#@EOF
 
 #################### Section 22.0 (Install Base Linux Packages and Firmware to CHROOT) ####################
 
