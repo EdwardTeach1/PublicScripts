@@ -189,19 +189,19 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@EOF
 #@cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 
-#################### Section 19.0 (Configure Hostname) ####################
+#################### Section 20.0 (Configure Hostname) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@echo "$HOSTNAME" > /etc/hostname
 #@EOF
 
-#################### Section 19.0 (Configure Hosts File) ####################
+#################### Section 21.0 (Configure Hosts File) ####################
 
 ###echo "127.0.0.1  localhost" > /etc/hosts
 ###echo "::1  localhost" >> /etc/hosts
 ###echo "127.0.1.1  $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
 
-#################### Section 19.0 (Install Base Linux Packages and Firmware to CHROOT) ####################
+#################### Section 22.0 (Install Base Linux Packages and Firmware to CHROOT) ####################
 
 ###note need to install firmware (aic94xx;wd719x)
 
@@ -212,13 +212,13 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@printf '\n\n\n' | pacman -S linux linux-headers linux-firmware
 #@EOF
 
-#################### Section 20.0 (Install Text Editor Packages to CHROOT) ####################
+#################### Section 23.0 (Install Text Editor Packages to CHROOT) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' | pacman -S nano vim
 #@EOF
 
-#################### Section 21.0 (Install Base Developer Packages and SSH to CHROOT) ####################
+#################### Section 24.0 (Install Base Developer Packages and SSH to CHROOT) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' | pacman -S base-devel openssh
@@ -230,7 +230,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@systemctl enable dhcpcd
 #@EOF
 
-#################### Section 22.0 (Install Networking Utility Packages to CHROOT) ####################
+#################### Section 25.0 (Install Networking Utility Packages to CHROOT) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' | pacman -S networkmanager wpa_supplicant wireless_tools netctl
@@ -239,13 +239,13 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@systemctl enable NetworkManager
 #@EOF
 
-#################### Section 23.0 (Install LVM2 Packages to CHROOT) ####################
+#################### Section 26.0 (Install LVM2 Packages to CHROOT) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' | pacman -S lvm2
 #@EOF
 
-#################### Section 24.0 (Enable Encryption and LVM2 functionality to CHROOT) ####################
+#################### Section 27.0 (Enable Encryption and LVM2 functionality to CHROOT) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@sed -i '/HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/{s/block/block encrypt lvm2}' /etc/mkinitcpio.conf
@@ -255,7 +255,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@EOF
 
 
-#################### Section 26.0 (Install Sudo and Setup Root Level Password) ####################
+#################### Section 28.0 (Install Sudo and Setup Root Level Password) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' |pacman -S sudo
@@ -264,7 +264,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@ #printf '%s\n%s\n' "$ROOTPASSWORD" "$ROOTPASSWORD" | sudo passwd
 #@EOF
 
-#################### Section 27.0 (Setup Users and Groups) ####################
+#################### Section 29.0 (Setup Users and Groups) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@useradd -m -g admins <USERNAME> passwd PASSWORD
@@ -273,13 +273,13 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@useradd -m -g users <USERNAME> passwd PASSWORD
 #@EOF
 
-#################### Section 28.0 (Download GRUB Bootloader Software Packages) ####################
+#################### Section 30.0 (Download GRUB Bootloader Software Packages) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' |pacman -S grub efibootmgr dosfstools os-prober mtools
 #@EOF
 
-#################### Section 29.0 (Configure Encryption GRUB Boot) ####################
+#################### Section 31.0 (Configure Encryption GRUB Boot) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
@@ -288,7 +288,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 cryptdevice=\/dev\/sda3:volgroup0:allow-discards quiet\"/" /etc/default/grub
 #@EOF
 
-#################### Section 30.0 (Setup and Enable EFI Booting) ####################
+#################### Section 32.0 (Setup and Enable EFI Booting) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@mkdir /boot/EFI
@@ -297,13 +297,13 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@mount /dev/sda1 /boot/EFI
 #@EOF
 
-#################### Section 31.0 (Install GRUB Bootloader) ####################
+#################### Section 33.0 (Install GRUB Bootloader) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 #@EOF
 
-#################### Section 32.0 (Setup and Enable Location Settings for Boot) ####################
+#################### Section 34.0 (Setup and Enable Location Settings for Boot) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@mkdir /boot/grub/locale
@@ -315,7 +315,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@grub-mkconfig -o /boot/grub/grub.cfg
 #@EOF
 
-#################### Section 33.0 (Create and Setup Swapfile) ####################
+#################### Section 35.0 (Create and Setup Swapfile) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@fallocate -l 2G /swapfile
@@ -327,37 +327,37 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@mkswap /swapfile
 #@EOF
 
-#################### Section 34.0 (Backup FSTAB file) ####################
+#################### Section 36.0 (Backup FSTAB file) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@cp /etc/fstab /etc/fstab.bak
 #@EOF
 
-#################### Section 35.0 (Setup Swapfile Boot Configuration) ####################
+#################### Section 37.0 (Setup Swapfile Boot Configuration) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
 #@EOF
 
-#################### Section 36.0 (Install Intel Software Packages) ####################
+#################### Section 38.0 (Install Intel Software Packages) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' | pacman -S intel-ucode
 #@EOF
 
-#################### Section 37.0 (Install GUI Base Software) ####################
+#################### Section 39.0 (Install GUI Base Software) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' |  pacman -S xorg xorg-server
 #@EOF
 
-#################### Section 38.0 (Install MESA Package) ####################
+#################### Section 40.0 (Install MESA Package) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' |  pacman -S mesa
 #@EOF
 
-#################### Section 39.0 (Install GNOME Desktop and Configuration for Boot) ####################
+#################### Section 41.0 (Install GNOME Desktop and Configuration for Boot) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
 #@printf '\n\n\n' |  pacman -S gnome gnome-extra
@@ -369,7 +369,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@systemctl enable gdm.service
 #@EOF
 
-#################### Section 40.0 (Power Off and Remove USB) ####################
+#################### Section 42.0 (Power Off and Remove USB) ####################
 
 #@ #echo "Shutting System Down. Once System has Powered off, remove USB thumbdrive and then Power ON !!!"
 #@ # press any key to continue funtion
