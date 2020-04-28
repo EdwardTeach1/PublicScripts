@@ -163,15 +163,77 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@mkdir /mnt/etc
 #@sleep 2s
 
-#################### Section 17.0 (Download Base Arch Linux into Mount location) ####################
-
-#@printf '\n' | pacstrap -i /mnt base
-#@sleep 5s
-
-#################### Section 18.0 (Configures Filesystem Table for Boot) ####################
+#################### Section 17.0 (Configures Filesystem Table for Boot) ####################
 
 #@genfstab -U -p /mnt >> /mnt/etc/fstab
 #@sleep 2s
+
+#################### Section 18.0 (Download Base Arch Linux into Mount location) ####################
+
+#@printf '\n\n\n' | pacstrap -i /mnt base
+#@sleep 5s
+
+#################### Section 22.0 (Install Linux LTS Version to CHROOT) ####################
+
+###note need to install firmware (aic94xx;wd719x)
+
+#@arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' | pacman -S linux-lts linux-lts-headers
+#@EOF
+
+#################### Section 22.0 (Install Linux Firmware to CHROOT) ####################
+
+#@arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' | pacman -S linux-firmware
+#@EOF
+
+#################### Section 23.0 (Install Text Editor Packages to CHROOT) ####################
+
+#@arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' | pacman -S nano vim
+#@EOF
+
+#################### Section 24.0 (Install Base Developer Packages and SSH to CHROOT) ####################
+
+#@arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' | pacman -S base-devel openssh
+#@EOF
+#@arch-chroot /mnt /bin/sh << EOF
+#@systemctl enable sshd
+#@EOF
+
+#################### Section 25.0 (Install Networking Utility Packages to CHROOT) ####################
+
+#@arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' | pacman -S networkmanager wpa_supplicant wireless_tools netctl
+#@EOF
+#@arch-chroot /mnt /bin/sh << EOF
+#@systemctl enable NetworkManager
+#@EOF
+#@arch-chroot /mnt /bin/sh << EOF
+#@systemctl enable dhcpcd
+#@EOF
+
+#################### Section 25.0 (Install Dialog to CHROOT) ####################
+
+#@arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' | pacman -S dialog
+#@EOF
+
+#################### Section 26.0 (Install LVM2 Packages to CHROOT) ####################
+
+#@arch-chroot /mnt /bin/sh << EOF
+#@printf '\n\n\n' | pacman -S lvm2
+#@EOF
+
+#################### Section 27.0 (Enable Encryption and LVM2 functionality to CHROOT) ####################
+
+#@arch-chroot /mnt /bin/sh << EOF
+#@sed -i '/HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/{s/block/block encrypt lvm2}' /etc/mkinitcpio.conf
+#@EOF
+#@arch-chroot /mnt /bin/sh << EOF
+#@mkinitcpio -p linux-lts
+#@EOF
 
 #################### Section 19.0 (Configure Language and Locale Settings) ####################
 
@@ -207,64 +269,10 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@echo "127.0.1.1  $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
 #@EOF
 
-#################### Section 22.0 (Install Base Linux Packages and Firmware to CHROOT) ####################
-
-###note need to install firmware (aic94xx;wd719x)
-
-#@arch-chroot /mnt /bin/sh << EOF
-#@printf '\n\n\n' | pacman -S
-#@EOF
-#@arch-chroot /mnt /bin/sh << EOF
-#@printf '\n\n\n' | pacman -S linux linux-headers linux-firmware
-#@EOF
-
-#################### Section 23.0 (Install Text Editor Packages to CHROOT) ####################
-
-#@arch-chroot /mnt /bin/sh << EOF
-#@printf '\n\n\n' | pacman -S nano vim
-#@EOF
-
-#################### Section 24.0 (Install Base Developer Packages and SSH to CHROOT) ####################
-
-#@arch-chroot /mnt /bin/sh << EOF
-#@printf '\n\n\n' | pacman -S base-devel openssh
-#@EOF
-#@arch-chroot /mnt /bin/sh << EOF
-#@systemctl enable sshd
-#@EOF
-#@arch-chroot /mnt /bin/sh << EOF
-#@systemctl enable dhcpcd
-#@EOF
-
-#################### Section 25.0 (Install Networking Utility Packages to CHROOT) ####################
-
-#@arch-chroot /mnt /bin/sh << EOF
-#@printf '\n\n\n' | pacman -S networkmanager wpa_supplicant wireless_tools netctl
-#@EOF
-#@arch-chroot /mnt /bin/sh << EOF
-#@systemctl enable NetworkManager
-#@EOF
-
-#################### Section 26.0 (Install LVM2 Packages to CHROOT) ####################
-
-#@arch-chroot /mnt /bin/sh << EOF
-#@printf '\n\n\n' | pacman -S lvm2
-#@EOF
-
-#################### Section 27.0 (Enable Encryption and LVM2 functionality to CHROOT) ####################
-
-#@arch-chroot /mnt /bin/sh << EOF
-#@sed -i '/HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/{s/block/block encrypt lvm2}' /etc/mkinitcpio.conf
-#@EOF
-#@arch-chroot /mnt /bin/sh << EOF
-#@mkinitcpio -p linux
-#@EOF
-
-
 #################### Section 28.0 (Install Sudo and Setup Root Level Password) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
-#@printf '\n\n\n' |pacman -S sudo
+#@printf '\n\n\n' | pacman -S sudo
 #@EOF
 #@arch-chroot /mnt /bin/sh << EOF
 #@ #printf '%s\n%s\n' "$ROOTPASSWORD" "$ROOTPASSWORD" | sudo passwd
@@ -315,7 +323,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@mkdir /boot/grub/locale
 #@EOF
 #@arch-chroot /mnt /bin/sh << EOF
-#@cp /usr/share/locale/en@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+#@cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 #@EOF
 #@arch-chroot /mnt /bin/sh << EOF
 #@grub-mkconfig -o /boot/grub/grub.cfg
@@ -324,7 +332,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #################### Section 35.0 (Create and Setup Swapfile) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
-#@fallocate -l 2G /swapfile
+#@fallocate -l 4G /swapfile
 #@EOF
 #@arch-chroot /mnt /bin/sh << EOF
 #@chmod 600 /swapfile
