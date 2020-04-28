@@ -163,15 +163,43 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@mkdir /mnt/etc
 #@sleep 2s
 
-#################### Section 17.0 (Configures Filesystems for Boot) ####################
+#################### Section 17.0 (Download Base Arch Linux into Mount location) ####################
+
+#@printf '\n' | pacstrap -i /mnt base
+#@sleep 5s
+
+#################### Section 18.0 (Configures Filesystem Table for Boot) ####################
 
 #@genfstab -U -p /mnt >> /mnt/etc/fstab
 #@sleep 2s
 
-#################### Section 18.0 (Download Base Arch Linux into Mount location) ####################
+#################### Section 19.0 (Configure Language and Locale Settings) ####################
 
-#@printf '\n' | pacstrap -i /mnt base
-#@sleep 5s
+#@arch-chroot /mnt /bin/sh << EOF
+#@ln -s /usr/share/zoneinfo/Australia/Adelaide /etc/localtime
+#@EOF
+#@arch-chroot /mnt /bin/sh << EOF
+#@hwclock --systohc --utc
+#@EOF
+#@arch-chroot /mnt /bin/sh << EOF
+#@locale-gen
+#@EOF
+#@arch-chroot /mnt /bin/sh << EOF
+#@echo "LANG=en_AU.UTF-8" > /etc/locale.conf
+#@EOF
+#@cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+
+#################### Section 19.0 (Configure Hostname) ####################
+
+#@arch-chroot /mnt /bin/sh << EOF
+#@echo "$HOSTNAME" > /etc/hostname
+#@EOF
+
+#################### Section 19.0 (Configure Hosts File) ####################
+
+###echo "127.0.0.1  localhost" > /etc/hosts
+###echo "::1  localhost" >> /etc/hosts
+###echo "127.0.1.1  $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
 
 #################### Section 19.0 (Install Base Linux Packages and Firmware to CHROOT) ####################
 
@@ -198,6 +226,9 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@arch-chroot /mnt /bin/sh << EOF
 #@systemctl enable sshd
 #@EOF
+#@arch-chroot /mnt /bin/sh << EOF
+#@systemctl enable dhcpcd
+#@EOF
 
 #################### Section 22.0 (Install Networking Utility Packages to CHROOT) ####################
 
@@ -223,33 +254,6 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@mkinitcpio -p linux
 #@EOF
 
-#################### Section 25.0 (Configure Language and Locale Settings) ####################
-
-#@arch-chroot /mnt /bin/sh << EOF
-#@echo "$HOSTNAME" > /etc/hostname
-#@EOF
-#@arch-chroot /mnt /bin/sh << EOF
-#@sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen && sed -i "s/#en_AU ISO/en_AU ISO/" /etc/locale.gen && sed -i "s/en_US.UTF-8/#en_US.UTF-8/" /etc/locale.gen
-#@EOF
-#@arch-chroot /mnt /bin/sh << EOF
-#@locale-gen
-#@EOF
-#@cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
-#@arch-chroot /mnt /bin/sh << EOF
-#@echo "LANG=en_AU.UTF-8" > /etc/locale.conf
-#@EOF
-#@arch-chroot /mnt /bin/sh << EOF
-#@export LANG=en_AU.UTF-8
-#@EOF
-#@arch-chroot /mnt /bin/sh << EOF
-#@rm /etc/localtime
-#@EOF
-#@arch-chroot /mnt /bin/sh << EOF
-#@ln -s /usr/share/zoneinfo/Australia/Adelaide /etc/localtime
-#@EOF
-#@arch-chroot /mnt /bin/sh << EOF
-#@hwclock --systohc --utc
-#@EOF
 
 #################### Section 26.0 (Install Sudo and Setup Root Level Password) ####################
 
@@ -356,7 +360,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #################### Section 39.0 (Install GNOME Desktop and Configuration for Boot) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
-#@printf '\n\n\n' |  pacman -S gnome
+#@printf '\n\n\n' |  pacman -S gnome gnome-extra
 #@EOF
 #@arch-chroot /mnt /bin/sh << EOF
 #@systemctl start gdm.service
