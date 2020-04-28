@@ -290,7 +290,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #################### Section 30.0 (Download GRUB Bootloader Software Packages) ####################
 
 #@arch-chroot /mnt /bin/sh << EOF
-#@printf '\n\n\n' |pacman -S grub efibootmgr dosfstools os-prober mtools
+#@printf '\n\n\n' | pacman -S grub efibootmgr dosfstools os-prober mtools
 #@EOF
 
 #################### Section 31.0 (Configure Encryption GRUB Boot) ####################
