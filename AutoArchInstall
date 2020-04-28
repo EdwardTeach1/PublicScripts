@@ -62,14 +62,14 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@sed -i '/## Generated on/a Server = https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist
 #@sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
 
-#################### Section 4.0 (Install Expect Shell) ####################
-
-#@printf '\n' | pacman -Syy expect
-#@sleep 2s
-
 #################### Section 5.0 (Download Latest Arch Linux Packages) ####################
 
 #@pacman -Syyy
+#@sleep 2s
+
+#################### Section 4.0 (Install Expect Shell) ####################
+
+#@printf '\n\n\n' | pacman -Syy expect
 #@sleep 2s
 
 #################### Section 6.0 (Setup HDD Partitions for Installation) ####################
@@ -118,44 +118,44 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 
 #################### Section 10.0 (Open LUKS Container) ####################
 
-#@printf '%s\n' "$LUKSPASSPHRASE" | cryptsetup open --type luks /dev/sda3 LVM
+#@printf '%s\n' "$LUKSPASSPHRASE" | cryptsetup open --type luks /dev/sda3 lvm
 #@sleep 5s
 
 #################### Section 11.0 (Setup Physical Volume) ####################
 
-#@pvcreate --dataalignment 1m /dev/mapper/LVM
+#@pvcreate --dataalignment 1m /dev/mapper/lvm
 #@sleep 2s
 
 #################### Section 12.0 (Setup Virtual Volume Group) ####################
 
-#@vgcreate volgroup0 /dev/mapper/LVM
+#@vgcreate volgroup0 /dev/mapper/lvm
 #@sleep 2s
 
 #################### Section 13.0 (Setup Live Volumes for LUKS Encrypted Drive) ####################
 
-#@lvcreate -L 50GB volgroup0 -n LVM_root
+#@lvcreate -L 50GB volgroup0 -n lv_root
 #@sleep 2s
-#@## lvcreate -L 350GB volgroup0 -n LVM_home
-#@lvcreate -l 100%FREE volgroup0 -n LVM_home
+#@## lvcreate -L 350GB volgroup0 -n lv_home
+#@lvcreate -l 100%FREE volgroup0 -n lv_home
 #@sleep 2s
 #@sleep 5s
 
 #################### Section 14.0 (Create Root Filesystem for LUKS encrypted drive) ####################
 
-#@mkfs.ext4 /dev/volgroup0/LVM_root
+#@mkfs.ext4 /dev/volgroup0/lv_root
 #@sleep 2s
 
 #################### Section 15.0 (Create Home Filesystem for LUKS encrypted drive) ####################
 
-#@mkfs.ext4 /dev/volgroup0/LVM_home
+#@mkfs.ext4 /dev/volgroup0/lv_home
 #@sleep 2s
 
 #################### Section 16.0 (Mount Home and Boot Volumes) ####################
 
-#@mount /dev/volgroup0/LVM_root /mnt
+#@mount /dev/volgroup0/lv_root /mnt
 #@sleep 2s
 #@mkdir /mnt/home
-#@mount /dev/volgroup0/LVM_home /mnt/home
+#@mount /dev/volgroup0/lv_home /mnt/home
 #@sleep 2s
 #@mkdir /mnt/boot
 #@mount /dev/sda2 /mnt/boot
