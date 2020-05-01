@@ -302,7 +302,7 @@ echo
 
 #################### Section 26.0 (Enable Encryption and LVM2 functionality to CHROOT) ####################
 
-#@arch-chroot /mnt sed -i "s/block/block encrypt lvm2" /etc/mkinitcpio.conf
+#@arch-chroot /mnt sed -i "s/block/block encrypt lvm2/" /etc/mkinitcpio.conf
 #@echo " "
 #@echo " "
 #@echo " "
