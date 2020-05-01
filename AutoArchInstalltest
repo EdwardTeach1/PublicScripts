@@ -302,7 +302,7 @@ echo
 
 #################### Section 26.0 (Enable Encryption and LVM2 functionality to CHROOT) ####################
 
-#@arch-chroot /mnt sed -i '/HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/{s/block/block encrypt lvm2}' /etc/mkinitcpio.conf
+#@arch-chroot /mnt sed -i "s/block/block encrypt lvm2" /etc/mkinitcpio.conf
 #@echo " "
 #@echo " "
 #@echo " "
@@ -316,18 +316,6 @@ echo
 
 #################### Section 27.0 (Configure Language and Locale Settings) ####################
 
-#@arch-chroot /mnt ln -s /usr/share/zoneinfo/Australia/Adelaide /etc/localtime
-#@echo " "
-#@echo " "
-#@echo " "
-#@sleep 2s
-
-#@arch-chroot /mnt hwclock --systohc --utc
-#@echo " "
-#@echo " "
-#@echo " "
-#@sleep 2s
-
 #@arch-chroot /mnt sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen
 #@echo " "
 #@echo " "
@@ -340,7 +328,7 @@ echo
 #@echo " "
 #@sleep 2s
 
-#@arch-chroot /mnt echo "LANG=en_AU.UTF-8" > /etc/locale.conf
+#@echo "LANG=en_AU.UTF-8" > /mnt/etc/locale.conf
 #@echo " "
 #@echo " "
 #@echo " "
@@ -354,7 +342,7 @@ echo
 
 #################### Section 28.0 (Configure Hostname) ####################
 
-#@arch-chroot /mnt echo "$HOSTNAME" > /etc/hostname
+#@echo "$HOSTNAME" > /mnt/etc/hostname
 #@echo " "
 #@echo " "
 #@echo " "
@@ -362,19 +350,19 @@ echo
 
 #################### Section 29.0 (Configure Hosts File) ####################
 
-#@arch-chroot /mnt echo "127.0.0.1  localhost" > /etc/hosts
+#@echo "127.0.0.1  localhost" >> /mnt/etc/hosts
 #@echo " "
 #@echo " "
 #@echo " "
 #@sleep 2s
 
-#@arch-chroot /mnt echo "::1  localhost" >> /etc/hosts
+#@echo "::1  localhost" >> /mnt/etc/hosts
 #@echo " "
 #@echo " "
 #@echo " "
 #@sleep 2s
 
-#@arch-chroot /mnt echo "127.0.1.1  $HOSTNAME.localdomain $HOSTNAME" >> /etc/hosts
+#@echo "127.0.1.1  $HOSTNAME.localdomain $HOSTNAME" >> /mnt/etc/hosts
 #@echo " "
 #@echo " "
 #@echo " "
@@ -388,7 +376,7 @@ echo
 #@echo " "
 #@sleep 2s
 
-#@ #printf "$ROOTPASSWORD\n$ROOTPASSWORD" | arch-chroot /mnt passwd
+#@printf "$ROOTPASSWORD\n$ROOTPASSWORD" | arch-chroot /mnt passwd
 #@echo " "
 #@echo " "
 #@echo " "
@@ -510,7 +498,7 @@ echo
 
 #################### Section 39.0 (Setup Swapfile Boot Configuration) ####################
 
-#@arch-chroot /mnt echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
+#@echo '/swapfile none swap sw 0 0' >> /mnt/etc/fstab
 #@echo " "
 #@echo " "
 #@echo " "
