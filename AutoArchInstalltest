@@ -530,7 +530,7 @@ echo
 
 #################### Section 43.0 (Install GNOME Desktop and Configuration for Boot) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S gnome gnome-extra
+#@printf '\n\n\n\n\n\n\n\n' | arch-chroot /mnt pacman -S gnome gnome-extra
 #@echo " "
 #@echo " "
 #@echo " "
