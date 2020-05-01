@@ -37,11 +37,14 @@ echo
 #################### Section 1.0 (Collection of data) ####################
 
 #@read -p "Create an Arch Linux Root Password: " ROOTPASSWORD
-#@
-#@
-#@
-read -p "Hostname of the System?: " HOSTNAME
-read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
+
+#@read -p "Create a User?: " USERNAME
+
+#@read -p "$USERNAME Password?: " USERPASSWORD
+
+#@read -p "Hostname of the System?: " HOSTNAME
+
+#@read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 
 ##read -p "WARNING: This script will wipe all data from the Harddrive /dev/sda. Are you sure you want to continue? Y or N? " InstallStart
 ##if      [ "${InstallStart,,}" = "yes" ] || [ "${InstallStart,,}" = "y" ]
@@ -249,7 +252,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 
 #################### Section 31.0 (Setup Users and Groups) ####################
 
-#@arch-chroot /mnt useradd -m -g users -G wheel jay
+#@arch-chroot /mnt useradd -m -g users -G wheel $USERNAME
 
 #@printf "$USERPASSWORD\n$USERPASSWORD" | arch-chroot /mnt passwd $USERNAME
 
