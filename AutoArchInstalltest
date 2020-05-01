@@ -191,7 +191,7 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S base-devel openssh
 
-#@systemctl enable sshd
+#@arch-chroot /mnt systemctl enable sshd
 
 #################### Section 23.0 (Install Networking Utility Packages to CHROOT) ####################
 
@@ -221,6 +221,8 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 
 #@arch-chroot /mnt hwclock --systohc --utc
 
+#@arch-chroot /mnt sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen
+
 #@arch-chroot /mnt locale-gen
 
 #@arch-chroot /mnt echo "LANG=en_AU.UTF-8" > /etc/locale.conf
@@ -247,7 +249,13 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 
 #################### Section 31.0 (Setup Users and Groups) ####################
 
+#@arch-chroot /mnt useradd -m -g users -G wheel jay
 
+#@printf "$USERPASSWORD\n$USERPASSWORD" | arch-chroot /mnt passwd $USERNAME
+
+#################### Section 31.0 (Enable Wheel Group) ####################
+
+#@arch-chroot /mnt sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers.tmp
 
 #################### Section 32.0 (Download GRUB Bootloader Software Packages) ####################
 
@@ -312,6 +320,10 @@ read -p "Create an Arch Linux System LUKS Passphrase: " LUKSPASSPHRASE
 #@arch-chroot /mnt systemctl start gdm.service
 
 #@arch-chroot /mnt systemctl enable gdm.service
+
+#################### Section 44.0 (Unmount All prior to reboot) ####################
+
+#@umount -a
 
 #################### Section 44.0 (Power Off and Remove USB) ####################
 
