@@ -435,7 +435,7 @@ sleep 2s
 
 #################### Section 28.0 (Configure Hostname) ####################
 
-echo "$HOSTNAME" > /mnt/etc/hostname
+echo "$CLASSIFICATION$HOSTNAME" > /mnt/etc/hostname
 echo " "
 echo " "
 echo " "
@@ -455,7 +455,7 @@ echo " "
 echo " "
 sleep 2s
 
-echo "127.0.1.1  $HOSTNAME.localdomain $HOSTNAME" >> /mnt/etc/hosts
+echo "127.0.1.1  $CLASSIFICATION$HOSTNAME.localdomain $CLASSIFICATION$HOSTNAME" >> /mnt/etc/hosts
 echo " "
 echo " "
 echo " "
@@ -648,10 +648,11 @@ echo " "
 echo " "
 echo " "
 sleep 2s
+clear
 
 #################### Section 44.0 (Power Off and Remove USB) ####################
 
- #echo "Shutting System Down. Once System has Powered off, remove USB thumbdrive and then Power ON !!!"
- # press any key to continue funtion
+echo "Installation Complete. Poweroff the System. Unplug the bootable USB and set boot device EFI / GRUB in bios"
+### press any key to Shut Down.
 
 ######################################## END OF SCRIPT ########################################
