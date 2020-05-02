@@ -32,28 +32,28 @@ else	STARTSTATUS="READY TO INSTALL"
 fi
 clear
  echo "
-                                 .--'   ..............             '.............'             '..............     ....''    
-                              '+dmMMd  'hdmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   :dm:.:yh    
-                             +ms.hMMd  'hmmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmdmmmmmmmmmms   :mMmhs+/    
-                            hMhoomMMmo/'hmmdmmmmmmmmmy             .dmmdmmmmmmmmmo             .dmdmmmdddmmmms   o-'-/sNM:   
-                            ''''/dNNm:''hmmmhyyyyyyyys.............-yyhdddmmmdmdh+.............-yhhhhhhdddmmms   syo//+h+'   
-                                 ````  'hmmd+//////////////////////////hmmmmmmdd+/////////////////////odddmmms               
+                                .--'    ..............             '.............'             '..............     ....''    
+                             '+dmMMd   'hdmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   :dm:.:yh    
+                            +ms.hMMd   'hmmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmdmmmmmmmmmms   :mMmhs+/    
+                           hMhoomMMmo/ 'hmmdmmmmmmmmmy             .dmmdmmmmmmmmmo             .dmdmmmdddmmmms   o-'-/sNM:   
+                           ''''/dNNm:' 'hmmmhyyyyyyyys.............-yyhdddmmmdmdh+.............-yhhhhhhdddmmms   syo//+h+'   
+                                ````   'hmmd+//////////////////////////hmmmmmmdd+/////////////////////odddmmms               
                                        'hmmd+//////////////////////////hddmmmmdy//////////////////////odddmmms               
                                        'hmmd+//////yhy''''.://////////odmmmmmmd+//////:........-yyyyyyhdddmmms               
-                               '-/++/' 'hmmd+//////dmy  '-//////////+yddmmmmmds///////.        .dmdmmdddmmmmms               
-                            '+dNd/.    'hmmd+//////dmy'.//////////::ddmmmmmmdh///////:--::::::::syhdmmmmmmmmms   .+o//+o/'   
-                            hMMMoshmho''hmmdyyyyyyyddy://///////:. .dmdmmmdmdo/////////////////////+ohddmmmmms  oNN-   +MN:  
-                            hMMy   NMM+'hmmdmmmmmmdh+/////////:.   .dmdmmmdmy///////::-.....-:////////+hmmmmms 'mMN    -MMs  
-                            '+ydsoydy/ 'hmmmmmdmdho/////////:.     .ddddmdmmdddhh+.'          ':////////hmmmms  -hN+''.hNs'  
+                              '-/++/'  'hmmd+//////dmy  '-//////////+yddmmmmmds///////.        .dmdmmdddmmmmms               
+                           '+dNd/.     'hmmd+//////dmy'.//////////::ddmmmmmmdh///////:--::::::::syhdmmmmmmmmms   .+o//+o/'   
+                           hMMMoshmho' 'hmmdyyyyyyyddy://///////:. .dmdmmmdmdo/////////////////////+ohddmmmmms  oNN-   +MN:  
+                           hMMy   NMM+ 'hmmdmmmmmmdh+/////////:.   .dmdmmmdmy///////::-.....-:////////+hmmmmms 'mMN    -MMs  
+                           '+ydsoydy/  'hmmmmmdmdho/////////:.     .ddddmdmmdddhh+.'          ':////////hmmmms  -hN+''.hNs'  
                                        'hmdmddmds/////////:.'  ':://+++dmdmmmmmmdo             '////////smmmms    ':+mNh.'   
                                        'hmdmdds/////////:-'    '///////dmmddhhhhh+..           .////////ydmmms       ./+/:'  
                                        'hmddy+/////////-'''''''.///////hmmdh////////-'        .:///////odmmmms               
                                        'hmdo///////////////////////////hdmmdh+////////:--..--:///////+ydmmmmms               
-                             ./+ooo+-' 'hmdo///////////////////////////hddmmmdyo+//////////////////oydmmmmmmms '...'   ....' 
-                            oNM+''dMMh 'hmdsooooooooo+::::::::::::::ooohmdmmmddmdo.---:::::::---yddmmdmmmmmmms ':mNNo. -yy-' 
-                            '-:./hMNs. 'hmdmmmdddddddy             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   h:oNNo.+o   
-                            '/yNNy/'.:''hmmmmmmmmmmmmy             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   h- 'oNNdo   
-                            shhhyyyyhy''oyyyyyyyyyyyyo             .syyyyyyyyyyyy/             'syyyyyyyyyyyy+ .:yo-  '+h/ 
+                            ./+ooo+-'  'hmdo///////////////////////////hddmmmdyo+//////////////////oydmmmmmmms '...'   ....' 
+                           oNM+''dMMh  'hmdsooooooooo+::::::::::::::ooohmdmmmddmdo.---:::::::---yddmmdmmmmmmms ':mNNo. -yy-' 
+                           '-:./hMNs.  'hmdmmmdddddddy             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   h:oNNo.+o   
+                           '/yNNy/'.:' 'hmmmmmmmmmmmmy             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   h- 'oNNdo   
+                           shhhyyyyhy' 'oyyyyyyyyyyyyo             .syyyyyyyyyyyy/             'syyyyyyyyyyyy+ .:yo-  '+h/ 
 "
 echo " "
 sleep 2s
@@ -149,7 +149,7 @@ done
 
 dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
 echo " "
-echo "Harddrvie partitions have been deleted successfully "
+echo "Harddrive partitions have been deleted successfully "
 echo " "
 sleep 2s
 
@@ -173,7 +173,6 @@ echo "Latest Arch Linux Packages have been downloaded successfully "
 echo " "
 sleep 2s
 
-
 #################### Section 5.0 (Install Expect Shell) ####################
 
 printf '\n\n\n' | pacman -Syy expect
@@ -184,6 +183,9 @@ sleep 2s
 
 #################### Section 6.0 (Setup HDD Partitions for Installation) ####################
 
+### First Classification Option
+#if	[ $CLASSIFICATION -eq CLASS1 ]
+#then
 echo "label: gpt" > partition-table
 echo "device: /dev/sda" >> partition-table
 echo "unit: sectors" >> partition-table
@@ -200,6 +202,44 @@ echo " "
 echo "Partitions have been setup successfully "
 echo " "
 sleep 2s
+### Second Classification Option
+#elif	[ $CLASSIFICATION -eq CLASS2 ]
+#then
+#echo "label: gpt" > partition-table
+#echo "device: /dev/sda" >> partition-table
+#echo "unit: sectors" >> partition-table
+#echo "first-lba: 2048" >> partition-table
+#echo "last-lba: 1000215182" >> partition-table
+#echo " " >> partition-table
+#echo "/dev/sda1 : start=           2048, size=   2097152, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B"   >> partition-table
+#echo "/dev/sda2 : start=        2099200, size=   8388608, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"   >> partition-table
+#echo "/dev/sda3 : start=       10487808, size=   989727375, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
+#sleep 2s
+#sfdisk /dev/sda < partition-table
+#rm partition-table
+#echo " "
+#echo "Partitions have been setup successfully "
+#echo " "
+#sleep 2s
+### Third Classification Option
+#else
+#echo "label: gpt" > partition-table
+#echo "device: /dev/sda" >> partition-table
+#echo "unit: sectors" >> partition-table
+#echo "first-lba: 2048" >> partition-table
+#echo "last-lba: 1000215182" >> partition-table
+#echo " " >> partition-table
+#echo "/dev/sda1 : start=           2048, size=   2097152, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B"   >> partition-table
+#echo "/dev/sda2 : start=        2099200, size=   8388608, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"   >> partition-table
+#echo "/dev/sda3 : start=       10487808, size=   989727375, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
+#sleep 2s
+#sfdisk /dev/sda < partition-table
+#rm partition-table
+#echo " "
+#echo "Partitions have been setup successfully "
+#echo " "
+#sleep 2s
+#fi
 
 #################### Section 7.0 (Format SDA1 EFI Boot Partition) ####################
 
@@ -503,7 +543,7 @@ echo "Administrator Account Password has been set successfully "
 echo " "
 sleep 2s
 
-#################### Section 31.0 (Enable Wheel Group) ####################
+#################### Section 32.0 (Enable Wheel Group) ####################
 
 sudo sed -i 's/^#\s*\(%wheel\s\+ALL=(ALL)\s\+ALL\)/\1/' /etc/sudoers
 echo " "
@@ -511,7 +551,7 @@ echo "Sudo Wheel Group Sudo rights have been enabled successfully "
 echo " "
 sleep 2s
 
-#################### Section 32.0 (Download GRUB Bootloader Software Packages) ####################
+#################### Section 33.0 (Download GRUB Bootloader Software Packages) ####################
 
 printf '\n\n\n' | arch-chroot /mnt pacman -S grub efibootmgr dosfstools os-prober mtools
 echo " "
@@ -519,7 +559,7 @@ echo "GRUB Bootloader Software packages have been downloaded and installed succe
 echo " "
 sleep 2s
 
-#################### Section 33.0 (Configure Encryption GRUB Boot) ####################
+#################### Section 34.0 (Configure Encryption GRUB Boot) ####################
 
 arch-chroot /mnt sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
 arch-chroot /mnt sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 cryptdevice=\/dev\/sda3:volgroup0:allow-discards quiet\"/" /etc/default/grub
@@ -528,7 +568,7 @@ echo "Grub Boot Settings have been configured successfully "
 echo " "
 sleep 2s
 
-#################### Section 34.0 (Setup and Enable EFI Booting) ####################
+#################### Section 35.0 (Setup and Enable EFI Booting) ####################
 
 arch-chroot /mnt mkdir /boot/EFI
 echo " "
@@ -542,7 +582,7 @@ echo "EFI boot partition has been mounted successfully "
 echo " "
 sleep 2s
 
-#################### Section 35.0 (Install GRUB Bootloader) ####################
+#################### Section 36.0 (Install GRUB Bootloader) ####################
 
 arch-chroot /mnt grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 echo " "
@@ -550,7 +590,7 @@ echo "Grub boot loader has been installed ready for bootup successfully "
 echo " "
 sleep 2s
 
-#################### Section 36.0 (Setup and Enable Location Settings for Boot) ####################
+#################### Section 37.0 (Setup and Enable Location Settings for Boot) ####################
 
 arch-chroot /mnt mkdir /boot/grub/locale
 echo " "
@@ -570,7 +610,7 @@ echo "Grub configuration file has been generated successfully "
 echo " "
 sleep 2s
 
-#################### Section 37.0 (Create and Setup Swapfile) ####################
+#################### Section 38.0 (Create and Setup Swapfile) ####################
 
 arch-chroot /mnt fallocate -l 4G /swapfile
 echo " "
@@ -590,7 +630,7 @@ echo "Swapfile has been enabled successfully "
 echo " "
 sleep 2s
 
-#################### Section 38.0 (Backup FSTAB file) ####################
+#################### Section 39.0 (Backup FSTAB file) ####################
 
 arch-chroot /mnt cp /etc/fstab /etc/fstab.bak
 echo " "
@@ -598,7 +638,7 @@ echo "fstab backup file has been created successfully "
 echo " "
 sleep 2s
 
-#################### Section 39.0 (Setup Swapfile Boot Configuration) ####################
+#################### Section 40.0 (Setup Swapfile Boot Configuration) ####################
 
 echo '/swapfile none swap sw 0 0' >> /mnt/etc/fstab
 echo " "
@@ -606,7 +646,7 @@ echo "swapfile settings have been enabled in fstab successfully "
 echo " "
 sleep 2s
 
-#################### Section 40.0 (Install Intel Software Packages) ####################
+#################### Section 41.0 (Install Intel Software Packages) ####################
 
 printf '\n\n\n' | arch-chroot /mnt pacman -S intel-ucode
 echo " "
@@ -614,7 +654,7 @@ echo "Intel Software has been downloaded and installed successfully "
 echo " "
 sleep 2s
 
-#################### Section 41.0 (Install GUI Base Software) ####################
+#################### Section 42.0 (Install GUI Base Software) ####################
 
 printf '\n\n\n' |  arch-chroot /mnt pacman -S xorg xorg-server
 echo " "
@@ -622,7 +662,7 @@ echo "GUI Software has been downloaded and installed successfully "
 echo " "
 sleep 2s
 
-#################### Section 42.0 (Install MESA Package) ####################
+#################### Section 43.0 (Install MESA Package) ####################
 
 printf '\n\n\n' |  arch-chroot /mnt pacman -S mesa
 echo " "
@@ -630,7 +670,7 @@ echo "mesa software has been downloaded and installed successfully "
 echo " "
 sleep 2s
 
-#################### Section 43.0 (Install GNOME Desktop and Configuration for Boot) ####################
+#################### Section 44.0 (Install GNOME Desktop and Configuration for Boot) ####################
 
 printf '\n\n\n\n\n\n\n\n' | arch-chroot /mnt pacman -S gnome gnome-extra
 echo " "
@@ -650,7 +690,7 @@ echo "GNOME GUI Service has been enabled successfully "
 echo " "
 sleep 2s
 
-#################### Section 44.0 (Unmount All prior to reboot) ####################
+#################### Section 45.0 (Unmount All prior to reboot) ####################
 
 umount -a
 echo " "
@@ -659,7 +699,7 @@ echo " "
 sleep 2s
 clear
 
-#################### Section 44.0 (Power Off and Remove USB) ####################
+#################### Section 46.0 (Power Off and Remove USB) ####################
 
 echo "Installation Complete. Poweroff the System. Unplug the bootable USB and set boot device EFI / GRUB in bios"
 ### press any key to Shut Down.
