@@ -149,7 +149,7 @@ done
 
 dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
 echo " "
-echo " "
+echo "Harddrvie partitions have been deleted successfully "
 echo " "
 sleep 2s
 
@@ -160,12 +160,16 @@ sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sed -i '/## Australia/{
 sed -i '/## Generated on/a Server = https://mirror.aarnet.edu.au/pub/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
 sed -i '/## Generated on/a Server = https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist
 sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
+echo " "
+echo "Repository settings have been localised successfully "
+echo " "
+sleep 2s
 
 #################### Section 4.0 (Download Latest Arch Linux Packages) ####################
 
 pacman -Syyy
 echo " "
-echo " "
+echo "Latest Arch Linux Packages have been downloaded successfully "
 echo " "
 sleep 2s
 
@@ -174,7 +178,7 @@ sleep 2s
 
 printf '\n\n\n' | pacman -Syy expect
 echo " "
-echo " "
+echo "Expect Shell has been installed successfully "
 echo " "
 sleep 2s
 
@@ -193,23 +197,23 @@ sleep 2s
 sfdisk /dev/sda < partition-table
 rm partition-table
 echo " "
-echo " "
+echo "Partitions have been setup successfully "
 echo " "
 sleep 2s
 
-#################### Section 7.0 (Format SDA1 Boot Partition) ####################
+#################### Section 7.0 (Format SDA1 EFI Boot Partition) ####################
 
 mkfs.fat -F32 /dev/sda1
 echo " "
-echo " "
+echo "EFI Boot Partition has been formatted to Fat32 successfully "
 echo " "
 sleep 2s
 
-#################### Section 8.0 (Format SDA2 Swap Partition) ####################
+#################### Section 8.0 (Format SDA2 Boot Partition) ####################
 
 printf 'y\n' | mkfs.ext4 /dev/sda2
 echo " "
-echo " "
+echo "Linux Boot Partition has been formatted to Ext4 successfully "
 echo " "
 sleep 2s
 
@@ -230,7 +234,7 @@ expect expectfile
 sleep 5s
 rm expectfile
 echo " "
-echo " "
+echo "LUKS Encrypted Container has been setup successfully "
 echo " "
 sleep 2s
 
@@ -238,7 +242,7 @@ sleep 2s
 
 printf '%s\n' "$LUKSPASSPHRASE" | cryptsetup open --type luks /dev/sda3 lvm
 echo " "
-echo " "
+echo "LUKS Container has been opened with the provided passphrase successfully "
 echo " "
 sleep 2s
 
@@ -246,7 +250,7 @@ sleep 2s
 
 pvcreate --dataalignment 1m /dev/mapper/lvm
 echo " "
-echo " "
+echo "LUKS Physical volume has been setup successfully "
 echo " "
 sleep 2s
 
@@ -254,18 +258,21 @@ sleep 2s
 
 vgcreate volgroup0 /dev/mapper/lvm
 echo " "
-echo " "
+echo "LVM Volume Group has been setup successfully "
 echo " "
 sleep 2s
 
 #################### Section 13.0 (Setup Live Volumes for LUKS Encrypted Drive) ####################
 
 lvcreate -L 50GB volgroup0 -n lv_root
+echo " "
+echo "LVM Root Volume has been setup successfully "
+echo " "
 sleep 2s
-## lvcreate -L 350GB volgroup0 -n lv_home
+###lvcreate -L 350GB volgroup0 -n lv_home
 lvcreate -l 100%FREE volgroup0 -n lv_home
 echo " "
-echo " "
+echo "LVM Home Volume has been setup successfully "
 echo " "
 sleep 2s
 
@@ -273,7 +280,7 @@ sleep 2s
 
 mkfs.ext4 /dev/volgroup0/lv_root
 echo " "
-echo " "
+echo "LVM Root Volume has been formatted to Ext4 successfully "
 echo " "
 sleep 2s
 
@@ -281,23 +288,40 @@ sleep 2s
 
 mkfs.ext4 /dev/volgroup0/lv_home
 echo " "
-echo " "
+echo "LVM Home Volume has been formatted to Ext4 successfully "
 echo " "
 sleep 2s
 
 #################### Section 16.0 (Mount Home and Boot Volumes) ####################
 
 mount /dev/volgroup0/lv_root /mnt
+echo " "
+echo "LVM Root Volume mounted to /mnt successfully "
+echo " "
 sleep 2s
 mkdir /mnt/home
+echo " "
+echo "Home Directory created successfully "
+echo " "
+sleep 2s
 mount /dev/volgroup0/lv_home /mnt/home
+echo " "
+echo "LVM Home Volume mounted to /mnt successfully "
+echo " "
 sleep 2s
 mkdir /mnt/boot
+echo " "
+echo "Boot Directory created successfully "
+echo " "
+sleep 2s
 mount /dev/sda2 /mnt/boot
+echo " "
+echo "Linux Boot Partition mounted to /mnt/boot successfully "
+echo " "
 sleep 2s
 mkdir /mnt/etc
 echo " "
-echo " "
+echo "/mnt/etc Directory created successfully "
 echo " "
 sleep 2s
 
@@ -305,7 +329,7 @@ sleep 2s
 
 genfstab -U -p /mnt >> /mnt/etc/fstab
 echo " "
-echo " "
+echo "fstab file has been generated successfully "
 echo " "
 sleep 2s
 
@@ -313,25 +337,25 @@ sleep 2s
 
 printf '\n\n\n' | pacstrap -i /mnt base
 echo " "
-echo " "
+echo "Base Arch Linux System has been downloaded into the bootup location successfully "
 echo " "
 sleep 2s
 
 #################### Section 19.0 (Install Linux LTS Version to CHROOT) ####################
 
-###note need to install firmware (aic94xx;wd719x)
-
 printf '\n\n\n' | arch-chroot /mnt pacman -S linux-lts linux-lts-headers
 echo " "
-echo " "
+echo "Linux LTS and Headers have been downloaded and installed into the bootup location successfully "
 echo " "
 sleep 2s
 
 #################### Section 20.0 (Install Linux Firmware to CHROOT) ####################
 
+###note need to install firmware (aic94xx;wd719x) most likely from Arch Linux AUR
+
 printf '\n\n\n' | arch-chroot /mnt pacman -S linux-firmware
 echo " "
-echo " "
+echo "Linux Firmware files have been downloaded and installed successfully "
 echo " "
 sleep 2s
 
@@ -339,7 +363,7 @@ sleep 2s
 
 printf '\n\n\n' | arch-chroot /mnt pacman -S nano vim
 echo " "
-echo " "
+echo "Text Editor Software has been downloaded and installed successfully "
 echo " "
 sleep 2s
 
@@ -347,13 +371,13 @@ sleep 2s
 
 printf '\n\n\n' | arch-chroot /mnt pacman -S base-devel openssh
 echo " "
-echo " "
+echo "Linux Base Devel and OpenSSH has been downloaded and installed successfully "
 echo " "
 sleep 2s
 
 arch-chroot /mnt systemctl enable sshd
 echo " "
-echo " "
+echo "SSH has been enabled successfully "
 echo " "
 sleep 2s
 
@@ -361,19 +385,19 @@ sleep 2s
 
 printf '\n\n\n' | arch-chroot /mnt pacman -S networkmanager wpa_supplicant wireless_tools netctl
 echo " "
-echo " "
+echo "NetworkManager, WPA_Supplicant, Wireless_Tools and Netctl Software Packages have been downloaded and installed successfully "
 echo " "
 sleep 2s
 
 arch-chroot /mnt systemctl enable NetworkManager
 echo " "
-echo " "
+echo "Network Manager has been enabled successfully "
 echo " "
 sleep 2s
 
 arch-chroot /mnt systemctl enable dhcpcd
 echo " "
-echo " "
+echo "DHCP Service has been enabled successfully "
 echo " "
 sleep 2s
 
@@ -381,7 +405,7 @@ sleep 2s
 
 printf '\n\n\n' | arch-chroot /mnt pacman -S dialog
 echo " "
-echo " "
+echo "Dialog has been downloaded and installed successfully "
 echo " "
 sleep 2s
 
@@ -389,7 +413,7 @@ sleep 2s
 
 printf '\n\n\n' | arch-chroot /mnt pacman -S lvm2
 echo " "
-echo " "
+echo "LVM2 Software has been downloaded and installed successfully "
 echo " "
 sleep 2s
 
@@ -397,13 +421,13 @@ sleep 2s
 
 arch-chroot /mnt sed -i "s/block/block encrypt lvm2/" /etc/mkinitcpio.conf
 echo " "
-echo " "
+echo "LVM Encryption has been configured ready for first bootup successfully "
 echo " "
 sleep 2s
 
 arch-chroot /mnt mkinitcpio -p linux-lts
 echo " "
-echo " "
+echo "Linux LTS System has been initilaized successfully "
 echo " "
 sleep 2s
 
@@ -411,25 +435,25 @@ sleep 2s
 
 arch-chroot /mnt sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen
 echo " "
-echo " "
+echo "Australian Location Settings have been enabled successfully "
 echo " "
 sleep 2s
 
 arch-chroot /mnt locale-gen
 echo " "
-echo " "
+echo "Location configuration has been generated successfully "
 echo " "
 sleep 2s
 
 echo "LANG=en_AU.UTF-8" > /mnt/etc/locale.conf
 echo " "
-echo " "
+echo "Australian English Language settings have been configured successfully "
 echo " "
 sleep 2s
 
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 echo " "
-echo " "
+echo "Mirrolist file has been configured ready for first bootup successfully "
 echo " "
 sleep 2s
 
@@ -437,27 +461,17 @@ sleep 2s
 
 echo "$CLASSIFICATION$HOSTNAME" > /mnt/etc/hostname
 echo " "
-echo " "
+echo "Hostname has been configured successfully "
 echo " "
 sleep 2s
 
 #################### Section 29.0 (Configure Hosts File) ####################
 
 echo "127.0.0.1  localhost" >> /mnt/etc/hosts
-echo " "
-echo " "
-echo " "
-sleep 2s
-
 echo "::1  localhost" >> /mnt/etc/hosts
-echo " "
-echo " "
-echo " "
-sleep 2s
-
 echo "127.0.1.1  $CLASSIFICATION$HOSTNAME.localdomain $CLASSIFICATION$HOSTNAME" >> /mnt/etc/hosts
 echo " "
-echo " "
+echo "Host file has been configured successfully "
 echo " "
 sleep 2s
 
@@ -465,13 +479,13 @@ sleep 2s
 
 printf '\n\n\n' | arch-chroot /mnt pacman -S sudo
 echo " "
-echo " "
+echo "Sudo Software package has been downloaded and installed successfully "
 echo " "
 sleep 2s
 
 printf "$ROOTPASSWORD\n$ROOTPASSWORD" | arch-chroot /mnt passwd
 echo " "
-echo " "
+echo "Root User Password has been set successfully "
 echo " "
 sleep 2s
 
@@ -479,13 +493,13 @@ sleep 2s
 
 arch-chroot /mnt useradd -m -g users -G wheel $A_USERNAME_1
 echo " "
-echo " "
+echo "Administrator Account has been created successfully "
 echo " "
 sleep 2s
 
 printf "$A_USERPASSWORD_1\n$A_USERPASSWORD_1" | arch-chroot /mnt passwd $A_USERNAME_1
 echo " "
-echo " "
+echo "Administrator Account Password has been set successfully "
 echo " "
 sleep 2s
 
@@ -493,7 +507,7 @@ sleep 2s
 
 sudo sed -i 's/^#\s*\(%wheel\s\+ALL=(ALL)\s\+ALL\)/\1/' /etc/sudoers
 echo " "
-echo " "
+echo "Sudo Wheel Group Sudo rights have been enabled successfully "
 echo " "
 sleep 2s
 
@@ -501,21 +515,16 @@ sleep 2s
 
 printf '\n\n\n' | arch-chroot /mnt pacman -S grub efibootmgr dosfstools os-prober mtools
 echo " "
-echo " "
+echo "GRUB Bootloader Software packages have been downloaded and installed successfully "
 echo " "
 sleep 2s
 
 #################### Section 33.0 (Configure Encryption GRUB Boot) ####################
 
 arch-chroot /mnt sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
-echo " "
-echo " "
-echo " "
-sleep 2s
-
 arch-chroot /mnt sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 cryptdevice=\/dev\/sda3:volgroup0:allow-discards quiet\"/" /etc/default/grub
 echo " "
-echo " "
+echo "Grub Boot Settings have been configured successfully "
 echo " "
 sleep 2s
 
@@ -523,13 +532,13 @@ sleep 2s
 
 arch-chroot /mnt mkdir /boot/EFI
 echo " "
-echo " "
+echo "EFI bootup directory has been created successfully "
 echo " "
 sleep 2s
 
 arch-chroot /mnt mount /dev/sda1 /boot/EFI
 echo " "
-echo " "
+echo "EFI boot partition has been mounted successfully "
 echo " "
 sleep 2s
 
@@ -537,7 +546,7 @@ sleep 2s
 
 arch-chroot /mnt grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 echo " "
-echo " "
+echo "Grub boot loader has been installed ready for bootup successfully "
 echo " "
 sleep 2s
 
@@ -545,19 +554,19 @@ sleep 2s
 
 arch-chroot /mnt mkdir /boot/grub/locale
 echo " "
-echo " "
+echo "Grub locale file has been created successfully "
 echo " "
 sleep 2s
 
 arch-chroot /mnt cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 echo " "
-echo " "
+echo "Grub English locale settings have been setup successfully "
 echo " "
 sleep 2s
 
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 echo " "
-echo " "
+echo "Grub configuration file has been generated successfully "
 echo " "
 sleep 2s
 
@@ -565,19 +574,19 @@ sleep 2s
 
 arch-chroot /mnt fallocate -l 4G /swapfile
 echo " "
-echo " "
+echo "Harddrive space has been allocated for swapfile successfully "
 echo " "
 sleep 2s
 
 arch-chroot /mnt chmod 600 /swapfile
 echo " "
-echo " "
+echo "Swapfile permissions have been configured successfully "
 echo " "
 sleep 2s
 
 arch-chroot /mnt mkswap /swapfile
 echo " "
-echo " "
+echo "Swapfile has been enabled successfully "
 echo " "
 sleep 2s
 
@@ -585,7 +594,7 @@ sleep 2s
 
 arch-chroot /mnt cp /etc/fstab /etc/fstab.bak
 echo " "
-echo " "
+echo "fstab backup file has been created successfully "
 echo " "
 sleep 2s
 
@@ -593,7 +602,7 @@ sleep 2s
 
 echo '/swapfile none swap sw 0 0' >> /mnt/etc/fstab
 echo " "
-echo " "
+echo "swapfile settings have been enabled in fstab successfully "
 echo " "
 sleep 2s
 
@@ -601,7 +610,7 @@ sleep 2s
 
 printf '\n\n\n' | arch-chroot /mnt pacman -S intel-ucode
 echo " "
-echo " "
+echo "Intel Software has been downloaded and installed successfully "
 echo " "
 sleep 2s
 
@@ -609,7 +618,7 @@ sleep 2s
 
 printf '\n\n\n' |  arch-chroot /mnt pacman -S xorg xorg-server
 echo " "
-echo " "
+echo "GUI Software has been downloaded and installed successfully "
 echo " "
 sleep 2s
 
@@ -617,7 +626,7 @@ sleep 2s
 
 printf '\n\n\n' |  arch-chroot /mnt pacman -S mesa
 echo " "
-echo " "
+echo "mesa software has been downloaded and installed successfully "
 echo " "
 sleep 2s
 
@@ -625,19 +634,19 @@ sleep 2s
 
 printf '\n\n\n\n\n\n\n\n' | arch-chroot /mnt pacman -S gnome gnome-extra
 echo " "
-echo " "
+echo "GNOME GUI has been downloaded and installed successfully "
 echo " "
 sleep 2s
 
 arch-chroot /mnt systemctl start gdm.service
 echo " "
-echo " "
+echo "GNOME GUI Service has been started successfully "
 echo " "
 sleep 2s
 
 arch-chroot /mnt systemctl enable gdm.service
 echo " "
-echo " "
+echo "GNOME GUI Service has been enabled successfully "
 echo " "
 sleep 2s
 
@@ -645,7 +654,7 @@ sleep 2s
 
 umount -a
 echo " "
-echo " "
+echo "Attempted to unmount all drives ready for system shutdown "
 echo " "
 sleep 2s
 clear
