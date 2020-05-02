@@ -1,4 +1,7 @@
 #!/bin/bash
+
+### To lauch the script automatically type this command: sudo curl https://raw.githubusercontent.com/EdwardTeach1/PublicScripts/master/AutoArchInstall | sudo bash
+
 ######################################## START OF SCRIPT ########################################
 
 #################### Section 1.0 (Collection of data) ####################
