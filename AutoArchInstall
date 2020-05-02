@@ -136,10 +136,11 @@ case	$selection in
 				then    echo "Installing Arch Linux !!!" && sleep 2s
 				else    exit && echo "Installation Aborted !!!" && sleep 2s && clear
 			fi
-		&& sleep 2s && START=100
+		sleep 2s && START=100
 		else	echo 'One of the Options is still required !!! ' && sleep 2s
 	   fi ;;
 esac
+done
 
 #################### Section 2.0 (Delete Hard Drive Partitions) ####################
 
