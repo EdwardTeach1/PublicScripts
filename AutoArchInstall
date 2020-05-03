@@ -13,8 +13,8 @@ LUKSPASSPHRASE="1234567890"
 CLASSIFICATION="CLASS1"
 
 ## Setup of Default Variables
-OPTION1STATUS="READY" && OPTION2STATUS="READY" && OPTION3STATUS="READY" && OPTION4STATUS="READY" && OPTION5STATUS="READY"
-OPTION6STATUS="READY" && OPTION7STATUS="READY" && OPTION8STATUS="READY" && OPTION9STATUS="READY" && OPTION10STATUS="READY"
+OPTION1STATUS="  READY  " && OPTION2STATUS="  READY  " && OPTION3STATUS="  READY  " && OPTION4STATUS="  READY  " && OPTION5STATUS="  READY  "
+OPTION6STATUS="  READY  " && OPTION7STATUS="  READY  " && OPTION8STATUS="  READY  " && OPTION9STATUS="  READY  " && OPTION10STATUS="  READY  "
 STARTSTATUS="READY TO INSTALL"
 
 ## Setup of While loop Counters
@@ -27,11 +27,11 @@ while [ $START -lt 100 ]
 do
 START=$((OPTION1COUNTER+OPTION2COUNTER+OPTION3COUNTER+OPTION4COUNTER+OPTION5COUNTER+OPTION6COUNTER))
 if [ $START -lt 6 ]
-then	STARTSTATUS="NOT READY"
+then	STARTSTATUS="   NOT READY    "
 else	STARTSTATUS="READY TO INSTALL"
 fi
 clear
- echo "
+echo "
                                 .--'    ..............             '.............'             '..............     ....''    
                              '+dmMMd   'hdmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   :dm:.:yh    
                             +ms.hMMd   'hmmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmdmmmmmmmmmms   :mMmhs+/    
@@ -56,7 +56,7 @@ clear
                            shhhyyyyhy' 'oyyyyyyyyyyyyo             .syyyyyyyyyyyy/             'syyyyyyyyyyyy+ .:yo-  '+h/ 
 "
 echo " "
-sleep 2s
+
 if [ -z "$HOSTNAME" ]
 then	OPTION1COUNTER=0 && OPTION1STATUS="NOT READY"
 fi
@@ -75,7 +75,7 @@ fi
 if [ -z "$CLASSIFICATION" ]
 then	OPTION6COUNTER=0 && OPTION6STATUS="NOT READY"
 fi
-echo	"Welcome to the 462SQN Arch Installation Script"
+echo	'						    Welcome to the 462SQN Arch Installation Script.'
 echo	" "
 echo	"Configure the following options before starting the Installation"
 echo	" "
@@ -85,9 +85,9 @@ echo	" 3 - Configure the Adminstrative Account Password. Default Password = Pass
 echo	" 4 - Set the Root Password. Default = Password1 ------------------------------------------ [ $OPTION4STATUS ] ---------- : $ROOTPASSWORD"
 echo	" 5 - Set PassPhrase for LVM Drive Encryption. Default = 1234567890 ----------------------- [ $OPTION5STATUS ] ---------- : $LUKSPASSPHRASE "
 echo	" 6 - Select the Classification of the system. Default = UNCLASSIFIED --------------------- [ $OPTION6STATUS ] ---------- : $CLASSIFICATION "
-echo	" 9 - START the Installation. Type the number 9 to begin the Installation. ---------------------------------------------------- [ $STARTSTATUS ]"
+echo	" 9 - START the Installation. Type the number 9 to begin the Installation. ----------------------------------------- [ $STARTSTATUS ]"
 echo	" "
-echo	"Select an option and press Enter to continue "
+echo	"Select a number option and press Enter to continue "
 echo	" "
 
 read selection
@@ -97,39 +97,54 @@ case	$selection in
 	1) read -p 'Enter a new Hostname: ' HOSTNAME &&
 	if [ -z "$HOSTNAME" ]
 		then	OPTION1STATUS="NOT_READY"
-			OPTION1COUNTER=0
-		else	OPTION1STATUS="READY"
-			OPTION1COUNTER=1
+			    OPTION1COUNTER=0
+		else	OPTION1STATUS="  READY  "
+		    	OPTION1COUNTER=1
 	fi ;;
 
 	2) read -p 'Enter a Username: ' A_USERNAME_1 &&	
 	if [ -z "$A_USERNAME_1" ]
 		then	OPTION2STATUS="NOT_READY" && OPTION2COUNTER=0
-		else	OPTION2STATUS="READY" && OPTION2COUNTER=1
+		else	OPTION2STATUS="  READY  " && OPTION2COUNTER=1
 	fi ;;
 
 	3) read -p 'Enter a Password: ' A_USERPASSWORD_1 &&
 	if [ -z "$A_USERPASSWORD_1" ]
 		then	OPTION3STATUS="NOT_READY" && OPTION3COUNTER=0
-		else	OPTION3STATUS="READY" && OPTION3COUNTER=1
+		else	OPTION3STATUS="  READY  " && OPTION3COUNTER=1
 	fi ;;
 
 	4) read -p 'Enter a Root Password: ' ROOTPASSWORD &&
 	if [ -z "$ROOTPASSWORD" ]
 		then	OPTION4STATUS="NOT_READY" && OPTION4COUNTER=0
-		else	OPTION4STATUS="READY" && OPTION4COUNTER=1
+		else	OPTION4STATUS="  READY  " && OPTION4COUNTER=1
 	fi ;;
 
 	5) read -p 'Enter a LUKS Drive Encryption PassPhrase: ' LUKSPASSPHRASE &&
 	if [ -z "$LUKSPASSPHRASE" ]
 		then	OPTION5STATUS="NOT_READY" && OPTION5COUNTER=0
-		else	OPTION5STATUS="READY" && OPTION5COUNTER=1
+		else	OPTION5STATUS="  READY  " && OPTION5COUNTER=1
 	fi ;;
 
-	6) read -p 'Select a Classification: ' CLASSIFICATION &&
+	6) CLASSCOUNTER=0
+  while [ $CLASSCOUNTER -eq 0 ]
+  do
+  clear
+  echo	" "
+  echo  "1 - CLASS1"
+  echo  "2 - CLASS2"
+  echo  " "
+  echo	"Select a Classification and press Enter to continue "
+  echo	" "
+  read  CLASSIFICATION
+  case	$CLASSIFICATION in
+    1) CLASSIFICATION=CLASS1 && CLASSCOUNTER=1 ;;
+    2) CLASSIFICATION=CLASS2 && CLASSCOUNTER=1 ;;
+    esac
+    done
 	if [ -z "$CLASSIFICATION" ]
 		then	OPTION6STATUS="NOT_READY" && OPTION6COUNTER=0
-		else	OPTION6STATUS="READY" && OPTION6COUNTER=1
+		else	OPTION6STATUS="  READY  " && OPTION6COUNTER=1
 	fi ;;
 
 	9) if	[ $START -eq 6 ]
