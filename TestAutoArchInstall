@@ -97,9 +97,9 @@
 #@	1) read -p 'Enter a new Hostname: ' HOSTNAME &&
 #@	if [ -z "$HOSTNAME" ]
 #@		then	OPTION1STATUS="NOT_READY"
-#@			OPTION1COUNTER=0
+#@			    OPTION1COUNTER=0
 #@		else	OPTION1STATUS="READY"
-#@			OPTION1COUNTER=1
+#@		    	OPTION1COUNTER=1
 #@	fi ;;
 
 #@	2) read -p 'Enter a Username: ' A_USERNAME_1 &&	
@@ -126,7 +126,22 @@
 #@		else	OPTION5STATUS="READY" && OPTION5COUNTER=1
 #@	fi ;;
 
-#@	6) read -p 'Select a Classification: ' CLASSIFICATION &&
+#@	6) CLASSCOUNTER=0
+#@  while [ $CLASSCOUNTER=0 ]
+#@  do
+#@  clear
+#@  echo	" "
+#@  echo  "1 - CLASS1"
+#@  echo  "2 - CLASS2"
+#@  echo  " "
+#@  echo	"Select a Classification and press Enter to continue "
+#@  echo	" "
+#@  read  CLASSIFICATION
+#@  case	$CLASSIFICATION in
+#@    1) CLASSIFICATION=CLASS1 && CLASSCOUNTER=1 ;;
+#@    2) CLASSIFICATION=CLASS2 && CLASSCOUNTER=1 ;;
+#@    esac
+#@    done
 #@	if [ -z "$CLASSIFICATION" ]
 #@		then	OPTION6STATUS="NOT_READY" && OPTION6COUNTER=0
 #@		else	OPTION6STATUS="READY" && OPTION6COUNTER=1
@@ -146,7 +161,6 @@
 #@done
 
 #################### Section 2.0 (Delete Hard Drive Partitions) ####################
-
 
 #@if	[  ]
 #@then	
