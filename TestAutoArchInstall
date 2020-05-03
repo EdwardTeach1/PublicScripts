@@ -84,7 +84,7 @@ echo	" 2 - Configure an Administrative Account Username. Default Username = Admi
 echo	" 3 - Configure the Adminstrative Account Password. Default Password = Password1 ---------- [ $OPTION3STATUS ] ---------- : $A_USERPASSWORD_1 "
 echo	" 4 - Set the Root Password. Default = Password1 ------------------------------------------ [ $OPTION4STATUS ] ---------- : $ROOTPASSWORD"
 echo	" 5 - Set PassPhrase for LVM Drive Encryption. Default = 1234567890 ----------------------- [ $OPTION5STATUS ] ---------- : $LUKSPASSPHRASE "
-echo	" 6 - Select the Classification of the system. Default = UNCLASSIFIED --------------------- [ $OPTION6STATUS ] ---------- : $CLASSIFICATION "
+echo	" 6 - Select the Classification of the system. Default = CLASS1 --------------------------- [ $OPTION6STATUS ] ---------- : $CLASSIFICATION "
 echo	" 9 - START the Installation. Type the number 9 to begin the Installation. ----------------------------------------- [ $STARTSTATUS ]"
 echo	" "
 echo	"Select a number option and press Enter to continue "
