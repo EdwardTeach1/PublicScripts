@@ -189,10 +189,59 @@ done
 #@	fi
 #@fi
 
-#@sed -i "s/#Color/Color/" /etc/pacman.conf && sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
+#@sed -i "s/#Color/Color/" /etc/pacman.conf
+
+#@if	[  ] has been done
+#@then	echo it has been done
+#@else
+#@	do it command
+#@	if	[  ] hasn't been done after that
+#@	then	display error. refer to section blah
+#@	fi
+#@fi
+
+#@sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
+
+#@if	[  ] has been done
+#@then	echo it has been done
+#@else
+#@	do it command
+#@	if	[  ] hasn't been done after that
+#@	then	display error. refer to section blah
+#@	fi
+#@fi
+
 #@sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
+
+#@if	[  ] has been done
+#@then	echo it has been done
+#@else
+#@	do it command
+#@	if	[  ] hasn't been done after that
+#@	then	display error. refer to section blah
+#@	fi
+#@fi
+
 #@sed -i '/## Generated on/a Server = https://mirror.aarnet.edu.au/pub/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
+
+#@if	[  ] has been done
+#@then	echo it has been done
+#@else
+#@	do it command
+#@	if	[  ] hasn't been done after that
+#@	then	display error. refer to section blah
+#@	fi
+#@fi
 #@sed -i '/## Generated on/a Server = https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist
+
+#@if	[  ] has been done
+#@then	echo it has been done
+#@else
+#@	do it command
+#@	if	[  ] hasn't been done after that
+#@	then	display error. refer to section blah
+#@	fi
+#@fi
 #@sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
 #@echo " "
 #@echo "Repository settings have been localised successfully "
