@@ -162,23 +162,13 @@ done
 
 #################### Section 2.0 (Delete Hard Drive Partitions) ####################
 
-#@SECTION2VAR1=$(fdisk -l | grep /dev/sda1)
-#@SECTION2VAR2=$(fdisk -l | grep /dev/sda2)
-#@SECTION2VAR3=$(fdisk -l | grep /dev/sda3)
-#@if 	[ "$SECTION2VAR1" = "/dev/sda1     2048    2099199   2097152    1G EFI System" ] 	&& 
-#@	[ "$SECTION2VAR2" = "/dev/sda2  2099200    4196351   2097152    1G Linux filesystem" ] && 
-#@	[ "$SECTION2VAR3" = "/dev/sda3  4196352 1000215182 996018831  475G Linux LVM" ]	;
+#@dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
+#@SECTION2VAR1=$(lsblk /dev/sda | grep part)
+#@if	[ -z "$SECTION2VAR1" ]
 #@then
-#@	echo "Harddrive partitions are already setup" ; sleep 2s
+#@	echo "Harddrive partitions have been deleted successfully" && sleep 2s
 #@else
-#@	dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
-#@	SECTION2VAR4=$(lsblk /dev/sda | grep part)
-#@	if	[ -z "$SECTION2VAR4" ]
-#@	then
-#@		echo "Harddrive partitions have been deleted successfully" && sleep 2s
-#@	else
-#@		clear ; echo "Error detected at section 2 - Command 1" ; exit
-#@	fi
+#@	clear ; echo "Error detected at section 2 - Command 1" ; exit
 #@fi
 
 #################### Section 3.0 (Configure Repository Locations - HTTPS priority) ####################
@@ -190,7 +180,7 @@ done
 #@else
 #@	sed -i "s/#Color/Color/" /etc/pacman.conf
 #@	SECTION3VAR1=$(cat /etc/pacman.conf | grep \#Color)
-#@	if	[ -z "$SECTION3VAR1" ]
+#@	if	[ ! -z "$SECTION3VAR1" ]
 #@	then
 #@		clear ; echo "Error detected at section 3 - Command 1" ; exit
 #@	fi
@@ -209,42 +199,53 @@ done
 #@	fi
 #@fi
 
-#@sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
-
-#@SECTION3VAR3=$(cat /etc/pacman.d/mirrorlist | grep https://mirror.aarnet.edu.au/pub/archlinux/\\$\repo/os/\\$\arch)
-#@if	[ -z "$SECTION3VAR3" ]
+#@SECTION3VAR3=$(grep ##Server /etc/pacman.d/mirrorlist)
+#@if	[ ! -z "$SECTION3VAR3" ]
 #@then
-#@	echo "HTTPS Servers have been added to the mirrorlist file successfully"
+#@	echo "PACMAN mode has been enabled already"
+#@else
+#@	sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
+#@	SECTION3VAR3=$(cat /etc/pacman.conf | grep ILoveCandy)
+#@	if	[ -z "$SECTION3VAR3" ]
+#@	then
+#@		clear ; echo "Error detected at section 3 - Command 2" ; exit
+#@	fi
+#@fi
+
+#@SECTION3VAR4=$(cat /etc/pacman.d/mirrorlist | grep https://mirror.aarnet.edu.au/pub/archlinux/\\$\repo/os/\\$\arch)
+#@if	[ ! -z "$SECTION3VAR4" ]
+#@then
+#@	echo "First HTTPS Servers have been added to the mirrorlist file already"
 #@else
 #@	sed -i '/## Generated on/a Server = https://mirror.aarnet.edu.au/pub/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
-#@	SECTION3VAR3=$(cat /etc/pacman.d/mirrorlist | grep https://mirror.aarnet.edu.au/pub/archlinux/\\$\repo/os/\\$\arch)
-#@	if	[ -z "$SECTION3VAR3" ]
+#@	SECTION3VAR4=$(cat /etc/pacman.d/mirrorlist | grep https://mirror.aarnet.edu.au/pub/archlinux/\\$\repo/os/\\$\arch)
+#@	if	[ -z "$SECTION3VAR4" ]
 #@	then
 #@		clear ; echo "Error detected at section 3 - Command 3" ; exit
 #@	fi
 #@fi
 
-#@SECTION3VAR4=$(cat /etc/pacman.d/mirrorlist | grep https://archlinux.mirror.digitalpacific.com.au/\\$\repo/os/\\$\arch)
-#@if	[ -z "$SECTION3VAR4" ]
+#@SECTION3VAR5=$(cat /etc/pacman.d/mirrorlist | grep https://archlinux.mirror.digitalpacific.com.au/\\$\repo/os/\\$\arch)
+#@if	[ ! -z "$SECTION3VAR5" ]
 #@then
 #@	echo "HTTPS Servers have been added to the mirrorlist file successfully"
 #@else
 #@	sed -i '/## Generated on/a Server = https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist
-#@	SECTION3VAR4=$(cat /etc/pacman.d/mirrorlist | grep https://archlinux.mirror.digitalpacific.com.au/\\$\repo/os/\\$\arch)
-#@	if	[ -z "$SECTION3VAR4" ]
+#@	SECTION3VAR5=$(cat /etc/pacman.d/mirrorlist | grep https://archlinux.mirror.digitalpacific.com.au/\\$\repo/os/\\$\arch)
+#@	if	[ -z "$SECTION3VAR5" ]
 #@	then
 #@		clear ; echo "Error detected at section 3 - Command 4" ; exit
 #@	fi
 #@fi
 
-#@SECTION3VAR5=$(cat /etc/pacman.d/mirrorlist | grep https://syd.mirror.rackspace.com/archlinux/\\$\repo/os/\\$\arch)
-#@if	[ -z "$SECTION3VAR5" ]
+#@SECTION3VAR6=$(cat /etc/pacman.d/mirrorlist | grep https://syd.mirror.rackspace.com/archlinux/\\$\repo/os/\\$\arch)
+#@if	[ ! -z "$SECTION3VAR6" ]
 #@then
 #@	echo "HTTPS Servers have been added to the mirrorlist file successfully"
 #@else
 #@	sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
-#@	SECTION3VAR5=$(cat /etc/pacman.d/mirrorlist | grep https://syd.mirror.rackspace.com/archlinux/\\$\repo/os/\\$\arch)
-#@	if	[ -z "$SECTION3VAR5" ]
+#@	SECTION3VAR6=$(cat /etc/pacman.d/mirrorlist | grep https://syd.mirror.rackspace.com/archlinux/\\$\repo/os/\\$\arch)
+#@	if	[ -z "$SECTION3VAR6" ]
 #@	then
 #@		clear ; echo "Error detected at section 3 - Command 5" ; exit
 #@	fi
@@ -269,8 +270,8 @@ done
 #################### Section 6.0 (Setup HDD Partitions for Installation) ####################
 
 ### First Classification Option
-#@#if		[ "$CLASSIFICATION" = "CLASS1" ]
-#@#then
+#@if		[ "$CLASSIFICATION" = "CLASS1" ]
+#@then
 #@	echo "label: gpt" > partition-table
 #@	echo "device: /dev/sda" >> partition-table
 #@	echo "unit: sectors" >> partition-table
@@ -290,8 +291,8 @@ done
 #@fi
 
 ### Second Classification Option
-#@#if		[ "$CLASSIFICATION" = "CLASS2" ]
-#@#then
+#@if		[ "$CLASSIFICATION" = "CLASS2" ]
+#@then
 #@	echo "label: gpt" > partition-table
 #@	echo "device: /dev/sda" >> partition-table
 #@	echo "unit: sectors" >> partition-table
@@ -310,8 +311,8 @@ done
 #@	fi
 #@fi
 ### Third Classification Option
-#@#if		[ "$CLASSIFICATION" = "CLASS3" ]
-#@#then
+#@if		[ "$CLASSIFICATION" = "CLASS3" ]
+#@then
 #@	echo "label: gpt" > partition-table
 #@	echo "device: /dev/sda" >> partition-table
 #@	echo "unit: sectors" >> partition-table
@@ -340,24 +341,25 @@ done
 #@	echo "Harddrive partitions have been setup successfully" ; sleep 2s
 #@else
 #@	clear ; echo "Error detected at section 6 - Command 4" ; exit
+#@fi
 
 #@rm partition-table
 
 
 #################### Section 7.0 (Format SDA1 EFI Boot Partition) ####################
 
-#SECTION7VAR1=$(file -sL /dev/sda1 | grep FAT\ \(32\ bit\))
-#if	[ ! -z "$SECTION7VAR1" ]
-#then
-#	echo "EFI Boot Partition has been formatted to Fat32 successfully"
-#else
-#	mkfs.fat -F32 /dev/sda1
-#	SECTION7VAR1=$(file -sL /dev/sda1 | grep FAT\ \(32\ bit\))
-#	if	[ ! -z "$SECTION7VAR1" ]
-#	then
-#		clear ; echo "Error detected at section 7 - Command 1" ; exit
-#	fi
-#fi
+#@SECTION7VAR1=$(file -sL /dev/sda1 | grep FAT\ \(32\ bit\))
+#@if	[ ! -z "$SECTION7VAR1" ]
+#@then
+#@	echo "EFI Boot Partition has been formatted to Fat32 successfully"
+#@else
+#@	mkfs.fat -F32 /dev/sda1
+#@	SECTION7VAR1=$(file -sL /dev/sda1 | grep FAT\ \(32\ bit\))
+#@	if	[ -z "$SECTION7VAR1" ]
+#@	then
+#@		clear ; echo "Error detected at section 7 - Command 1" ; exit
+#@	fi
+#@fi
 
 ##################### Section 8.0 (Format SDA2 Boot Partition) ####################
 
@@ -368,7 +370,7 @@ done
 #@else
 #@	printf 'y\n' | mkfs.ext4 /dev/sda2
 #@	SECTION8VAR1=$(file -sL /dev/sda2 | grep ext4\ filesystem)
-#@	if	[ ! -z "$SECTION8VAR1" ]
+#@	if	[ -z "$SECTION8VAR1" ]
 #@	then
 #@		clear ; echo "Error detected at section 8 - Command 1" ; exit
 #@	fi
