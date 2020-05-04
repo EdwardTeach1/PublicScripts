@@ -199,7 +199,7 @@ done
 #@	fi
 #@fi
 
-#@SECTION3VAR3=$(grep ##Server /etc/pacman.d/mirrorlist)
+#@SECTION3VAR3=$(grep \#\#Server /etc/pacman.d/mirrorlist)
 #@if	[ ! -z "$SECTION3VAR3" ]
 #@then
 #@	echo "PACMAN mode has been enabled already"
