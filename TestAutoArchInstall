@@ -426,225 +426,155 @@ done
 
 #################### Section 11.0 (Setup Physical Volume) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
+pvcreate --dataalignment 1m /dev/mapper/lvm
+#@SECTION11VAR1=$(pvs | grep /dev/mapper/lvm)
+#@if	[ ! -z "$SECTION11VAR1" ]
+#@then
+#@	echo "LUKS Physical volume has been setup successfully"
 #@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
+#@	clear ; echo "Error detected at section 11 - Command 1" ; exit
 #@fi
-
-#@pvcreate --dataalignment 1m /dev/mapper/lvm
-#@echo " "
-#@echo "LUKS Physical volume has been setup successfully "
-#@echo " "
 #@sleep 2s
 
 #################### Section 12.0 (Setup Virtual Volume Group) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@vgcreate volgroup0 /dev/mapper/lvm
-#@echo " "
-#@echo "LVM Volume Group has been setup successfully "
-#@echo " "
+#@SECTION12VAR1=$(vgdisplay volgroup0 | grep -o volgroup0)
+#@if	[ ! -z "$SECTION12VAR1" ]
+#@then
+#@	echo "LVM Volume Group has been setup successfully"
+#@else
+#@	clear ; echo "Error detected at section 12 - Command 1" ; exit
+#@fi
 #@sleep 2s
 
 #################### Section 13.0 (Setup Live Volumes for LUKS Encrypted Drive) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@lvcreate -L 50GB volgroup0 -n lv_root
-#@echo " "
-#@echo "LVM Root Volume has been setup successfully "
-#@echo " "
+#@SECTION13VAR1=$(lvdisplay | grep -o /dev/volgroup0/lv_root)
+#@if	[ ! -z "$SECTION13VAR1" ]
+#@then
+#@	echo "LVM Root Volume has been setup successfully"
+#@else
+#@	clear ; echo "Error detected at section 13 - Command 1" ; exit
+#@fi
 #@sleep 2s
 
-###lvcreate -L 350GB volgroup0 -n lv_home
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
+###lvcreate -L 350GB volgroup0 -n lv_home - Alternate command
 
 #@lvcreate -l 100%FREE volgroup0 -n lv_home
-#@echo " "
-#@echo "LVM Home Volume has been setup successfully "
-#@echo " "
+#@SECTION13VAR2=$(lvdisplay | grep -o /dev/volgroup0/lv_home)
+#@if	[ ! -z "$SECTION13VAR2" ]
+#@then
+#@	echo "LVM Home Volume has been setup successfully"
+#@else
+#@	clear ; echo "Error detected at section 13 - Command 2" ; exit
+#@fi
 #@sleep 2s
 
 #################### Section 14.0 (Create Root Filesystem for LUKS encrypted drive) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@mkfs.ext4 /dev/volgroup0/lv_root
-#@echo " "
-#@echo "LVM Root Volume has been formatted to Ext4 successfully "
-#@echo " "
+#@SECTION14VAR1=$(file -sL /dev/volgroup0/lv_root | grep -o ext4)
+#@if	[ ! -z "$SECTION14VAR1" ]
+#@then
+#@	echo "LVM Root Volume has been formatted to Ext4 successfully"
+#@else
+#@	clear ; echo "Error detected at section 14 - Command 1" ; exit
+#@fi
 #@sleep 2s
 
 #################### Section 15.0 (Create Home Filesystem for LUKS encrypted drive) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@mkfs.ext4 /dev/volgroup0/lv_home
-#@echo " "
-#@echo "LVM Home Volume has been formatted to Ext4 successfully "
-#@echo " "
+#@SECTION15VAR1=$(file -sL /dev/volgroup0/lv_home | grep -o ext4)
+#@if	[ ! -z "$SECTION15VAR1" ]
+#@then
+#@	echo "LVM Home Volume has been formatted to Ext4 successfully"
+#@else
+#@	clear ; echo "Error detected at section 15 - Command 1" ; exit
+#@fi
 #@sleep 2s
 
 #################### Section 16.0 (Mount Home and Boot Volumes) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@mount /dev/volgroup0/lv_root /mnt
-#@echo " "
-#@echo "LVM Root Volume mounted to /mnt successfully "
-#@echo " "
-#@sleep 2s
-
-#@if	[  ] has been done
-#@then	echo it has been done
+#@SECTION16VAR1=$(lsblk /dev/volgroup0/lv_root | grep -o /mnt)
+#@if	[ ! -z "$SECTION16VAR1" ]
+#@then
+#@	echo "LVM Root Volume mounted to /mnt successfully"
 #@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
+#@	clear ; echo "Error detected at section 16 - Command 1" ; exit
 #@fi
+#@sleep 2s
 
 #@mkdir /mnt/home
-#@echo " "
-#@echo "Home Directory created successfully "
-#@echo " "
-#@sleep 2s
-
-#@if	[  ] has been done
-#@then	echo it has been done
+#@SECTION16VAR2=$(ls /mnt | grep home)
+#@if	[ ! -z "$SECTION16VAR2" ]
+#@then
+#@	echo "Home Directory created successfully"
 #@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
+#@	clear ; echo "Error detected at section 16 - Command 2" ; exit
 #@fi
+#@sleep 2s
 
 #@mount /dev/volgroup0/lv_home /mnt/home
+#@SECTION16VAR3=$(lsblk | grep volgroup0-lv_home | grep -o /mnt/home)
+#@if	[ ! -z "$SECTION16VAR3" ]
+#@then
+#@	echo "LLVM Home Volume mounted to /mnt successfully"
+#@else
+#@	clear ; echo "Error detected at section 16 - Command 3" ; exit
+#@fi
+#@sleep 2s
 #@echo " "
-#@echo "LVM Home Volume mounted to /mnt successfully "
 #@echo " "
 #@sleep 2s
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@mkdir /mnt/boot
-#@echo " "
-#@echo "Boot Directory created successfully "
-#@echo " "
-#@sleep 2s
-
-#@if	[  ] has been done
-#@then	echo it has been done
+#@SECTION16VAR4=$(ls /mnt | grep -o boot)
+#@if	[ ! -z "$SECTION16VAR4" ]
+#@then
+#@	echo "Boot Directory created successfully"
 #@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
+#@	clear ; echo "Error detected at section 16 - Command 4" ; exit
 #@fi
+#@sleep 2s
 
 #@mount /dev/sda2 /mnt/boot
-#@echo " "
-#@echo "Linux Boot Partition mounted to /mnt/boot successfully "
-#@echo " "
+#@SECTION16VAR5=$(lsblk /dev/sda2 | grep -o /mnt/boot)
+#@if	[ ! -z "$SECTION16VAR5" ]
+#@then
+#@	echo "Linux Boot Partition mounted to /mnt/boot successfully"
+#@else
+#@	clear ; echo "Error detected at section 16 - Command 5" ; exit
+#@fi
 #@sleep 2s
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@mkdir /mnt/etc
-#@echo " "
-#@echo "/mnt/etc Directory created successfully "
-#@echo " "
+#@SECTION16VAR6=$(ls /mnt | grep -o etc)
+#@if	[ ! -z "$SECTION16VAR6" ]
+#@then
+#@	echo "/mnt/etc Directory created successfully"
+#@else
+#@	clear ; echo "Error detected at section 16 - Command 6" ; exit
+#@fi
 #@sleep 2s
 
 #################### Section 17.0 (Configures Filesystem Table for Boot) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@genfstab -U -p /mnt >> /mnt/etc/fstab
-#@echo " "
-#@echo "fstab file has been generated successfully "
-#@echo " "
+#@SECTION17VAR1=$(cat /mnt/etc/fstab | grep -o /dev/mapper/volgroup0-lv_root)
+#@if	[ ! -z "$SECTION17VAR1" ]
+#@then
+#@	echo "fstab file has been generated successfully"
+#@else
+#@	clear ; echo "Error detected at section 17 - Command 1" ; exit
+#@fi
 #@sleep 2s
 
 #################### Section 18.0 (Download Base Arch Linux into Mount location) ####################
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@printf '\n\n\n' | pacstrap -i /mnt base
 #@echo " "
@@ -653,15 +583,6 @@ done
 #@sleep 2s
 
 #################### Section 19.0 (Install Linux LTS Version to CHROOT) ####################
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S linux-lts linux-lts-headers
 #@echo " "
@@ -673,15 +594,6 @@ done
 
 ###note need to install firmware (aic94xx;wd719x) most likely from Arch Linux AUR
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S linux-firmware
 #@echo " "
 #@echo "Linux Firmware files have been downloaded and installed successfully "
@@ -689,15 +601,6 @@ done
 #@sleep 2s
 
 #################### Section 21.0 (Install Text Editor Packages to CHROOT) ####################
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S nano vim
 #@echo " "
@@ -707,29 +610,11 @@ done
 
 #################### Section 22.0 (Install Base Developer Packages and SSH to CHROOT) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S base-devel openssh
 #@echo " "
 #@echo "Linux Base Devel and OpenSSH has been downloaded and installed successfully "
 #@echo " "
 #@sleep 2s
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@arch-chroot /mnt systemctl enable sshd
 #@echo " "
@@ -739,44 +624,17 @@ done
 
 #################### Section 23.0 (Install Networking Utility Packages to CHROOT) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S networkmanager wpa_supplicant wireless_tools netctl
 #@echo " "
 #@echo "NetworkManager, WPA_Supplicant, Wireless_Tools and Netctl Software Packages have been downloaded and installed successfully "
 #@echo " "
 #@sleep 2s
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@arch-chroot /mnt systemctl enable NetworkManager
 #@echo " "
 #@echo "Network Manager has been enabled successfully "
 #@echo " "
 #@sleep 2s
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@arch-chroot /mnt systemctl enable dhcpcd
 #@echo " "
@@ -786,15 +644,6 @@ done
 
 #################### Section 24.0 (Install Dialog to CHROOT) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S dialog
 #@echo " "
 #@echo "Dialog has been downloaded and installed successfully "
@@ -802,15 +651,6 @@ done
 #@sleep 2s
 
 #################### Section 25.0 (Install LVM2 Packages to CHROOT) ####################
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S lvm2
 #@echo " "
@@ -820,29 +660,11 @@ done
 
 #################### Section 26.0 (Enable Encryption and LVM2 functionality to CHROOT) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@arch-chroot /mnt sed -i "s/block/block encrypt lvm2/" /etc/mkinitcpio.conf
 #@echo " "
 #@echo "LVM Encryption has been configured ready for first bootup successfully "
 #@echo " "
 #@sleep 2s
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@arch-chroot /mnt mkinitcpio -p linux-lts
 #@echo " "
@@ -852,29 +674,11 @@ done
 
 #################### Section 27.0 (Configure Language and Locale Settings) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@arch-chroot /mnt sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen
 #@echo " "
 #@echo "Australian Location Settings have been enabled successfully "
 #@echo " "
 #@sleep 2s
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@arch-chroot /mnt locale-gen
 #@echo " "
@@ -882,29 +686,11 @@ done
 #@echo " "
 #@sleep 2s
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@echo "LANG=en_AU.UTF-8" > /mnt/etc/locale.conf
 #@echo " "
 #@echo "Australian English Language settings have been configured successfully "
 #@echo " "
 #@sleep 2s
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 #@echo " "
@@ -914,15 +700,6 @@ done
 
 #################### Section 28.0 (Configure Hostname) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@echo "$CLASSIFICATION$HOSTNAME" > /mnt/etc/hostname
 #@echo " "
 #@echo "Hostname has been configured successfully "
@@ -931,36 +708,9 @@ done
 
 #################### Section 29.0 (Configure Hosts File) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@echo "127.0.0.1  localhost" >> /mnt/etc/hosts
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@echo "::1  localhost" >> /mnt/etc/hosts
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@echo "127.0.1.1  $CLASSIFICATION$HOSTNAME.localdomain $CLASSIFICATION$HOSTNAME" >> /mnt/etc/hosts
 #@echo " "
@@ -969,15 +719,6 @@ done
 #@sleep 2s
 
 #################### Section 30.0 (Install Sudo and Setup Root Level Password) ####################
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S sudo
 #@echo " "
@@ -993,15 +734,6 @@ done
 
 #################### Section 31.0 (Setup Users and Groups) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@arch-chroot /mnt useradd -m -g users -G wheel $A_USERNAME_1
 #@echo " "
 #@echo "Administrator Account has been created successfully "
@@ -1016,15 +748,6 @@ done
 
 #################### Section 32.0 (Enable Wheel Group) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@sudo sed -i 's/^#\s*\(%wheel\s\+ALL=(ALL)\s\+ALL\)/\1/' /etc/sudoers
 #@echo " "
 #@echo "Sudo Wheel Group Sudo rights have been enabled successfully "
@@ -1032,15 +755,6 @@ done
 #@sleep 2s
 
 #################### Section 33.0 (Download GRUB Bootloader Software Packages) ####################
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S grub efibootmgr dosfstools os-prober mtools
 #@echo " "
@@ -1050,25 +764,7 @@ done
 
 #################### Section 34.0 (Configure Encryption GRUB Boot) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@arch-chroot /mnt sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@arch-chroot /mnt sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 cryptdevice=\/dev\/sda3:volgroup0:allow-discards quiet\"/" /etc/default/grub
 #@echo " "
@@ -1078,29 +774,11 @@ done
 
 #################### Section 35.0 (Setup and Enable EFI Booting) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@arch-chroot /mnt mkdir /boot/EFI
 #@echo " "
 #@echo "EFI bootup directory has been created successfully "
 #@echo " "
 #@sleep 2s
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@arch-chroot /mnt mount /dev/sda1 /boot/EFI
 #@echo " "
@@ -1110,15 +788,6 @@ done
 
 #################### Section 36.0 (Install GRUB Bootloader) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@arch-chroot /mnt grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
 #@echo " "
 #@echo "Grub boot loader has been installed ready for bootup successfully "
@@ -1127,29 +796,11 @@ done
 
 #################### Section 37.0 (Setup and Enable Location Settings for Boot) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@arch-chroot /mnt mkdir /boot/grub/locale
 #@echo " "
 #@echo "Grub locale file has been created successfully "
 #@echo " "
 #@sleep 2s
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@arch-chroot /mnt cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 #@echo " "
@@ -1157,61 +808,25 @@ done
 #@echo " "
 #@sleep 2s
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 #@echo " "
 #@echo "Grub configuration file has been generated successfully "
 #@echo " "
 #@sleep 2s
 
-#@#################### Section 38.0 (Create and Setup Swapfile) ####################
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
+##################### Section 38.0 (Create and Setup Swapfile) ####################
 
 #@arch-chroot /mnt fallocate -l 4G /swapfile
 #@echo " "
 #@echo "Harddrive space has been allocated for swapfile successfully "
 #@echo " "
-#@sleep 2s
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
+#@sleep 2
 
 #@arch-chroot /mnt chmod 600 /swapfile
 #@echo " "
 #@echo "Swapfile permissions have been configured successfully "
 #@echo " "
 #@sleep 2s
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@arch-chroot /mnt mkswap /swapfile
 #@echo " "
@@ -1221,15 +836,6 @@ done
 
 #################### Section 39.0 (Backup FSTAB file) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@arch-chroot /mnt cp /etc/fstab /etc/fstab.bak
 #@echo " "
 #@echo "fstab backup file has been created successfully "
@@ -1237,15 +843,6 @@ done
 #@sleep 2s
 
 #################### Section 40.0 (Setup Swapfile Boot Configuration) ####################
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@echo '/swapfile none swap sw 0 0' >> /mnt/etc/fstab
 #@echo " "
@@ -1255,15 +852,6 @@ done
 
 #################### Section 41.0 (Install Intel Software Packages) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S intel-ucode
 #@echo " "
 #@echo "Intel Software has been downloaded and installed successfully "
@@ -1271,15 +859,6 @@ done
 #@sleep 2s
 
 #################### Section 42.0 (Install GUI Base Software) ####################
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@printf '\n\n\n' |  arch-chroot /mnt pacman -S xorg xorg-server
 #@echo " "
@@ -1289,15 +868,6 @@ done
 
 #################### Section 43.0 (Install MESA Package) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@printf '\n\n\n' |  arch-chroot /mnt pacman -S mesa
 #@echo " "
 #@echo "mesa software has been downloaded and installed successfully "
@@ -1306,44 +876,17 @@ done
 
 #################### Section 44.0 (Install GNOME Desktop and Configuration for Boot) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@printf '\n\n\n\n\n\n\n\n' | arch-chroot /mnt pacman -S gnome gnome-extra
 #@echo " "
 #@echo "GNOME GUI has been downloaded and installed successfully "
 #@echo " "
 #@sleep 2s
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@arch-chroot /mnt systemctl start gdm.service
 #@echo " "
 #@echo "GNOME GUI Service has been started successfully "
 #@echo " "
 #@sleep 2s
-
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
 
 #@arch-chroot /mnt systemctl enable gdm.service
 #@echo " "
