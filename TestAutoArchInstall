@@ -395,15 +395,6 @@ printf 'y\n' | mkfs.ext4 /dev/sda2
 
 #################### Section 10.0 (Open LUKS Container) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
-
 #@printf '%s\n' "$LUKSPASSPHRASE" | cryptsetup open --type luks /dev/sda3 lvm
 #@echo " "
 #@echo "LUKS Container has been opened with the provided passphrase successfully "
