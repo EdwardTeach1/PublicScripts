@@ -612,6 +612,12 @@ pvcreate --dataalignment 1m /dev/mapper/lvm
 #@echo " "
 #@sleep 2s
 
+#@printf '\n\n\n' | arch-chroot /mnt pacman -S dhcpcd
+#@echo " "
+#@echo "NetworkManager, WPA_Supplicant, Wireless_Tools and Netctl Software Packages have been downloaded and installed successfully "
+#@echo " "
+#@sleep 2s
+
 #@arch-chroot /mnt systemctl enable dhcpcd
 #@echo " "
 #@echo "DHCP Service has been enabled successfully "
