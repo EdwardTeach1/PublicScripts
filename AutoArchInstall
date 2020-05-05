@@ -248,29 +248,371 @@ sleep 2s
 #echo "/dev/sda2 : start=        2099200, size=     2097152, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"   >> partition-table
 #echo "/dev/sda3 : start=        4196352, size=   996018831, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
 #sleep 2s
-#sfdisk /dev/sda < partition-table
-#rm partition-table
-#echo " "
-#echo "Partitions have been setup successfully "
-#echo " "
-#sleep 2s
-#fi
+#!/bin/bash
+
+### To lauch the script automatically type this command: sudo curl https://raw.githubusercontent.com/EdwardTeach1/PublicScripts/master/AutoArchInstall | sudo bash
+
+######################################## START OF SCRIPT ########################################
+
+#################### Section 1.0 (Collection of data) ####################
+HOSTNAME="ViperLaptop"
+A_USERNAME_1="Administrator"
+A_USERPASSWORD_1="Password1"
+ROOTPASSWORD="Password1"
+LUKSPASSPHRASE="1234567890"
+CLASSIFICATION="CLASS1"
+
+## Setup of Default Variables
+OPTION1STATUS="  READY  " && OPTION2STATUS="  READY  " && OPTION3STATUS="  READY  " && OPTION4STATUS="  READY  " && OPTION5STATUS="  READY  "
+OPTION6STATUS="  READY  " && OPTION7STATUS="  READY  " && OPTION8STATUS="  READY  " && OPTION9STATUS="  READY  " && OPTION10STATUS="  READY  "
+STARTSTATUS="READY TO INSTALL"
+
+## Setup of While loop Counters
+OPTION1COUNTER=1 && OPTION2COUNTER=1 && OPTION3COUNTER=1 && OPTION4COUNTER=1 && OPTION5COUNTER=1
+OPTION6COUNTER=1 && OPTION7COUNTER=1 && OPTION8COUNTER=1 && OPTION9COUNTER=1 && OPTION10COUNTER=1
+
+START=$((OPTION1COUNTER+OPTION2COUNTER+OPTION3COUNTER+OPTION4COUNTER+OPTION5COUNTER+OPTION6COUNTER))
+
+while [ $START -lt 100 ]
+do
+START=$((OPTION1COUNTER+OPTION2COUNTER+OPTION3COUNTER+OPTION4COUNTER+OPTION5COUNTER+OPTION6COUNTER))
+if [ $START -lt 6 ]
+then	STARTSTATUS="   NOT READY    "
+else	STARTSTATUS="READY TO INSTALL"
+fi
+clear
+echo "
+                                .--'    ..............             '.............'             '..............     ....''    
+                             '+dmMMd   'hdmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   :dm:.:yh    
+                            +ms.hMMd   'hmmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmdmmmmmmmmmms   :mMmhs+/    
+                           hMhoomMMmo/ 'hmmdmmmmmmmmmy             .dmmdmmmmmmmmmo             .dmdmmmdddmmmms   o-'-/sNM:   
+                           ''''/dNNm:' 'hmmmhyyyyyyyys.............-yyhdddmmmdmdh+.............-yhhhhhhdddmmms   syo//+h+'   
+                                ````   'hmmd+//////////////////////////hmmmmmmdd+/////////////////////odddmmms               
+                                       'hmmd+//////////////////////////hddmmmmdy//////////////////////odddmmms               
+                                       'hmmd+//////yhy''''.://////////odmmmmmmd+//////:........-yyyyyyhdddmmms               
+                              '-/++/'  'hmmd+//////dmy  '-//////////+yddmmmmmds///////.        .dmdmmdddmmmmms               
+                           '+dNd/.     'hmmd+//////dmy'.//////////::ddmmmmmmdh///////:--::::::::syhdmmmmmmmmms   .+o//+o/'   
+                           hMMMoshmho' 'hmmdyyyyyyyddy://///////:. .dmdmmmdmdo/////////////////////+ohddmmmmms  oNN-   +MN:  
+                           hMMy   NMM+ 'hmmdmmmmmmdh+/////////:.   .dmdmmmdmy///////::-.....-:////////+hmmmmms 'mMN    -MMs  
+                           '+ydsoydy/  'hmmmmmdmdho/////////:.     .ddddmdmmdddhh+.'          ':////////hmmmms  -hN+''.hNs'  
+                                       'hmdmddmds/////////:.'  ':://+++dmdmmmmmmdo             '////////smmmms    ':+mNh.'   
+                                       'hmdmdds/////////:-'    '///////dmmddhhhhh+..           .////////ydmmms       ./+/:'  
+                                       'hmddy+/////////-'''''''.///////hmmdh////////-'        .:///////odmmmms               
+                                       'hmdo///////////////////////////hdmmdh+////////:--..--:///////+ydmmmmms               
+                            ./+ooo+-'  'hmdo///////////////////////////hddmmmdyo+//////////////////oydmmmmmmms '...'   ....' 
+                           oNM+''dMMh  'hmdsooooooooo+::::::::::::::ooohmdmmmddmdo.---:::::::---yddmmdmmmmmmms ':mNNo. -yy-' 
+                           '-:./hMNs.  'hmdmmmdddddddy             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   h:oNNo.+o   
+                           '/yNNy/'.:' 'hmmmmmmmmmmmmy             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   h- 'oNNdo   
+                           shhhyyyyhy' 'oyyyyyyyyyyyyo             .syyyyyyyyyyyy/             'syyyyyyyyyyyy+ .:yo-  '+h/ 
+"
+echo " "
+
+if [ -z "$HOSTNAME" ]
+then	OPTION1COUNTER=0 && OPTION1STATUS="NOT READY"
+fi
+if [ -z "$A_USERNAME_1" ]
+then	OPTION2COUNTER=0 && OPTION2STATUS="NOT READY"
+fi
+if [ -z "$A_USERPASSWORD_1" ]
+then	OPTION3COUNTER=0 && OPTION3STATUS="NOT READY"
+fi
+if [ -z "$ROOTPASSWORD" ]
+then	OPTION4COUNTER=0 && OPTION4STATUS="NOT READY"
+fi
+if [ -z "$LUKSPASSPHRASE" ]
+then	OPTION5COUNTER=0 && OPTION5STATUS="NOT READY"
+fi
+if [ -z "$CLASSIFICATION" ]
+then	OPTION6COUNTER=0 && OPTION6STATUS="NOT READY"
+fi
+echo	'						    Welcome to the 462SQN Arch Installation Script.'
+echo	" "
+echo	"Configure the following options before starting the Installation"
+echo	" "
+echo	" 1 - Configure a Hostname for this Installation. Default = ViperLaptop ------------------- [ $OPTION1STATUS ] ---------- : $HOSTNAME "
+echo	" 2 - Configure an Administrative Account Username. Default Username = Administrator ------ [ $OPTION2STATUS ] ---------- : $A_USERNAME_1 "
+echo	" 3 - Configure the Adminstrative Account Password. Default Password = Password1 ---------- [ $OPTION3STATUS ] ---------- : $A_USERPASSWORD_1 "
+echo	" 4 - Set the Root Password. Default = Password1 ------------------------------------------ [ $OPTION4STATUS ] ---------- : $ROOTPASSWORD"
+echo	" 5 - Set PassPhrase for LVM Drive Encryption. Default = 1234567890 ----------------------- [ $OPTION5STATUS ] ---------- : $LUKSPASSPHRASE "
+echo	" 6 - Select the Classification of the system. Default = CLASS1 --------------------------- [ $OPTION6STATUS ] ---------- : $CLASSIFICATION "
+echo	" 9 - START the Installation. Type the number 9 to begin the Installation. ----------------------------------------- [ $STARTSTATUS ]"
+echo	" "
+echo	"Select a number option and press Enter to continue "
+echo	" "
+
+read selection
+
+case	$selection in
+
+	1) read -p 'Enter a new Hostname: ' HOSTNAME &&
+	if [ -z "$HOSTNAME" ]
+		then	OPTION1STATUS="NOT_READY"
+			    OPTION1COUNTER=0
+		else	OPTION1STATUS="  READY  "
+		    	OPTION1COUNTER=1
+	fi ;;
+
+	2) read -p 'Enter a Username: ' A_USERNAME_1 &&	
+	if [ -z "$A_USERNAME_1" ]
+		then	OPTION2STATUS="NOT_READY" && OPTION2COUNTER=0
+		else	OPTION2STATUS="  READY  " && OPTION2COUNTER=1
+	fi ;;
+
+	3) read -p 'Enter a Password: ' A_USERPASSWORD_1 &&
+	if [ -z "$A_USERPASSWORD_1" ]
+		then	OPTION3STATUS="NOT_READY" && OPTION3COUNTER=0
+		else	OPTION3STATUS="  READY  " && OPTION3COUNTER=1
+	fi ;;
+
+	4) read -p 'Enter a Root Password: ' ROOTPASSWORD &&
+	if [ -z "$ROOTPASSWORD" ]
+		then	OPTION4STATUS="NOT_READY" && OPTION4COUNTER=0
+		else	OPTION4STATUS="  READY  " && OPTION4COUNTER=1
+	fi ;;
+
+	5) read -p 'Enter a LUKS Drive Encryption PassPhrase: ' LUKSPASSPHRASE &&
+	if [ -z "$LUKSPASSPHRASE" ]
+		then	OPTION5STATUS="NOT_READY" && OPTION5COUNTER=0
+		else	OPTION5STATUS="  READY  " && OPTION5COUNTER=1
+	fi ;;
+
+	6) CLASSCOUNTER=0
+  while [ $CLASSCOUNTER -eq 0 ]
+  do
+  clear
+  echo	" "
+  echo  "1 - CLASS1"
+  echo  "2 - CLASS2"
+  echo  " "
+  echo	"Select a Classification and press Enter to continue "
+  echo	" "
+  read  CLASSIFICATION
+  case	$CLASSIFICATION in
+    1) CLASSIFICATION=CLASS1 && CLASSCOUNTER=1 ;;
+    2) CLASSIFICATION=CLASS2 && CLASSCOUNTER=1 ;;
+    esac
+    done
+	if [ -z "$CLASSIFICATION" ]
+		then	OPTION6STATUS="NOT_READY" && OPTION6COUNTER=0
+		else	OPTION6STATUS="  READY  " && OPTION6COUNTER=1
+	fi ;;
+
+	9) if	[ $START -eq 6 ]
+		then	
+			read -p "WARNING: This script will wipe all data from the Harddrive /dev/sda. Are you sure you want to continue? Y or N? " InstallStart
+			if      [ "${InstallStart,,}" = "yes" ] || [ "${InstallStart,,}" = "y" ]
+				then    echo "Installing Arch Linux !!!" && sleep 2s
+				else    exit && echo "Installation Aborted !!!" && sleep 2s && clear
+			fi
+		sleep 2s && START=100
+		else	echo 'One of the Options is still required !!! ' && sleep 2s
+	   fi ;;
+esac
+done
+
+#################### Section 2.0 (Delete Hard Drive Partitions) ####################
+
+dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
+SECTION2VAR1=$(lsblk /dev/sda | grep part)
+if	[ -z "$SECTION2VAR1" ]
+then
+	echo "Harddrive partitions have been deleted successfully" && sleep 2s
+else
+	clear ; echo "Error detected at section 2 - Command 1" ; exit
+fi
+
+#################### Section 3.0 (Configure Repository Locations - HTTPS priority) ####################
+
+sed -i "s/#Color/Color/" /etc/pacman.conf
+SECTION3VAR1=$(cat /etc/pacman.conf | grep \#Color)
+if	[ -z "$SECTION3VAR1" ]
+then
+	echo "Bash Colours have been set successfully"
+else
+	clear ; echo "Error detected at section 3 - Command 1" ; exit
+fi
+
+SECTION3VAR2=$(cat /etc/pacman.conf | grep ILoveCandy)
+if	[ ! -z "$SECTION3VAR2" ]
+then
+	echo "PACMAN mode has been enabled already"
+else
+	sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
+	SECTION3VAR2=$(cat /etc/pacman.conf | grep ILoveCandy)
+	if	[ -z "$SECTION3VAR2" ]
+	then
+		clear ; echo "Error detected at section 3 - Command 2" ; exit
+	fi
+fi
+
+SECTION3VAR3=$(grep \#\#Server /etc/pacman.d/mirrorlist)
+if	[ ! -z "$SECTION3VAR3" ]
+then
+	echo "PACMAN mode has been enabled already"
+else
+	sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
+	SECTION3VAR3=$(cat /etc/pacman.conf | grep ILoveCandy)
+	if	[ -z "$SECTION3VAR3" ]
+	then
+		clear ; echo "Error detected at section 3 - Command 3" ; exit
+	fi
+fi
+
+SECTION3VAR4=$(cat /etc/pacman.d/mirrorlist | grep https://mirror.aarnet.edu.au/pub/archlinux/\\$\repo/os/\\$\arch)
+if	[ ! -z "$SECTION3VAR4" ]
+then
+	echo "First HTTPS Server has been added to the mirrorlist file already"
+else
+	sed -i '/## Generated on/a Server = https://mirror.aarnet.edu.au/pub/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
+	SECTION3VAR4=$(cat /etc/pacman.d/mirrorlist | grep https://mirror.aarnet.edu.au/pub/archlinux/\\$\repo/os/\\$\arch)
+	if	[ -z "$SECTION3VAR4" ]
+	then
+		clear ; echo "Error detected at section 3 - Command 4" ; exit
+	fi
+fi
+
+SECTION3VAR5=$(cat /etc/pacman.d/mirrorlist | grep https://archlinux.mirror.digitalpacific.com.au/\\$\repo/os/\\$\arch)
+if	[ ! -z "$SECTION3VAR5" ]
+then
+	echo "Second HTTPS Server has been added to the mirrorlist file successfully"
+else
+	sed -i '/## Generated on/a Server = https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist
+	SECTION3VAR5=$(cat /etc/pacman.d/mirrorlist | grep https://archlinux.mirror.digitalpacific.com.au/\\$\repo/os/\\$\arch)
+	if	[ -z "$SECTION3VAR5" ]
+	then
+		clear ; echo "Error detected at section 3 - Command 5" ; exit
+	fi
+fi
+
+SECTION3VAR6=$(cat /etc/pacman.d/mirrorlist | grep https://syd.mirror.rackspace.com/archlinux/\\$\repo/os/\\$\arch)
+if	[ ! -z "$SECTION3VAR6" ]
+then
+	echo "Third HTTPS Server has been added to the mirrorlist file successfully"
+else
+	sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
+	SECTION3VAR6=$(cat /etc/pacman.d/mirrorlist | grep https://syd.mirror.rackspace.com/archlinux/\\$\repo/os/\\$\arch)
+	if	[ -z "$SECTION3VAR6" ]
+	then
+		clear ; echo "Error detected at section 3 - Command 6" ; exit
+	fi
+fi
+
+#################### Section 4.0 (Download Latest Arch Linux Packages) ####################
+
+pacman -Syyy
+echo " "
+echo "Latest Arch Linux Packages have been downloaded successfully "
+echo " "
+sleep 2s
+
+#################### Section 5.0 (Install Expect Shell) ####################
+
+printf '\n\n\n' | pacman -Syy expect
+echo " "
+echo "Expect Shell has been installed successfully "
+echo " "
+sleep 2s
+
+#################### Section 6.0 (Setup HDD Partitions for Installation) ####################
+
+### First Classification Option
+if		[ "$CLASSIFICATION" = "CLASS1" ]
+then
+	echo "label: gpt" > partition-table
+	echo "device: /dev/sda" >> partition-table
+	echo "unit: sectors" >> partition-table
+	echo "first-lba: 2048" >> partition-table
+	echo "last-lba: 1000215182" >> partition-table
+	echo " " >> partition-table
+	echo "/dev/sda1 : start=           2048, size=     2097152, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B"   >> partition-table
+	echo "/dev/sda2 : start=        2099200, size=     2097152, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"   >> partition-table
+	echo "/dev/sda3 : start=        4196352, size=   996018831, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
+	SECTION6VAR1=$(ls ~ | grep -w partition-table)
+	if	[ ! -z "$SECTION6VAR1" ]
+	then
+		echo "Partition Table file has been created successfully"
+	else
+		clear ; echo "Error detected at section 6 - Command 1" ; exit
+	fi
+fi
+
+### Second Classification Option
+if		[ "$CLASSIFICATION" = "CLASS2" ]
+then
+	echo "label: gpt" > partition-table
+	echo "device: /dev/sda" >> partition-table
+	echo "unit: sectors" >> partition-table
+	echo "first-lba: 2048" >> partition-table
+	echo "last-lba: 1000215182" >> partition-table
+	echo " " >> partition-table
+	echo "/dev/sda1 : start=           2048, size=     2097152, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B"   >> partition-table
+	echo "/dev/sda2 : start=        2099200, size=     2097152, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"   >> partition-table
+	echo "/dev/sda3 : start=        4196352, size=   996018831, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
+	SECTION6VAR2=$(ls ~ | grep -w partition-table)
+	if	[ ! -z "$SECTION6VAR2" ]
+	then
+		echo "Partition Table file has been created successfully"
+	else
+		clear ; echo "Error detected at section 6 - Command 2" ; exit
+	fi
+fi
+### Third Classification Option
+if		[ "$CLASSIFICATION" = "CLASS3" ]
+then
+	echo "label: gpt" > partition-table
+	echo "device: /dev/sda" >> partition-table
+	echo "unit: sectors" >> partition-table
+	echo "first-lba: 2048" >> partition-table
+	echo "last-lba: 1000215182" >> partition-table
+	echo " " >> partition-table
+	echo "/dev/sda1 : start=           2048, size=     2097152, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B"   >> partition-table
+	echo "/dev/sda2 : start=        2099200, size=     2097152, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"   >> partition-table
+	echo "/dev/sda3 : start=        4196352, size=   996018831, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
+	SECTION6VAR3=$(ls ~ | grep -w partition-table)
+	if	[ ! -z "$SECTION6VAR3" ]
+	then
+		echo "Partition Table file has been created successfully"
+	else
+		clear ; echo "Error detected at section 6 - Command 3" ; exit
+	fi
+fi
+sfdisk /dev/sda < partition-table
+SECTION6VAR4=$(fdisk -l | grep /dev/sda1)
+SECTION6VAR5=$(fdisk -l | grep /dev/sda2)
+SECTION6VAR6=$(fdisk -l | grep /dev/sda3)
+if 	[ "$SECTION6VAR4" = "/dev/sda1     2048    2099199   2097152    1G EFI System" ] 	&& 
+	[ "$SECTION6VAR5" = "/dev/sda2  2099200    4196351   2097152    1G Linux filesystem" ]  && 
+	[ "$SECTION6VAR6" = "/dev/sda3  4196352 1000215182 996018831  475G Linux LVM" ]	;
+then
+	echo "Harddrive partitions have been setup successfully" ; sleep 2s
+else
+	clear ; echo "Error detected at section 6 - Command 4" ; exit
+fi
+
+rm partition-table
+
 
 #################### Section 7.0 (Format SDA1 EFI Boot Partition) ####################
 
 mkfs.fat -F32 /dev/sda1
-echo " "
-echo "EFI Boot Partition has been formatted to Fat32 successfully "
-echo " "
-sleep 2s
+SECTION7VAR1=$(file -sL /dev/sda1 | grep FAT\ \(32\ bit\))
+if	[ ! -z "$SECTION7VAR1" ]
+then
+	echo "EFI Boot Partition has been formatted to Fat32 successfully"
+else
+	clear ; echo "Error detected at section 7 - Command 1" ; exit
+fi
 
-#################### Section 8.0 (Format SDA2 Boot Partition) ####################
+##################### Section 8.0 (Format SDA2 Boot Partition) ####################
 
 printf 'y\n' | mkfs.ext4 /dev/sda2
-echo " "
-echo "Linux Boot Partition has been formatted to Ext4 successfully "
-echo " "
-sleep 2s
+SECTION8VAR1=$(file -sL /dev/sda2 | grep ext4\ filesystem)
+if	[ ! -z "$SECTION8VAR1" ]
+then
+	echo "Linux Boot Partition has been formatted to Ext4 successfully"
+else
+	clear ; echo "Error detected at section 8 - Command 1" ; exit
+fi
 
 #################### Section 9.0 (Setup of SDA 3 LUKS Partition Encrypted Container) ####################
 
@@ -285,6 +627,14 @@ echo "expect \"Verify passphrase:\\r\"" >> expectfile
 echo "send -s \"$LUKSPASSPHRASE\\r\"" >> expectfile
 echo "interact" >> expectfile
 chmod 777 expectfile
+SECTION9VAR1=$(ls ~ | grep -w expectfile)
+if	[ ! -z "$SECTION9VAR1" ]
+then
+	echo "Expect file has been created successfully"
+else
+	clear ; echo "Error detected at section 9 - Command 1" ; exit
+fi
+
 expect expectfile
 sleep 5s
 rm expectfile
@@ -295,6 +645,15 @@ sleep 2s
 
 #################### Section 10.0 (Open LUKS Container) ####################
 
+if	[  ] has been done
+then	echo it has been done
+else
+	do it command
+	if	[  ] hasn't been done after that
+	then	display error. refer to section blah
+	fi
+fi
+
 printf '%s\n' "$LUKSPASSPHRASE" | cryptsetup open --type luks /dev/sda3 lvm
 echo " "
 echo "LUKS Container has been opened with the provided passphrase successfully "
@@ -304,88 +663,150 @@ sleep 2s
 #################### Section 11.0 (Setup Physical Volume) ####################
 
 pvcreate --dataalignment 1m /dev/mapper/lvm
-echo " "
-echo "LUKS Physical volume has been setup successfully "
-echo " "
+SECTION11VAR1=$(pvs | grep /dev/mapper/lvm)
+if	[ ! -z "$SECTION11VAR1" ]
+then
+	echo "LUKS Physical volume has been setup successfully"
+else
+	clear ; echo "Error detected at section 11 - Command 1" ; exit
+fi
 sleep 2s
 
 #################### Section 12.0 (Setup Virtual Volume Group) ####################
 
 vgcreate volgroup0 /dev/mapper/lvm
-echo " "
-echo "LVM Volume Group has been setup successfully "
-echo " "
+SECTION12VAR1=$(vgdisplay volgroup0 | grep -o volgroup0)
+if	[ ! -z "$SECTION12VAR1" ]
+then
+	echo "LVM Volume Group has been setup successfully"
+else
+	clear ; echo "Error detected at section 12 - Command 1" ; exit
+fi
 sleep 2s
 
 #################### Section 13.0 (Setup Live Volumes for LUKS Encrypted Drive) ####################
 
 lvcreate -L 50GB volgroup0 -n lv_root
-echo " "
-echo "LVM Root Volume has been setup successfully "
-echo " "
+SECTION13VAR1=$(lvdisplay | grep -o /dev/volgroup0/lv_root)
+if	[ ! -z "$SECTION13VAR1" ]
+then
+	echo "LVM Root Volume has been setup successfully"
+else
+	clear ; echo "Error detected at section 13 - Command 1" ; exit
+fi
 sleep 2s
-###lvcreate -L 350GB volgroup0 -n lv_home
+
+###lvcreate -L 350GB volgroup0 -n lv_home - Alternate command
+
 lvcreate -l 100%FREE volgroup0 -n lv_home
-echo " "
-echo "LVM Home Volume has been setup successfully "
-echo " "
+SECTION13VAR2=$(lvdisplay | grep -o /dev/volgroup0/lv_home)
+if	[ ! -z "$SECTION13VAR2" ]
+then
+	echo "LVM Home Volume has been setup successfully"
+else
+	clear ; echo "Error detected at section 13 - Command 2" ; exit
+fi
 sleep 2s
 
 #################### Section 14.0 (Create Root Filesystem for LUKS encrypted drive) ####################
 
 mkfs.ext4 /dev/volgroup0/lv_root
-echo " "
-echo "LVM Root Volume has been formatted to Ext4 successfully "
-echo " "
+SECTION14VAR1=$(file -sL /dev/volgroup0/lv_root | grep -o ext4)
+if	[ ! -z "$SECTION14VAR1" ]
+then
+	echo "LVM Root Volume has been formatted to Ext4 successfully"
+else
+	clear ; echo "Error detected at section 14 - Command 1" ; exit
+fi
 sleep 2s
 
 #################### Section 15.0 (Create Home Filesystem for LUKS encrypted drive) ####################
 
 mkfs.ext4 /dev/volgroup0/lv_home
-echo " "
-echo "LVM Home Volume has been formatted to Ext4 successfully "
-echo " "
+SECTION15VAR1=$(file -sL /dev/volgroup0/lv_home | grep -o ext4)
+if	[ ! -z "$SECTION15VAR1" ]
+then
+	echo "LVM Home Volume has been formatted to Ext4 successfully"
+else
+	clear ; echo "Error detected at section 15 - Command 1" ; exit
+fi
 sleep 2s
 
 #################### Section 16.0 (Mount Home and Boot Volumes) ####################
 
 mount /dev/volgroup0/lv_root /mnt
-echo " "
-echo "LVM Root Volume mounted to /mnt successfully "
-echo " "
+SECTION16VAR1=$(lsblk /dev/volgroup0/lv_root | grep -o /mnt)
+if	[ ! -z "$SECTION16VAR1" ]
+then
+	echo "LVM Root Volume mounted to /mnt successfully"
+else
+	clear ; echo "Error detected at section 16 - Command 1" ; exit
+fi
 sleep 2s
+
 mkdir /mnt/home
-echo " "
-echo "Home Directory created successfully "
-echo " "
+SECTION16VAR2=$(ls /mnt | grep home)
+if	[ ! -z "$SECTION16VAR2" ]
+then
+	echo "Home Directory created successfully"
+else
+	clear ; echo "Error detected at section 16 - Command 2" ; exit
+fi
 sleep 2s
+
 mount /dev/volgroup0/lv_home /mnt/home
+SECTION16VAR3=$(lsblk | grep volgroup0-lv_home | grep -o /mnt/home)
+if	[ ! -z "$SECTION16VAR3" ]
+then
+	echo "LLVM Home Volume mounted to /mnt successfully"
+else
+	clear ; echo "Error detected at section 16 - Command 3" ; exit
+fi
+sleep 2s
 echo " "
-echo "LVM Home Volume mounted to /mnt successfully "
 echo " "
 sleep 2s
+
 mkdir /mnt/boot
-echo " "
-echo "Boot Directory created successfully "
-echo " "
+SECTION16VAR4=$(ls /mnt | grep -o boot)
+if	[ ! -z "$SECTION16VAR4" ]
+then
+	echo "Boot Directory created successfully"
+else
+	clear ; echo "Error detected at section 16 - Command 4" ; exit
+fi
 sleep 2s
+
 mount /dev/sda2 /mnt/boot
-echo " "
-echo "Linux Boot Partition mounted to /mnt/boot successfully "
-echo " "
+SECTION16VAR5=$(lsblk /dev/sda2 | grep -o /mnt/boot)
+if	[ ! -z "$SECTION16VAR5" ]
+then
+	echo "Linux Boot Partition mounted to /mnt/boot successfully"
+else
+	clear ; echo "Error detected at section 16 - Command 5" ; exit
+fi
 sleep 2s
+
 mkdir /mnt/etc
-echo " "
-echo "/mnt/etc Directory created successfully "
-echo " "
+SECTION16VAR6=$(ls /mnt | grep -o etc)
+if	[ ! -z "$SECTION16VAR6" ]
+then
+	echo "/mnt/etc Directory created successfully"
+else
+	clear ; echo "Error detected at section 16 - Command 6" ; exit
+fi
 sleep 2s
 
 #################### Section 17.0 (Configures Filesystem Table for Boot) ####################
 
 genfstab -U -p /mnt >> /mnt/etc/fstab
-echo " "
-echo "fstab file has been generated successfully "
-echo " "
+SECTION17VAR1=$(cat /mnt/etc/fstab | grep -o /dev/mapper/volgroup0-lv_root)
+if	[ ! -z "$SECTION17VAR1" ]
+then
+	echo "fstab file has been generated successfully"
+else
+	clear ; echo "Error detected at section 17 - Command 1" ; exit
+fi
 sleep 2s
 
 #################### Section 18.0 (Download Base Arch Linux into Mount location) ####################
@@ -523,7 +944,9 @@ sleep 2s
 #################### Section 29.0 (Configure Hosts File) ####################
 
 echo "127.0.0.1  localhost" >> /mnt/etc/hosts
+
 echo "::1  localhost" >> /mnt/etc/hosts
+
 echo "127.0.1.1  $CLASSIFICATION$HOSTNAME.localdomain $CLASSIFICATION$HOSTNAME" >> /mnt/etc/hosts
 echo " "
 echo "Host file has been configured successfully "
@@ -577,6 +1000,7 @@ sleep 2s
 #################### Section 34.0 (Configure Encryption GRUB Boot) ####################
 
 arch-chroot /mnt sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
+
 arch-chroot /mnt sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 cryptdevice=\/dev\/sda3:volgroup0:allow-discards quiet\"/" /etc/default/grub
 echo " "
 echo "Grub Boot Settings have been configured successfully "
@@ -625,13 +1049,13 @@ echo "Grub configuration file has been generated successfully "
 echo " "
 sleep 2s
 
-#################### Section 38.0 (Create and Setup Swapfile) ####################
+##################### Section 38.0 (Create and Setup Swapfile) ####################
 
 arch-chroot /mnt fallocate -l 4G /swapfile
 echo " "
 echo "Harddrive space has been allocated for swapfile successfully "
 echo " "
-sleep 2s
+sleep 2
 
 arch-chroot /mnt chmod 600 /swapfile
 echo " "
