@@ -192,6 +192,8 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 #@	if	[ -z "$SECTION3VAR2" ]
 #@	then
 #@		clear ; echo "Error detected at section 3 - Command 2" ; exit
+#@	else
+#@		echo "PACMAN mode has been enabled successfully"
 #@	fi
 #@fi
 
@@ -662,15 +664,15 @@ pvcreate --dataalignment 1m /dev/mapper/lvm
 #@echo " "
 #@sleep 2s
 
-#@arch-chroot /mnt locale-gen
-#@echo " "
-#@echo "Location configuration has been generated successfully "
-#@echo " "
-#@sleep 2s
-
 #@echo "LANG=en_AU.UTF-8" > /mnt/etc/locale.conf
 #@echo " "
 #@echo "Australian English Language settings have been configured successfully "
+#@echo " "
+#@sleep 2s
+
+#@arch-chroot /mnt locale-gen
+#@echo " "
+#@echo "Location configuration has been generated successfully "
 #@echo " "
 #@sleep 2s
 
@@ -679,6 +681,9 @@ pvcreate --dataalignment 1m /dev/mapper/lvm
 #@echo "Mirrolist file has been configured ready for first bootup successfully "
 #@echo " "
 #@sleep 2s
+#@SECTION27VAR?=$(grep \#\#Server /etc/pacman.d/mirrorlist)
+#@if	[ ! -z "$SECTION27VAR?" ]
+#@then
 
 #################### Section 28.0 (Configure Hostname) ####################
 
