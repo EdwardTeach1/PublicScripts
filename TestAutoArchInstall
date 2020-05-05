@@ -162,735 +162,735 @@ done
 
 #################### Section 2.0 (Delete Hard Drive Partitions) ####################
 
-#@dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
-#@SECTION2VAR1=$(lsblk /dev/sda | grep part)
-#@if	[ -z "$SECTION2VAR1" ]
-#@then
-#@	echo "Harddrive partitions have been deleted successfully" && sleep 2s
-#@else
-#@	clear ; echo "Error detected at section 2 - Command 1" ; exit
-#@fi
+dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
+SECTION2VAR1=$(lsblk /dev/sda | grep part)
+if	[ -z "$SECTION2VAR1" ]
+then
+	echo "Harddrive partitions have been deleted successfully" && sleep 2s
+else
+	clear ; echo "Error detected at section 2 - Command 1" ; exit
+fi
 
 #################### Section 3.0 (Configure Repository Locations - HTTPS priority) ####################
 
 sed -i "s/#Color/Color/" /etc/pacman.conf
-#@SECTION3VAR1=$(cat /etc/pacman.conf | grep \#Color)
-#@if	[ -z "$SECTION3VAR1" ]
-#@then
-#@	echo "Bash Colours have been set successfully"
-#@else
-#@	clear ; echo "Error detected at section 3 - Command 1" ; exit
-#@fi
+SECTION3VAR1=$(cat /etc/pacman.conf | grep \#Color)
+if	[ -z "$SECTION3VAR1" ]
+then
+	echo "Bash Colours have been set successfully"
+else
+	clear ; echo "Error detected at section 3 - Command 1" ; exit
+fi
 
-#@SECTION3VAR2=$(cat /etc/pacman.conf | grep ILoveCandy)
-#@if	[ ! -z "$SECTION3VAR2" ]
-#@then
-#@	echo "PACMAN mode has been enabled already"
-#@else
-#@	sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
-#@	SECTION3VAR2=$(cat /etc/pacman.conf | grep ILoveCandy)
-#@	if	[ -z "$SECTION3VAR2" ]
-#@	then
-#@		clear ; echo "Error detected at section 3 - Command 2" ; exit
-#@	fi
-#@fi
+SECTION3VAR2=$(cat /etc/pacman.conf | grep ILoveCandy)
+if	[ ! -z "$SECTION3VAR2" ]
+then
+	echo "PACMAN mode has been enabled already"
+else
+	sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
+	SECTION3VAR2=$(cat /etc/pacman.conf | grep ILoveCandy)
+	if	[ -z "$SECTION3VAR2" ]
+	then
+		clear ; echo "Error detected at section 3 - Command 2" ; exit
+	fi
+fi
 
-#@SECTION3VAR3=$(grep \#\#Server /etc/pacman.d/mirrorlist)
-#@if	[ ! -z "$SECTION3VAR3" ]
-#@then
-#@	echo "PACMAN mode has been enabled already"
-#@else
-#@	sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
-#@	SECTION3VAR3=$(cat /etc/pacman.conf | grep ILoveCandy)
-#@	if	[ -z "$SECTION3VAR3" ]
-#@	then
-#@		clear ; echo "Error detected at section 3 - Command 3" ; exit
-#@	fi
-#@fi
+SECTION3VAR3=$(grep \#\#Server /etc/pacman.d/mirrorlist)
+if	[ ! -z "$SECTION3VAR3" ]
+then
+	echo "PACMAN mode has been enabled already"
+else
+	sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
+	SECTION3VAR3=$(cat /etc/pacman.conf | grep ILoveCandy)
+	if	[ -z "$SECTION3VAR3" ]
+	then
+		clear ; echo "Error detected at section 3 - Command 3" ; exit
+	fi
+fi
 
-#@SECTION3VAR4=$(cat /etc/pacman.d/mirrorlist | grep https://mirror.aarnet.edu.au/pub/archlinux/\\$\repo/os/\\$\arch)
-#@if	[ ! -z "$SECTION3VAR4" ]
-#@then
-#@	echo "First HTTPS Server has been added to the mirrorlist file already"
-#@else
-#@	sed -i '/## Generated on/a Server = https://mirror.aarnet.edu.au/pub/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
-#@	SECTION3VAR4=$(cat /etc/pacman.d/mirrorlist | grep https://mirror.aarnet.edu.au/pub/archlinux/\\$\repo/os/\\$\arch)
-#@	if	[ -z "$SECTION3VAR4" ]
-#@	then
-#@		clear ; echo "Error detected at section 3 - Command 4" ; exit
-#@	fi
-#@fi
+SECTION3VAR4=$(cat /etc/pacman.d/mirrorlist | grep https://mirror.aarnet.edu.au/pub/archlinux/\\$\repo/os/\\$\arch)
+if	[ ! -z "$SECTION3VAR4" ]
+then
+	echo "First HTTPS Server has been added to the mirrorlist file already"
+else
+	sed -i '/## Generated on/a Server = https://mirror.aarnet.edu.au/pub/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
+	SECTION3VAR4=$(cat /etc/pacman.d/mirrorlist | grep https://mirror.aarnet.edu.au/pub/archlinux/\\$\repo/os/\\$\arch)
+	if	[ -z "$SECTION3VAR4" ]
+	then
+		clear ; echo "Error detected at section 3 - Command 4" ; exit
+	fi
+fi
 
-#@SECTION3VAR5=$(cat /etc/pacman.d/mirrorlist | grep https://archlinux.mirror.digitalpacific.com.au/\\$\repo/os/\\$\arch)
-#@if	[ ! -z "$SECTION3VAR5" ]
-#@then
-#@	echo "Second HTTPS Server has been added to the mirrorlist file successfully"
-#@else
-#@	sed -i '/## Generated on/a Server = https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist
-#@	SECTION3VAR5=$(cat /etc/pacman.d/mirrorlist | grep https://archlinux.mirror.digitalpacific.com.au/\\$\repo/os/\\$\arch)
-#@	if	[ -z "$SECTION3VAR5" ]
-#@	then
-#@		clear ; echo "Error detected at section 3 - Command 5" ; exit
-#@	fi
-#@fi
+SECTION3VAR5=$(cat /etc/pacman.d/mirrorlist | grep https://archlinux.mirror.digitalpacific.com.au/\\$\repo/os/\\$\arch)
+if	[ ! -z "$SECTION3VAR5" ]
+then
+	echo "Second HTTPS Server has been added to the mirrorlist file successfully"
+else
+	sed -i '/## Generated on/a Server = https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist
+	SECTION3VAR5=$(cat /etc/pacman.d/mirrorlist | grep https://archlinux.mirror.digitalpacific.com.au/\\$\repo/os/\\$\arch)
+	if	[ -z "$SECTION3VAR5" ]
+	then
+		clear ; echo "Error detected at section 3 - Command 5" ; exit
+	fi
+fi
 
-#@SECTION3VAR6=$(cat /etc/pacman.d/mirrorlist | grep https://syd.mirror.rackspace.com/archlinux/\\$\repo/os/\\$\arch)
-#@if	[ ! -z "$SECTION3VAR6" ]
-#@then
-#@	echo "Third HTTPS Server has been added to the mirrorlist file successfully"
-#@else
-#@	sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
-#@	SECTION3VAR6=$(cat /etc/pacman.d/mirrorlist | grep https://syd.mirror.rackspace.com/archlinux/\\$\repo/os/\\$\arch)
-#@	if	[ -z "$SECTION3VAR6" ]
-#@	then
-#@		clear ; echo "Error detected at section 3 - Command 6" ; exit
-#@	fi
-#@fi
+SECTION3VAR6=$(cat /etc/pacman.d/mirrorlist | grep https://syd.mirror.rackspace.com/archlinux/\\$\repo/os/\\$\arch)
+if	[ ! -z "$SECTION3VAR6" ]
+then
+	echo "Third HTTPS Server has been added to the mirrorlist file successfully"
+else
+	sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
+	SECTION3VAR6=$(cat /etc/pacman.d/mirrorlist | grep https://syd.mirror.rackspace.com/archlinux/\\$\repo/os/\\$\arch)
+	if	[ -z "$SECTION3VAR6" ]
+	then
+		clear ; echo "Error detected at section 3 - Command 6" ; exit
+	fi
+fi
 
 #################### Section 4.0 (Download Latest Arch Linux Packages) ####################
 
-#@pacman -Syyy
-#@echo " "
-#@echo "Latest Arch Linux Packages have been downloaded successfully "
-#@echo " "
-#@sleep 2s
+pacman -Syyy
+echo " "
+echo "Latest Arch Linux Packages have been downloaded successfully "
+echo " "
+sleep 2s
 
 #################### Section 5.0 (Install Expect Shell) ####################
 
-#@printf '\n\n\n' | pacman -Syy expect
-#@echo " "
-#@echo "Expect Shell has been installed successfully "
-#@echo " "
-#@sleep 2s
+printf '\n\n\n' | pacman -Syy expect
+echo " "
+echo "Expect Shell has been installed successfully "
+echo " "
+sleep 2s
 
 #################### Section 6.0 (Setup HDD Partitions for Installation) ####################
 
 ### First Classification Option
-#@if		[ "$CLASSIFICATION" = "CLASS1" ]
-#@then
-#@	echo "label: gpt" > partition-table
-#@	echo "device: /dev/sda" >> partition-table
-#@	echo "unit: sectors" >> partition-table
-#@	echo "first-lba: 2048" >> partition-table
-#@	echo "last-lba: 1000215182" >> partition-table
-#@	echo " " >> partition-table
-#@	echo "/dev/sda1 : start=           2048, size=     2097152, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B"   >> partition-table
-#@	echo "/dev/sda2 : start=        2099200, size=     2097152, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"   >> partition-table
-#@	echo "/dev/sda3 : start=        4196352, size=   996018831, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
-#@	SECTION6VAR1=$(ls ~ | grep -w partition-table)
-#@	if	[ ! -z "$SECTION6VAR1" ]
-#@	then
-#@		echo "Partition Table file has been created successfully"
-#@	else
-#@		clear ; echo "Error detected at section 6 - Command 1" ; exit
-#@	fi
-#@fi
+if		[ "$CLASSIFICATION" = "CLASS1" ]
+then
+	echo "label: gpt" > partition-table
+	echo "device: /dev/sda" >> partition-table
+	echo "unit: sectors" >> partition-table
+	echo "first-lba: 2048" >> partition-table
+	echo "last-lba: 1000215182" >> partition-table
+	echo " " >> partition-table
+	echo "/dev/sda1 : start=           2048, size=     2097152, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B"   >> partition-table
+	echo "/dev/sda2 : start=        2099200, size=     2097152, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"   >> partition-table
+	echo "/dev/sda3 : start=        4196352, size=   996018831, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
+	SECTION6VAR1=$(ls ~ | grep -w partition-table)
+	if	[ ! -z "$SECTION6VAR1" ]
+	then
+		echo "Partition Table file has been created successfully"
+	else
+		clear ; echo "Error detected at section 6 - Command 1" ; exit
+	fi
+fi
 
 ### Second Classification Option
-#@if		[ "$CLASSIFICATION" = "CLASS2" ]
-#@then
-#@	echo "label: gpt" > partition-table
-#@	echo "device: /dev/sda" >> partition-table
-#@	echo "unit: sectors" >> partition-table
-#@	echo "first-lba: 2048" >> partition-table
-#@	echo "last-lba: 1000215182" >> partition-table
-#@	echo " " >> partition-table
-#@	echo "/dev/sda1 : start=           2048, size=     2097152, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B"   >> partition-table
-#@	echo "/dev/sda2 : start=        2099200, size=     2097152, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"   >> partition-table
-#@	echo "/dev/sda3 : start=        4196352, size=   996018831, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
-#@	SECTION6VAR2=$(ls ~ | grep -w partition-table)
-#@	if	[ ! -z "$SECTION6VAR2" ]
-#@	then
-#@		echo "Partition Table file has been created successfully"
-#@	else
-#@		clear ; echo "Error detected at section 6 - Command 2" ; exit
-#@	fi
-#@fi
+if		[ "$CLASSIFICATION" = "CLASS2" ]
+then
+	echo "label: gpt" > partition-table
+	echo "device: /dev/sda" >> partition-table
+	echo "unit: sectors" >> partition-table
+	echo "first-lba: 2048" >> partition-table
+	echo "last-lba: 1000215182" >> partition-table
+	echo " " >> partition-table
+	echo "/dev/sda1 : start=           2048, size=     2097152, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B"   >> partition-table
+	echo "/dev/sda2 : start=        2099200, size=     2097152, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"   >> partition-table
+	echo "/dev/sda3 : start=        4196352, size=   996018831, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
+	SECTION6VAR2=$(ls ~ | grep -w partition-table)
+	if	[ ! -z "$SECTION6VAR2" ]
+	then
+		echo "Partition Table file has been created successfully"
+	else
+		clear ; echo "Error detected at section 6 - Command 2" ; exit
+	fi
+fi
 ### Third Classification Option
-#@if		[ "$CLASSIFICATION" = "CLASS3" ]
-#@then
-#@	echo "label: gpt" > partition-table
-#@	echo "device: /dev/sda" >> partition-table
-#@	echo "unit: sectors" >> partition-table
-#@	echo "first-lba: 2048" >> partition-table
-#@	echo "last-lba: 1000215182" >> partition-table
-#@	echo " " >> partition-table
-#@	echo "/dev/sda1 : start=           2048, size=     2097152, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B"   >> partition-table
-#@	echo "/dev/sda2 : start=        2099200, size=     2097152, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"   >> partition-table
-#@	echo "/dev/sda3 : start=        4196352, size=   996018831, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
-#@	SECTION6VAR3=$(ls ~ | grep -w partition-table)
-#@	if	[ ! -z "$SECTION6VAR3" ]
-#@	then
-#@		echo "Partition Table file has been created successfully"
-#@	else
-#@		clear ; echo "Error detected at section 6 - Command 3" ; exit
-#@	fi
-#@fi
-#@sfdisk /dev/sda < partition-table
-#@SECTION6VAR4=$(fdisk -l | grep /dev/sda1)
-#@SECTION6VAR5=$(fdisk -l | grep /dev/sda2)
-#@SECTION6VAR6=$(fdisk -l | grep /dev/sda3)
-#@if 	[ "$SECTION6VAR4" = "/dev/sda1     2048    2099199   2097152    1G EFI System" ] 	&& 
-#@	[ "$SECTION6VAR5" = "/dev/sda2  2099200    4196351   2097152    1G Linux filesystem" ]  && 
-#@	[ "$SECTION6VAR6" = "/dev/sda3  4196352 1000215182 996018831  475G Linux LVM" ]	;
-#@then
-#@	echo "Harddrive partitions have been setup successfully" ; sleep 2s
-#@else
-#@	clear ; echo "Error detected at section 6 - Command 4" ; exit
-#@fi
+if		[ "$CLASSIFICATION" = "CLASS3" ]
+then
+	echo "label: gpt" > partition-table
+	echo "device: /dev/sda" >> partition-table
+	echo "unit: sectors" >> partition-table
+	echo "first-lba: 2048" >> partition-table
+	echo "last-lba: 1000215182" >> partition-table
+	echo " " >> partition-table
+	echo "/dev/sda1 : start=           2048, size=     2097152, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B"   >> partition-table
+	echo "/dev/sda2 : start=        2099200, size=     2097152, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"   >> partition-table
+	echo "/dev/sda3 : start=        4196352, size=   996018831, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
+	SECTION6VAR3=$(ls ~ | grep -w partition-table)
+	if	[ ! -z "$SECTION6VAR3" ]
+	then
+		echo "Partition Table file has been created successfully"
+	else
+		clear ; echo "Error detected at section 6 - Command 3" ; exit
+	fi
+fi
+sfdisk /dev/sda < partition-table
+SECTION6VAR4=$(fdisk -l | grep /dev/sda1)
+SECTION6VAR5=$(fdisk -l | grep /dev/sda2)
+SECTION6VAR6=$(fdisk -l | grep /dev/sda3)
+if 	[ "$SECTION6VAR4" = "/dev/sda1     2048    2099199   2097152    1G EFI System" ] 	&& 
+	[ "$SECTION6VAR5" = "/dev/sda2  2099200    4196351   2097152    1G Linux filesystem" ]  && 
+	[ "$SECTION6VAR6" = "/dev/sda3  4196352 1000215182 996018831  475G Linux LVM" ]	;
+then
+	echo "Harddrive partitions have been setup successfully" ; sleep 2s
+else
+	clear ; echo "Error detected at section 6 - Command 4" ; exit
+fi
 
-#@rm partition-table
+rm partition-table
 
 
 #################### Section 7.0 (Format SDA1 EFI Boot Partition) ####################
 
 mkfs.fat -F32 /dev/sda1
-#@SECTION7VAR1=$(file -sL /dev/sda1 | grep FAT\ \(32\ bit\))
-#@if	[ ! -z "$SECTION7VAR1" ]
-#@then
-#@	echo "EFI Boot Partition has been formatted to Fat32 successfully"
-#@else
-#@	clear ; echo "Error detected at section 7 - Command 1" ; exit
-#@fi
+SECTION7VAR1=$(file -sL /dev/sda1 | grep FAT\ \(32\ bit\))
+if	[ ! -z "$SECTION7VAR1" ]
+then
+	echo "EFI Boot Partition has been formatted to Fat32 successfully"
+else
+	clear ; echo "Error detected at section 7 - Command 1" ; exit
+fi
 
 ##################### Section 8.0 (Format SDA2 Boot Partition) ####################
 
 printf 'y\n' | mkfs.ext4 /dev/sda2
-#@SECTION8VAR1=$(file -sL /dev/sda2 | grep ext4\ filesystem)
-#@if	[ ! -z "$SECTION8VAR1" ]
-#@then
-#@	echo "Linux Boot Partition has been formatted to Ext4 successfully"
-#@else
-#@	clear ; echo "Error detected at section 8 - Command 1" ; exit
-#@fi
+SECTION8VAR1=$(file -sL /dev/sda2 | grep ext4\ filesystem)
+if	[ ! -z "$SECTION8VAR1" ]
+then
+	echo "Linux Boot Partition has been formatted to Ext4 successfully"
+else
+	clear ; echo "Error detected at section 8 - Command 1" ; exit
+fi
 
 #################### Section 9.0 (Setup of SDA 3 LUKS Partition Encrypted Container) ####################
 
-#@echo "#!/usr/bin/expect -f" > expectfile
-#@echo "set send_slow {2 0.5}" >> expectfile
-#@echo "spawn cryptsetup luksFormat /dev/sda3" >> expectfile
-#@echo "expect \"Are you sure? (Type 'yes' in capital letters):\\r\"" >> expectfile
-#@echo "send -s \"YES\\r\"" >> expectfile
-#@echo "expect \"Enter passphrase for /dev/sda3:\\r\"" >> expectfile
-#@echo "send -s \"$LUKSPASSPHRASE\\r\"" >> expectfile
-#@echo "expect \"Verify passphrase:\\r\"" >> expectfile
-#@echo "send -s \"$LUKSPASSPHRASE\\r\"" >> expectfile
-#@echo "interact" >> expectfile
-#@chmod 777 expectfile
-#@SECTION9VAR1=$(ls ~ | grep -w expectfile)
-#@if	[ ! -z "$SECTION9VAR1" ]
-#@then
-#@	echo "Expect file has been created successfully"
-#@else
-#@	clear ; echo "Error detected at section 9 - Command 1" ; exit
-#@fi
+echo "#!/usr/bin/expect -f" > expectfile
+echo "set send_slow {2 0.5}" >> expectfile
+echo "spawn cryptsetup luksFormat /dev/sda3" >> expectfile
+echo "expect \"Are you sure? (Type 'yes' in capital letters):\\r\"" >> expectfile
+echo "send -s \"YES\\r\"" >> expectfile
+echo "expect \"Enter passphrase for /dev/sda3:\\r\"" >> expectfile
+echo "send -s \"$LUKSPASSPHRASE\\r\"" >> expectfile
+echo "expect \"Verify passphrase:\\r\"" >> expectfile
+echo "send -s \"$LUKSPASSPHRASE\\r\"" >> expectfile
+echo "interact" >> expectfile
+chmod 777 expectfile
+SECTION9VAR1=$(ls ~ | grep -w expectfile)
+if	[ ! -z "$SECTION9VAR1" ]
+then
+	echo "Expect file has been created successfully"
+else
+	clear ; echo "Error detected at section 9 - Command 1" ; exit
+fi
 
-#@expect expectfile
-#@sleep 5s
-#@rm expectfile
-#@echo " "
-#@echo "LUKS Encrypted Container has been setup successfully "
-#@echo " "
-#@sleep 2s
+expect expectfile
+sleep 5s
+rm expectfile
+echo " "
+echo "LUKS Encrypted Container has been setup successfully "
+echo " "
+sleep 2s
 
 #################### Section 10.0 (Open LUKS Container) ####################
 
-#@if	[  ] has been done
-#@then	echo it has been done
-#@else
-#@	do it command
-#@	if	[  ] hasn't been done after that
-#@	then	display error. refer to section blah
-#@	fi
-#@fi
+if	[  ] has been done
+then	echo it has been done
+else
+	do it command
+	if	[  ] hasn't been done after that
+	then	display error. refer to section blah
+	fi
+fi
 
-#@printf '%s\n' "$LUKSPASSPHRASE" | cryptsetup open --type luks /dev/sda3 lvm
-#@echo " "
-#@echo "LUKS Container has been opened with the provided passphrase successfully "
-#@echo " "
-#@sleep 2s
+printf '%s\n' "$LUKSPASSPHRASE" | cryptsetup open --type luks /dev/sda3 lvm
+echo " "
+echo "LUKS Container has been opened with the provided passphrase successfully "
+echo " "
+sleep 2s
 
 #################### Section 11.0 (Setup Physical Volume) ####################
 
 pvcreate --dataalignment 1m /dev/mapper/lvm
-#@SECTION11VAR1=$(pvs | grep /dev/mapper/lvm)
-#@if	[ ! -z "$SECTION11VAR1" ]
-#@then
-#@	echo "LUKS Physical volume has been setup successfully"
-#@else
-#@	clear ; echo "Error detected at section 11 - Command 1" ; exit
-#@fi
-#@sleep 2s
+SECTION11VAR1=$(pvs | grep /dev/mapper/lvm)
+if	[ ! -z "$SECTION11VAR1" ]
+then
+	echo "LUKS Physical volume has been setup successfully"
+else
+	clear ; echo "Error detected at section 11 - Command 1" ; exit
+fi
+sleep 2s
 
 #################### Section 12.0 (Setup Virtual Volume Group) ####################
 
-#@vgcreate volgroup0 /dev/mapper/lvm
-#@SECTION12VAR1=$(vgdisplay volgroup0 | grep -o volgroup0)
-#@if	[ ! -z "$SECTION12VAR1" ]
-#@then
-#@	echo "LVM Volume Group has been setup successfully"
-#@else
-#@	clear ; echo "Error detected at section 12 - Command 1" ; exit
-#@fi
-#@sleep 2s
+vgcreate volgroup0 /dev/mapper/lvm
+SECTION12VAR1=$(vgdisplay volgroup0 | grep -o volgroup0)
+if	[ ! -z "$SECTION12VAR1" ]
+then
+	echo "LVM Volume Group has been setup successfully"
+else
+	clear ; echo "Error detected at section 12 - Command 1" ; exit
+fi
+sleep 2s
 
 #################### Section 13.0 (Setup Live Volumes for LUKS Encrypted Drive) ####################
 
-#@lvcreate -L 50GB volgroup0 -n lv_root
-#@SECTION13VAR1=$(lvdisplay | grep -o /dev/volgroup0/lv_root)
-#@if	[ ! -z "$SECTION13VAR1" ]
-#@then
-#@	echo "LVM Root Volume has been setup successfully"
-#@else
-#@	clear ; echo "Error detected at section 13 - Command 1" ; exit
-#@fi
-#@sleep 2s
+lvcreate -L 50GB volgroup0 -n lv_root
+SECTION13VAR1=$(lvdisplay | grep -o /dev/volgroup0/lv_root)
+if	[ ! -z "$SECTION13VAR1" ]
+then
+	echo "LVM Root Volume has been setup successfully"
+else
+	clear ; echo "Error detected at section 13 - Command 1" ; exit
+fi
+sleep 2s
 
 ###lvcreate -L 350GB volgroup0 -n lv_home - Alternate command
 
-#@lvcreate -l 100%FREE volgroup0 -n lv_home
-#@SECTION13VAR2=$(lvdisplay | grep -o /dev/volgroup0/lv_home)
-#@if	[ ! -z "$SECTION13VAR2" ]
-#@then
-#@	echo "LVM Home Volume has been setup successfully"
-#@else
-#@	clear ; echo "Error detected at section 13 - Command 2" ; exit
-#@fi
-#@sleep 2s
+lvcreate -l 100%FREE volgroup0 -n lv_home
+SECTION13VAR2=$(lvdisplay | grep -o /dev/volgroup0/lv_home)
+if	[ ! -z "$SECTION13VAR2" ]
+then
+	echo "LVM Home Volume has been setup successfully"
+else
+	clear ; echo "Error detected at section 13 - Command 2" ; exit
+fi
+sleep 2s
 
 #################### Section 14.0 (Create Root Filesystem for LUKS encrypted drive) ####################
 
-#@mkfs.ext4 /dev/volgroup0/lv_root
-#@SECTION14VAR1=$(file -sL /dev/volgroup0/lv_root | grep -o ext4)
-#@if	[ ! -z "$SECTION14VAR1" ]
-#@then
-#@	echo "LVM Root Volume has been formatted to Ext4 successfully"
-#@else
-#@	clear ; echo "Error detected at section 14 - Command 1" ; exit
-#@fi
-#@sleep 2s
+mkfs.ext4 /dev/volgroup0/lv_root
+SECTION14VAR1=$(file -sL /dev/volgroup0/lv_root | grep -o ext4)
+if	[ ! -z "$SECTION14VAR1" ]
+then
+	echo "LVM Root Volume has been formatted to Ext4 successfully"
+else
+	clear ; echo "Error detected at section 14 - Command 1" ; exit
+fi
+sleep 2s
 
 #################### Section 15.0 (Create Home Filesystem for LUKS encrypted drive) ####################
 
-#@mkfs.ext4 /dev/volgroup0/lv_home
-#@SECTION15VAR1=$(file -sL /dev/volgroup0/lv_home | grep -o ext4)
-#@if	[ ! -z "$SECTION15VAR1" ]
-#@then
-#@	echo "LVM Home Volume has been formatted to Ext4 successfully"
-#@else
-#@	clear ; echo "Error detected at section 15 - Command 1" ; exit
-#@fi
-#@sleep 2s
+mkfs.ext4 /dev/volgroup0/lv_home
+SECTION15VAR1=$(file -sL /dev/volgroup0/lv_home | grep -o ext4)
+if	[ ! -z "$SECTION15VAR1" ]
+then
+	echo "LVM Home Volume has been formatted to Ext4 successfully"
+else
+	clear ; echo "Error detected at section 15 - Command 1" ; exit
+fi
+sleep 2s
 
 #################### Section 16.0 (Mount Home and Boot Volumes) ####################
 
-#@mount /dev/volgroup0/lv_root /mnt
-#@SECTION16VAR1=$(lsblk /dev/volgroup0/lv_root | grep -o /mnt)
-#@if	[ ! -z "$SECTION16VAR1" ]
-#@then
-#@	echo "LVM Root Volume mounted to /mnt successfully"
-#@else
-#@	clear ; echo "Error detected at section 16 - Command 1" ; exit
-#@fi
-#@sleep 2s
+mount /dev/volgroup0/lv_root /mnt
+SECTION16VAR1=$(lsblk /dev/volgroup0/lv_root | grep -o /mnt)
+if	[ ! -z "$SECTION16VAR1" ]
+then
+	echo "LVM Root Volume mounted to /mnt successfully"
+else
+	clear ; echo "Error detected at section 16 - Command 1" ; exit
+fi
+sleep 2s
 
-#@mkdir /mnt/home
-#@SECTION16VAR2=$(ls /mnt | grep home)
-#@if	[ ! -z "$SECTION16VAR2" ]
-#@then
-#@	echo "Home Directory created successfully"
-#@else
-#@	clear ; echo "Error detected at section 16 - Command 2" ; exit
-#@fi
-#@sleep 2s
+mkdir /mnt/home
+SECTION16VAR2=$(ls /mnt | grep home)
+if	[ ! -z "$SECTION16VAR2" ]
+then
+	echo "Home Directory created successfully"
+else
+	clear ; echo "Error detected at section 16 - Command 2" ; exit
+fi
+sleep 2s
 
-#@mount /dev/volgroup0/lv_home /mnt/home
-#@SECTION16VAR3=$(lsblk | grep volgroup0-lv_home | grep -o /mnt/home)
-#@if	[ ! -z "$SECTION16VAR3" ]
-#@then
-#@	echo "LLVM Home Volume mounted to /mnt successfully"
-#@else
-#@	clear ; echo "Error detected at section 16 - Command 3" ; exit
-#@fi
-#@sleep 2s
-#@echo " "
-#@echo " "
-#@sleep 2s
+mount /dev/volgroup0/lv_home /mnt/home
+SECTION16VAR3=$(lsblk | grep volgroup0-lv_home | grep -o /mnt/home)
+if	[ ! -z "$SECTION16VAR3" ]
+then
+	echo "LLVM Home Volume mounted to /mnt successfully"
+else
+	clear ; echo "Error detected at section 16 - Command 3" ; exit
+fi
+sleep 2s
+echo " "
+echo " "
+sleep 2s
 
-#@mkdir /mnt/boot
-#@SECTION16VAR4=$(ls /mnt | grep -o boot)
-#@if	[ ! -z "$SECTION16VAR4" ]
-#@then
-#@	echo "Boot Directory created successfully"
-#@else
-#@	clear ; echo "Error detected at section 16 - Command 4" ; exit
-#@fi
-#@sleep 2s
+mkdir /mnt/boot
+SECTION16VAR4=$(ls /mnt | grep -o boot)
+if	[ ! -z "$SECTION16VAR4" ]
+then
+	echo "Boot Directory created successfully"
+else
+	clear ; echo "Error detected at section 16 - Command 4" ; exit
+fi
+sleep 2s
 
-#@mount /dev/sda2 /mnt/boot
-#@SECTION16VAR5=$(lsblk /dev/sda2 | grep -o /mnt/boot)
-#@if	[ ! -z "$SECTION16VAR5" ]
-#@then
-#@	echo "Linux Boot Partition mounted to /mnt/boot successfully"
-#@else
-#@	clear ; echo "Error detected at section 16 - Command 5" ; exit
-#@fi
-#@sleep 2s
+mount /dev/sda2 /mnt/boot
+SECTION16VAR5=$(lsblk /dev/sda2 | grep -o /mnt/boot)
+if	[ ! -z "$SECTION16VAR5" ]
+then
+	echo "Linux Boot Partition mounted to /mnt/boot successfully"
+else
+	clear ; echo "Error detected at section 16 - Command 5" ; exit
+fi
+sleep 2s
 
-#@mkdir /mnt/etc
-#@SECTION16VAR6=$(ls /mnt | grep -o etc)
-#@if	[ ! -z "$SECTION16VAR6" ]
-#@then
-#@	echo "/mnt/etc Directory created successfully"
-#@else
-#@	clear ; echo "Error detected at section 16 - Command 6" ; exit
-#@fi
-#@sleep 2s
+mkdir /mnt/etc
+SECTION16VAR6=$(ls /mnt | grep -o etc)
+if	[ ! -z "$SECTION16VAR6" ]
+then
+	echo "/mnt/etc Directory created successfully"
+else
+	clear ; echo "Error detected at section 16 - Command 6" ; exit
+fi
+sleep 2s
 
 #################### Section 17.0 (Configures Filesystem Table for Boot) ####################
 
-#@genfstab -U -p /mnt >> /mnt/etc/fstab
-#@SECTION17VAR1=$(cat /mnt/etc/fstab | grep -o /dev/mapper/volgroup0-lv_root)
-#@if	[ ! -z "$SECTION17VAR1" ]
-#@then
-#@	echo "fstab file has been generated successfully"
-#@else
-#@	clear ; echo "Error detected at section 17 - Command 1" ; exit
-#@fi
-#@sleep 2s
+genfstab -U -p /mnt >> /mnt/etc/fstab
+SECTION17VAR1=$(cat /mnt/etc/fstab | grep -o /dev/mapper/volgroup0-lv_root)
+if	[ ! -z "$SECTION17VAR1" ]
+then
+	echo "fstab file has been generated successfully"
+else
+	clear ; echo "Error detected at section 17 - Command 1" ; exit
+fi
+sleep 2s
 
 #################### Section 18.0 (Download Base Arch Linux into Mount location) ####################
 
-#@printf '\n\n\n' | pacstrap -i /mnt base
-#@echo " "
-#@echo "Base Arch Linux System has been downloaded into the bootup location successfully "
-#@echo " "
-#@sleep 2s
+printf '\n\n\n' | pacstrap -i /mnt base
+echo " "
+echo "Base Arch Linux System has been downloaded into the bootup location successfully "
+echo " "
+sleep 2s
 
 #################### Section 19.0 (Install Linux LTS Version to CHROOT) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S linux-lts linux-lts-headers
-#@echo " "
-#@echo "Linux LTS and Headers have been downloaded and installed into the bootup location successfully "
-#@echo " "
-#@sleep 2s
+printf '\n\n\n' | arch-chroot /mnt pacman -S linux-lts linux-lts-headers
+echo " "
+echo "Linux LTS and Headers have been downloaded and installed into the bootup location successfully "
+echo " "
+sleep 2s
 
 #################### Section 20.0 (Install Linux Firmware to CHROOT) ####################
 
 ###note need to install firmware (aic94xx;wd719x) most likely from Arch Linux AUR
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S linux-firmware
-#@echo " "
-#@echo "Linux Firmware files have been downloaded and installed successfully "
-#@echo " "
-#@sleep 2s
+printf '\n\n\n' | arch-chroot /mnt pacman -S linux-firmware
+echo " "
+echo "Linux Firmware files have been downloaded and installed successfully "
+echo " "
+sleep 2s
 
 #################### Section 21.0 (Install Text Editor Packages to CHROOT) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S nano vim
-#@echo " "
-#@echo "Text Editor Software has been downloaded and installed successfully "
-#@echo " "
-#@sleep 2s
+printf '\n\n\n' | arch-chroot /mnt pacman -S nano vim
+echo " "
+echo "Text Editor Software has been downloaded and installed successfully "
+echo " "
+sleep 2s
 
 #################### Section 22.0 (Install Base Developer Packages and SSH to CHROOT) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S base-devel openssh
-#@echo " "
-#@echo "Linux Base Devel and OpenSSH has been downloaded and installed successfully "
-#@echo " "
-#@sleep 2s
+printf '\n\n\n' | arch-chroot /mnt pacman -S base-devel openssh
+echo " "
+echo "Linux Base Devel and OpenSSH has been downloaded and installed successfully "
+echo " "
+sleep 2s
 
-#@arch-chroot /mnt systemctl enable sshd
-#@echo " "
-#@echo "SSH has been enabled successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt systemctl enable sshd
+echo " "
+echo "SSH has been enabled successfully "
+echo " "
+sleep 2s
 
 #################### Section 23.0 (Install Networking Utility Packages to CHROOT) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S networkmanager wpa_supplicant wireless_tools netctl
-#@echo " "
-#@echo "NetworkManager, WPA_Supplicant, Wireless_Tools and Netctl Software Packages have been downloaded and installed successfully "
-#@echo " "
-#@sleep 2s
+printf '\n\n\n' | arch-chroot /mnt pacman -S networkmanager wpa_supplicant wireless_tools netctl
+echo " "
+echo "NetworkManager, WPA_Supplicant, Wireless_Tools and Netctl Software Packages have been downloaded and installed successfully "
+echo " "
+sleep 2s
 
-#@arch-chroot /mnt systemctl enable NetworkManager
-#@echo " "
-#@echo "Network Manager has been enabled successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt systemctl enable NetworkManager
+echo " "
+echo "Network Manager has been enabled successfully "
+echo " "
+sleep 2s
 
-#@arch-chroot /mnt systemctl enable dhcpcd
-#@echo " "
-#@echo "DHCP Service has been enabled successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt systemctl enable dhcpcd
+echo " "
+echo "DHCP Service has been enabled successfully "
+echo " "
+sleep 2s
 
 #################### Section 24.0 (Install Dialog to CHROOT) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S dialog
-#@echo " "
-#@echo "Dialog has been downloaded and installed successfully "
-#@echo " "
-#@sleep 2s
+printf '\n\n\n' | arch-chroot /mnt pacman -S dialog
+echo " "
+echo "Dialog has been downloaded and installed successfully "
+echo " "
+sleep 2s
 
 #################### Section 25.0 (Install LVM2 Packages to CHROOT) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S lvm2
-#@echo " "
-#@echo "LVM2 Software has been downloaded and installed successfully "
-#@echo " "
-#@sleep 2s
+printf '\n\n\n' | arch-chroot /mnt pacman -S lvm2
+echo " "
+echo "LVM2 Software has been downloaded and installed successfully "
+echo " "
+sleep 2s
 
 #################### Section 26.0 (Enable Encryption and LVM2 functionality to CHROOT) ####################
 
-#@arch-chroot /mnt sed -i "s/block/block encrypt lvm2/" /etc/mkinitcpio.conf
-#@echo " "
-#@echo "LVM Encryption has been configured ready for first bootup successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt sed -i "s/block/block encrypt lvm2/" /etc/mkinitcpio.conf
+echo " "
+echo "LVM Encryption has been configured ready for first bootup successfully "
+echo " "
+sleep 2s
 
-#@arch-chroot /mnt mkinitcpio -p linux-lts
-#@echo " "
-#@echo "Linux LTS System has been initilaized successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt mkinitcpio -p linux-lts
+echo " "
+echo "Linux LTS System has been initilaized successfully "
+echo " "
+sleep 2s
 
 #################### Section 27.0 (Configure Language and Locale Settings) ####################
 
-#@arch-chroot /mnt sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen
-#@echo " "
-#@echo "Australian Location Settings have been enabled successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen
+echo " "
+echo "Australian Location Settings have been enabled successfully "
+echo " "
+sleep 2s
 
-#@arch-chroot /mnt locale-gen
-#@echo " "
-#@echo "Location configuration has been generated successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt locale-gen
+echo " "
+echo "Location configuration has been generated successfully "
+echo " "
+sleep 2s
 
-#@echo "LANG=en_AU.UTF-8" > /mnt/etc/locale.conf
-#@echo " "
-#@echo "Australian English Language settings have been configured successfully "
-#@echo " "
-#@sleep 2s
+echo "LANG=en_AU.UTF-8" > /mnt/etc/locale.conf
+echo " "
+echo "Australian English Language settings have been configured successfully "
+echo " "
+sleep 2s
 
-#@cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
-#@echo " "
-#@echo "Mirrolist file has been configured ready for first bootup successfully "
-#@echo " "
-#@sleep 2s
+cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
+echo " "
+echo "Mirrolist file has been configured ready for first bootup successfully "
+echo " "
+sleep 2s
 
 #################### Section 28.0 (Configure Hostname) ####################
 
-#@echo "$CLASSIFICATION$HOSTNAME" > /mnt/etc/hostname
-#@echo " "
-#@echo "Hostname has been configured successfully "
-#@echo " "
-#@sleep 2s
+echo "$CLASSIFICATION$HOSTNAME" > /mnt/etc/hostname
+echo " "
+echo "Hostname has been configured successfully "
+echo " "
+sleep 2s
 
 #################### Section 29.0 (Configure Hosts File) ####################
 
-#@echo "127.0.0.1  localhost" >> /mnt/etc/hosts
+echo "127.0.0.1  localhost" >> /mnt/etc/hosts
 
-#@echo "::1  localhost" >> /mnt/etc/hosts
+echo "::1  localhost" >> /mnt/etc/hosts
 
-#@echo "127.0.1.1  $CLASSIFICATION$HOSTNAME.localdomain $CLASSIFICATION$HOSTNAME" >> /mnt/etc/hosts
-#@echo " "
-#@echo "Host file has been configured successfully "
-#@echo " "
-#@sleep 2s
+echo "127.0.1.1  $CLASSIFICATION$HOSTNAME.localdomain $CLASSIFICATION$HOSTNAME" >> /mnt/etc/hosts
+echo " "
+echo "Host file has been configured successfully "
+echo " "
+sleep 2s
 
 #################### Section 30.0 (Install Sudo and Setup Root Level Password) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S sudo
-#@echo " "
-#@echo "Sudo Software package has been downloaded and installed successfully "
-#@echo " "
-#@sleep 2s
+printf '\n\n\n' | arch-chroot /mnt pacman -S sudo
+echo " "
+echo "Sudo Software package has been downloaded and installed successfully "
+echo " "
+sleep 2s
 
-#@printf "$ROOTPASSWORD\n$ROOTPASSWORD" | arch-chroot /mnt passwd
-#@echo " "
-#@echo "Root User Password has been set successfully "
-#@echo " "
-#@sleep 2s
+printf "$ROOTPASSWORD\n$ROOTPASSWORD" | arch-chroot /mnt passwd
+echo " "
+echo "Root User Password has been set successfully "
+echo " "
+sleep 2s
 
 #################### Section 31.0 (Setup Users and Groups) ####################
 
-#@arch-chroot /mnt useradd -m -g users -G wheel $A_USERNAME_1
-#@echo " "
-#@echo "Administrator Account has been created successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt useradd -m -g users -G wheel $A_USERNAME_1
+echo " "
+echo "Administrator Account has been created successfully "
+echo " "
+sleep 2s
 
-#@printf "$A_USERPASSWORD_1\n$A_USERPASSWORD_1" | arch-chroot /mnt passwd $A_USERNAME_1
-#@echo " "
-#@echo "Administrator Account Password has been set successfully "
-#@echo " "
-#@sleep 2s
+printf "$A_USERPASSWORD_1\n$A_USERPASSWORD_1" | arch-chroot /mnt passwd $A_USERNAME_1
+echo " "
+echo "Administrator Account Password has been set successfully "
+echo " "
+sleep 2s
 
 #################### Section 32.0 (Enable Wheel Group) ####################
 
-#@sudo sed -i 's/^#\s*\(%wheel\s\+ALL=(ALL)\s\+ALL\)/\1/' /etc/sudoers
-#@echo " "
-#@echo "Sudo Wheel Group Sudo rights have been enabled successfully "
-#@echo " "
-#@sleep 2s
+sudo sed -i 's/^#\s*\(%wheel\s\+ALL=(ALL)\s\+ALL\)/\1/' /etc/sudoers
+echo " "
+echo "Sudo Wheel Group Sudo rights have been enabled successfully "
+echo " "
+sleep 2s
 
 #################### Section 33.0 (Download GRUB Bootloader Software Packages) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S grub efibootmgr dosfstools os-prober mtools
-#@echo " "
-#@echo "GRUB Bootloader Software packages have been downloaded and installed successfully "
-#@echo " "
-#@sleep 2s
+printf '\n\n\n' | arch-chroot /mnt pacman -S grub efibootmgr dosfstools os-prober mtools
+echo " "
+echo "GRUB Bootloader Software packages have been downloaded and installed successfully "
+echo " "
+sleep 2s
 
 #################### Section 34.0 (Configure Encryption GRUB Boot) ####################
 
-#@arch-chroot /mnt sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
+arch-chroot /mnt sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" /etc/default/grub
 
-#@arch-chroot /mnt sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 cryptdevice=\/dev\/sda3:volgroup0:allow-discards quiet\"/" /etc/default/grub
-#@echo " "
-#@echo "Grub Boot Settings have been configured successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 cryptdevice=\/dev\/sda3:volgroup0:allow-discards quiet\"/" /etc/default/grub
+echo " "
+echo "Grub Boot Settings have been configured successfully "
+echo " "
+sleep 2s
 
 #################### Section 35.0 (Setup and Enable EFI Booting) ####################
 
-#@arch-chroot /mnt mkdir /boot/EFI
-#@echo " "
-#@echo "EFI bootup directory has been created successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt mkdir /boot/EFI
+echo " "
+echo "EFI bootup directory has been created successfully "
+echo " "
+sleep 2s
 
-#@arch-chroot /mnt mount /dev/sda1 /boot/EFI
-#@echo " "
-#@echo "EFI boot partition has been mounted successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt mount /dev/sda1 /boot/EFI
+echo " "
+echo "EFI boot partition has been mounted successfully "
+echo " "
+sleep 2s
 
 #################### Section 36.0 (Install GRUB Bootloader) ####################
 
-#@arch-chroot /mnt grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
-#@echo " "
-#@echo "Grub boot loader has been installed ready for bootup successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
+echo " "
+echo "Grub boot loader has been installed ready for bootup successfully "
+echo " "
+sleep 2s
 
 #################### Section 37.0 (Setup and Enable Location Settings for Boot) ####################
 
-#@arch-chroot /mnt mkdir /boot/grub/locale
-#@echo " "
-#@echo "Grub locale file has been created successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt mkdir /boot/grub/locale
+echo " "
+echo "Grub locale file has been created successfully "
+echo " "
+sleep 2s
 
-#@arch-chroot /mnt cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
-#@echo " "
-#@echo "Grub English locale settings have been setup successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+echo " "
+echo "Grub English locale settings have been setup successfully "
+echo " "
+sleep 2s
 
-#@arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
-#@echo " "
-#@echo "Grub configuration file has been generated successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
+echo " "
+echo "Grub configuration file has been generated successfully "
+echo " "
+sleep 2s
 
 ##################### Section 38.0 (Create and Setup Swapfile) ####################
 
-#@arch-chroot /mnt fallocate -l 4G /swapfile
-#@echo " "
-#@echo "Harddrive space has been allocated for swapfile successfully "
-#@echo " "
-#@sleep 2
+arch-chroot /mnt fallocate -l 4G /swapfile
+echo " "
+echo "Harddrive space has been allocated for swapfile successfully "
+echo " "
+sleep 2
 
-#@arch-chroot /mnt chmod 600 /swapfile
-#@echo " "
-#@echo "Swapfile permissions have been configured successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt chmod 600 /swapfile
+echo " "
+echo "Swapfile permissions have been configured successfully "
+echo " "
+sleep 2s
 
-#@arch-chroot /mnt mkswap /swapfile
-#@echo " "
-#@echo "Swapfile has been enabled successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt mkswap /swapfile
+echo " "
+echo "Swapfile has been enabled successfully "
+echo " "
+sleep 2s
 
 #################### Section 39.0 (Backup FSTAB file) ####################
 
-#@arch-chroot /mnt cp /etc/fstab /etc/fstab.bak
-#@echo " "
-#@echo "fstab backup file has been created successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt cp /etc/fstab /etc/fstab.bak
+echo " "
+echo "fstab backup file has been created successfully "
+echo " "
+sleep 2s
 
 #################### Section 40.0 (Setup Swapfile Boot Configuration) ####################
 
-#@echo '/swapfile none swap sw 0 0' >> /mnt/etc/fstab
-#@echo " "
-#@echo "swapfile settings have been enabled in fstab successfully "
-#@echo " "
-#@sleep 2s
+echo '/swapfile none swap sw 0 0' >> /mnt/etc/fstab
+echo " "
+echo "swapfile settings have been enabled in fstab successfully "
+echo " "
+sleep 2s
 
 #################### Section 41.0 (Install Intel Software Packages) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S intel-ucode
-#@echo " "
-#@echo "Intel Software has been downloaded and installed successfully "
-#@echo " "
-#@sleep 2s
+printf '\n\n\n' | arch-chroot /mnt pacman -S intel-ucode
+echo " "
+echo "Intel Software has been downloaded and installed successfully "
+echo " "
+sleep 2s
 
 #################### Section 42.0 (Install GUI Base Software) ####################
 
-#@printf '\n\n\n' |  arch-chroot /mnt pacman -S xorg xorg-server
-#@echo " "
-#@echo "GUI Software has been downloaded and installed successfully "
-#@echo " "
-#@sleep 2s
+printf '\n\n\n' |  arch-chroot /mnt pacman -S xorg xorg-server
+echo " "
+echo "GUI Software has been downloaded and installed successfully "
+echo " "
+sleep 2s
 
 #################### Section 43.0 (Install MESA Package) ####################
 
-#@printf '\n\n\n' |  arch-chroot /mnt pacman -S mesa
-#@echo " "
-#@echo "mesa software has been downloaded and installed successfully "
-#@echo " "
-#@sleep 2s
+printf '\n\n\n' |  arch-chroot /mnt pacman -S mesa
+echo " "
+echo "mesa software has been downloaded and installed successfully "
+echo " "
+sleep 2s
 
 #################### Section 44.0 (Install GNOME Desktop and Configuration for Boot) ####################
 
-#@printf '\n\n\n\n\n\n\n\n' | arch-chroot /mnt pacman -S gnome gnome-extra
-#@echo " "
-#@echo "GNOME GUI has been downloaded and installed successfully "
-#@echo " "
-#@sleep 2s
+printf '\n\n\n\n\n\n\n\n' | arch-chroot /mnt pacman -S gnome gnome-extra
+echo " "
+echo "GNOME GUI has been downloaded and installed successfully "
+echo " "
+sleep 2s
 
-#@arch-chroot /mnt systemctl start gdm.service
-#@echo " "
-#@echo "GNOME GUI Service has been started successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt systemctl start gdm.service
+echo " "
+echo "GNOME GUI Service has been started successfully "
+echo " "
+sleep 2s
 
-#@arch-chroot /mnt systemctl enable gdm.service
-#@echo " "
-#@echo "GNOME GUI Service has been enabled successfully "
-#@echo " "
-#@sleep 2s
+arch-chroot /mnt systemctl enable gdm.service
+echo " "
+echo "GNOME GUI Service has been enabled successfully "
+echo " "
+sleep 2s
 
 #################### Section 45.0 (Unmount All prior to reboot) ####################
 
-#@umount -a
-#@echo " "
-#@echo "Attempted to unmount all drives ready for system shutdown "
-#@echo " "
-#@sleep 2s
-#@clear
+umount -a
+echo " "
+echo "Attempted to unmount all drives ready for system shutdown "
+echo " "
+sleep 2s
+clear
 
 #################### Section 46.0 (Power Off and Remove USB) ####################
 
-#@echo "Installation Complete. Poweroff the System. Unplug the bootable USB and set boot device EFI / GRUB in bios"
+echo "Installation Complete. Poweroff the System. Unplug the bootable USB and set boot device EFI / GRUB in bios"
 ### press any key to Shut Down.
 
 ######################################## END OF SCRIPT ########################################
