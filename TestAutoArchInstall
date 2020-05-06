@@ -162,7 +162,7 @@ done
 
 #################### Section 2.0 (Delete Hard Drive Partitions) ####################
 
-dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
+#@dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
 #@SECTION2VAR1=$(lsblk /dev/sda | grep part)
 #@if	[ -z "$SECTION2VAR1" ]
 #@then
