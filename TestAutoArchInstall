@@ -251,7 +251,7 @@ done
 
 #################### Section 4.0 (Download Latest Arch Linux Packages) ####################
 
-#@pacman -Syyy
+#@printf '\n\n\n' | pacman -Syyy which
 #@echo " "
 #@echo "Latest Arch Linux Packages have been downloaded successfully "
 #@echo " "
