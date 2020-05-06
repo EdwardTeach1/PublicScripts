@@ -343,7 +343,6 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 
 #@rm partition-table
 
-
 #################### Section 7.0 (Format SDA1 EFI Boot Partition) ####################
 
 #@mkfs.fat -F32 /dev/sda1
@@ -369,7 +368,7 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 #################### Section 9.0 (Setup of SDA 3 LUKS Partition Encrypted Container) ####################
 
 #@echo "#!/usr/bin/expect -f" > expectfile
-#@echo "set send_slow {2 0.5}" >> expectfile
+#@echo "set send_slow {1 0.001}" >> expectfile
 #@echo "spawn cryptsetup luksFormat /dev/sda3" >> expectfile
 #@echo "expect \"Are you sure? (Type 'yes' in capital letters):\\r\"" >> expectfile
 #@echo "send -s \"YES\\r\"" >> expectfile
@@ -722,7 +721,7 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 
 #@arch-chroot /mnt sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen
 #@SECTION27VAR1=$(cat /mnt/etc/locale.gen | grep -o \#en_AU.UTF-8\ UTF-8)
-#@if	[ ! -z "$SECTION27VAR1" ]
+#@if	[ -z "$SECTION27VAR1" ]
 #@then
 #@	echo "Australian Location Settings have been enabled successfully"
 #@else
@@ -731,7 +730,7 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 #@sleep 2s
 
 #@echo "LANG=en_AU.UTF-8" > /mnt/etc/locale.conf
-#@SECTION27VAR2=$(cat /mnt/etc/locale.conf | grep -o LANG=en_AU.UTF-8)
+#@SECTION27VAR2=$(grep -o LANG=en_AU.UTF-8 /mnt/etc/locale.conf)
 #@if	[ ! -z "$SECTION27VAR2" ]
 #@then
 #@	echo "Australian Language Settings have been enabled successfully"
