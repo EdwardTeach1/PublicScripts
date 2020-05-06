@@ -346,7 +346,7 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 
 #################### Section 7.0 (Format SDA1 EFI Boot Partition) ####################
 
-mkfs.fat -F32 /dev/sda1
+#@mkfs.fat -F32 /dev/sda1
 #@SECTION7VAR1=$(file -sL /dev/sda1 | grep FAT\ \(32\ bit\))
 #@if	[ ! -z "$SECTION7VAR1" ]
 #@then
@@ -357,7 +357,7 @@ mkfs.fat -F32 /dev/sda1
 
 ##################### Section 8.0 (Format SDA2 Boot Partition) ####################
 
-printf 'y\n' | mkfs.ext4 /dev/sda2
+#@printf 'y\n' | mkfs.ext4 /dev/sda2
 #@SECTION8VAR1=$(file -sL /dev/sda2 | grep ext4\ filesystem)
 #@if	[ ! -z "$SECTION8VAR1" ]
 #@then
@@ -405,7 +405,7 @@ printf 'y\n' | mkfs.ext4 /dev/sda2
 
 #################### Section 11.0 (Setup Physical Volume) ####################
 
-pvcreate --dataalignment 1m /dev/mapper/lvm
+#@pvcreate --dataalignment 1m /dev/mapper/lvm
 #@SECTION11VAR1=$(pvs | grep /dev/mapper/lvm)
 #@if	[ ! -z "$SECTION11VAR1" ]
 #@then
