@@ -32,28 +32,28 @@ else	STARTSTATUS="READY TO INSTALL"
 fi
 clear
 echo "
-                                .--'    ..............             '.............'             '..............     ....''    
-                             '+dmMMd   'hdmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   :dm:.:yh    
-                            +ms.hMMd   'hmmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmdmmmmmmmmmms   :mMmhs+/    
-                           hMhoomMMmo/ 'hmmdmmmmmmmmmy             .dmmdmmmmmmmmmo             .dmdmmmdddmmmms   o-'-/sNM:   
-                           ''''/dNNm:' 'hmmmhyyyyyyyys.............-yyhdddmmmdmdh+.............-yhhhhhhdddmmms   syo//+h+'   
-                                ````   'hmmd+//////////////////////////hmmmmmmdd+/////////////////////odddmmms               
-                                       'hmmd+//////////////////////////hddmmmmdy//////////////////////odddmmms               
-                                       'hmmd+//////yhy''''.://////////odmmmmmmd+//////:........-yyyyyyhdddmmms               
-                              '-/++/'  'hmmd+//////dmy  '-//////////+yddmmmmmds///////.        .dmdmmdddmmmmms               
-                           '+dNd/.     'hmmd+//////dmy'.//////////::ddmmmmmmdh///////:--::::::::syhdmmmmmmmmms   .+o//+o/'   
-                           hMMMoshmho' 'hmmdyyyyyyyddy://///////:. .dmdmmmdmdo/////////////////////+ohddmmmmms  oNN-   +MN:  
-                           hMMy   NMM+ 'hmmdmmmmmmdh+/////////:.   .dmdmmmdmy///////::-.....-:////////+hmmmmms 'mMN    -MMs  
-                           '+ydsoydy/  'hmmmmmdmdho/////////:.     .ddddmdmmdddhh+.'          ':////////hmmmms  -hN+''.hNs'  
-                                       'hmdmddmds/////////:.'  ':://+++dmdmmmmmmdo             '////////smmmms    ':+mNh.'   
-                                       'hmdmdds/////////:-'    '///////dmmddhhhhh+..           .////////ydmmms       ./+/:'  
-                                       'hmddy+/////////-'''''''.///////hmmdh////////-'        .:///////odmmmms               
-                                       'hmdo///////////////////////////hdmmdh+////////:--..--:///////+ydmmmmms               
-                            ./+ooo+-'  'hmdo///////////////////////////hddmmmdyo+//////////////////oydmmmmmmms '...'   ....' 
-                           oNM+''dMMh  'hmdsooooooooo+::::::::::::::ooohmdmmmddmdo.---:::::::---yddmmdmmmmmmms ':mNNo. -yy-' 
-                           '-:./hMNs.  'hmdmmmdddddddy             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   h:oNNo.+o   
-                           '/yNNy/'.:' 'hmmmmmmmmmmmmy             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   h- 'oNNdo   
-                           shhhyyyyhy' 'oyyyyyyyyyyyyo             .syyyyyyyyyyyy/             'syyyyyyyyyyyy+ .:yo-  '+h/ 
+                                .--'    ..............             '.............'             '..............     ....''
+                             '+dmMMd   'hdmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   :dm:.:yh
+                            +ms.hMMd   'hmmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmdmmmmmmmmmms   :mMmhs+/
+                           hMhoomMMmo/ 'hmmdmmmmmmmmmy             .dmmdmmmmmmmmmo             .dmdmmmdddmmmms   o-'-/sNM:
+                           ''''/dNNm:' 'hmmmhyyyyyyyys.............-yyhdddmmmdmdh+.............-yhhhhhhdddmmms   syo//+h+'
+                                ````   'hmmd+//////////////////////////hmmmmmmdd+/////////////////////odddmmms
+                                       'hmmd+//////////////////////////hddmmmmdy//////////////////////odddmmms
+                                       'hmmd+//////yhy''''.://////////odmmmmmmd+//////:........-yyyyyyhdddmmms
+                              '-/++/'  'hmmd+//////dmy  '-//////////+yddmmmmmds///////.        .dmdmmdddmmmmms
+                           '+dNd/.     'hmmd+//////dmy'.//////////::ddmmmmmmdh///////:--::::::::syhdmmmmmmmmms   .+o//+o/'
+                           hMMMoshmho' 'hmmdyyyyyyyddy://///////:. .dmdmmmdmdo/////////////////////+ohddmmmmms  oNN-   +MN:
+                           hMMy   NMM+ 'hmmdmmmmmmdh+/////////:.   .dmdmmmdmy///////::-.....-:////////+hmmmmms 'mMN    -MMs
+                           '+ydsoydy/  'hmmmmmdmdho/////////:.     .ddddmdmmdddhh+.'          ':////////hmmmms  -hN+''.hNs'
+                                       'hmdmddmds/////////:.'  ':://+++dmdmmmmmmdo             '////////smmmms    ':+mNh.'
+                                       'hmdmdds/////////:-'    '///////dmmddhhhhh+..           .////////ydmmms       ./+/:'
+                                       'hmddy+/////////-'''''''.///////hmmdh////////-'        .:///////odmmmms
+                                       'hmdo///////////////////////////hdmmdh+////////:--..--:///////+ydmmmmms
+                            ./+ooo+-'  'hmdo///////////////////////////hddmmmdyo+//////////////////oydmmmmmmms '...'   ....'
+                           oNM+''dMMh  'hmdsooooooooo+::::::::::::::ooohmdmmmddmdo.---:::::::---yddmmdmmmmmmms ':mNNo. -yy-'
+                           '-:./hMNs.  'hmdmmmdddddddy             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   h:oNNo.+o
+                           '/yNNy/'.:' 'hmmmmmmmmmmmmy             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   h- 'oNNdo
+                           shhhyyyyhy' 'oyyyyyyyyyyyyo             .syyyyyyyyyyyy/             'syyyyyyyyyyyy+ .:yo-  '+h/
 "
 echo " "
 
@@ -149,13 +149,14 @@ case	$selection in
 
 	9) if	[ $START -eq 6 ]
 		then	
+			echo " "
 			read -p "WARNING: This script will wipe all data from the Harddrive /dev/sda. Are you sure you want to continue? Y or N? " InstallStart
 			if      [ "${InstallStart,,}" = "yes" ] || [ "${InstallStart,,}" = "y" ]
 				then    echo "Installing Arch Linux !!!" && sleep 2s
 				else    exit && echo "Installation Aborted !!!" && sleep 2s && clear
 			fi
 		sleep 2s && START=100
-		else	echo 'One of the Options is still required !!! ' && sleep 2s
+		else	echo 'Complete All Options before proceding !!! ' && sleep 2s
 	   fi ;;
 esac
 done
@@ -166,9 +167,9 @@ dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
 SECTION2VAR1=$(lsblk /dev/sda | grep part)
 if	[ -z "$SECTION2VAR1" ]
 then
-	echo "Harddrive partitions have been deleted successfully"
+	echo " " ; echo "Section 2.0: Harddrive partitions have been deleted successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 2 - Command 1" ; exit
+	clear ; echo " " ; echo "Error detected at section 2 - Command 1" ; exit
 fi
 
 #################### Section 3.0 (Configure Repository Locations - HTTPS priority) ####################
@@ -177,81 +178,89 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 SECTION3VAR1=$(grep "#Color" /etc/pacman.conf)
 if	[ -z "$SECTION3VAR1" ]
 then
-	echo "Bash Colours have been set successfully"
+	echo " " ; echo "Bash Colours have been set successfully" ; echo " " 
 else
-	clear ; echo "Error detected at section 3 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 3.0: Error detected at section 3 - Command 1" ; exit
 fi
 
 SECTION3VAR2=$(grep "ILoveCandy" /etc/pacman.conf)
 if	[ ! -z "$SECTION3VAR2" ]
 then
-	echo "PACMAN mode has been enabled already"
+	echo " " ; echo "PACMAN mode has been enabled already" ; echo " " ; 
 else
 	sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
 	SECTION3VAR2=$(grep "ILoveCandy" /etc/pacman.conf)
 	if	[ -z "$SECTION3VAR2" ]
 	then
-		clear ; echo "Error detected at section 3 - Command 2" ; exit
+		clear ; echo " " ; echo "Section 3.0: Error detected at section 3 - Command 2" ; exit
 	else
-		echo "PACMAN mode has been enabled successfully"
+		echo " " ; echo "PACMAN mode has been enabled successfully" ; echo " "
 	fi
 fi
 
 SECTION3VAR3=$(grep "##Server" /etc/pacman.d/mirrorlist)
 if	[ ! -z "$SECTION3VAR3" ]
 then
-	echo "PACMAN mode has been enabled already"
+	echo " " ; echo "PACMAN mode has been enabled already" ; echo " "
 else
 	sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
 	SECTION3VAR3=$(grep "##Server" /etc/pacman.d/mirrorlist)
 	if	[ -z "$SECTION3VAR3" ]
 	then
-		clear ; echo "Error detected at section 3 - Command 3" ; exit
+		clear ; echo " " ; echo "Section 3.0: Error detected at section 3 - Command 3" ; exit
+	else
+		echo " " ; echo "PACMAN mode has been enabled already" ; echo " "
 	fi
 fi
 
 SECTION3VAR4=$(grep -o 'https://mirror.aarnet.edu.au/pub/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist)
 if	[ ! -z "$SECTION3VAR4" ]
 then
-	echo "First HTTPS Server has been added to the mirrorlist file already"
+	echo " " ; echo "First HTTPS Server has been added to the mirrorlist file already" ; echo " "
 else
 	sed -i '/## Generated on/a Server = https://mirror.aarnet.edu.au/pub/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
 	SECTION3VAR4=$(grep -o 'https://mirror.aarnet.edu.au/pub/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist)
 	if	[ -z "$SECTION3VAR4" ]
 	then
-		clear ; echo "Error detected at section 3 - Command 4" ; exit
+		clear ; echo " " ; echo "Section 3.0: Error detected at section 3 - Command 4" ; exit
+	else
+		echo " " ; echo "First HTTPS Server has been added to the mirrorlist file already" ; echo " "
 	fi
 fi
 
 SECTION3VAR5=$(grep 'https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist)
 if	[ ! -z "$SECTION3VAR5" ]
 then
-	echo "Second HTTPS Server has been added to the mirrorlist file successfully"
+	echo " " ; echo "Second HTTPS Server has been added to the mirrorlist file successfully" ; echo " "
 else
 	sed -i '/## Generated on/a Server = https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist
 	SECTION3VAR5=$(grep 'https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist)
 	if	[ -z "$SECTION3VAR5" ]
 	then
-		clear ; echo "Error detected at section 3 - Command 5" ; exit
+		clear ; echo " " ; echo "Section 3.0: Error detected at section 3 - Command 5" ; exit
+	else
+		echo " " ; echo "Second HTTPS Server has been added to the mirrorlist file successfully" ; echo " "
 	fi
 fi
 
 SECTION3VAR6=$(grep -o 'https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist)
 if	[ ! -z "$SECTION3VAR6" ]
 then
-	echo "Third HTTPS Server has been added to the mirrorlist file successfully"
+	echo " " ; echo "Third HTTPS Server has been added to the mirrorlist file successfully" ; echo " "
 else
 	sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
 	SECTION3VAR6=$(grep -o 'https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist)
 	if	[ -z "$SECTION3VAR6" ]
 	then
-		clear ; echo "Error detected at section 3 - Command 6" ; exit
+		clear ; echo " " ; echo "Section 3.0: Error detected at section 3 - Command 6" ; exit
+	else
+		echo " " ; echo "Third HTTPS Server has been added to the mirrorlist file successfully" ; echo " "
 	fi
 fi
 
 #################### Section 4.0 (Download Latest Arch Linux Packages) ####################
 
-pacman -Syyy
+printf '\n\n\n' | pacman -Syyy which
 echo " "
 echo "Latest Arch Linux Packages have been downloaded successfully "
 echo " "
@@ -259,13 +268,13 @@ sleep 2s
 
 #################### Section 5.0 (Install Expect Shell) ####################
 
-printf '\n\n\n' | pacman -Syy expect
-SECTION5VAR1=$(which expect)
+printf '\n\n\n' | pacman -S expect
+SECTION5VAR1=$(which expect | grep -o "expect")
 if	[ ! -z "$SECTION5VAR1" ]
 then
-	echo "Expect Shell has been installed successfully"
+	echo " " ; echo "Expect Shell has been installed successfully" ; echo " " 
 else
-	clear ; echo "Error detected at section 5 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 5.0: Error detected at section 5 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -286,9 +295,9 @@ then
 	SECTION6VAR1=$(ls ~ | grep -o "partition-table")
 	if	[ ! -z "$SECTION6VAR1" ]
 	then
-		echo "Partition Table file has been created successfully"
+		echo " " ; echo "Partition Table file has been created successfully" ; echo " "
 	else
-		clear ; echo "Error detected at section 6 - Command 1" ; exit
+		clear ; echo " " ; echo "Section 6.0: Error detected at section 6 - Command 1" ; exit
 	fi
 fi
 
@@ -307,9 +316,9 @@ then
 	SECTION6VAR2=$(ls ~ | grep -o "partition-table")
 	if	[ ! -z "$SECTION6VAR2" ]
 	then
-		echo "Partition Table file has been created successfully"
+		echo " " ; echo "Partition Table file has been created successfully" ; echo " "
 	else
-		clear ; echo "Error detected at section 6 - Command 2" ; exit
+		clear ; echo " " ; echo "Section 6.0: Error detected at section 6 - Command 2" ; exit
 	fi
 fi
 ### Third Classification Option
@@ -327,9 +336,9 @@ then
 	SECTION6VAR3=$(ls ~ | grep -o "partition-table")
 	if	[ ! -z "$SECTION6VAR3" ]
 	then
-		echo "Partition Table file has been created successfully"
+		echo " " ; echo "Partition Table file has been created successfully" ; echo " "
 	else
-		clear ; echo "Error detected at section 6 - Command 3" ; exit
+		clear ; echo " " ; echo "Section 6.0: Error detected at section 6 - Command 3" ; exit
 	fi
 fi
 sfdisk /dev/sda < partition-table
@@ -340,9 +349,9 @@ if 	[ "$SECTION6VAR4" = "EFI System" ] 	&&
 	[ "$SECTION6VAR5" = "Linux filesystem" ]  && 
 	[ "$SECTION6VAR6" = "Linux LVM" ]	;
 then
-	echo "Harddrive partitions have been setup successfully" ; sleep 2s
+	echo " " ; echo "Harddrive partitions have been setup successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 6 - Command 4" ; exit
+	clear ; echo " " ; echo "Section 6.0: Error detected at section 6 - Command 4" ; exit
 fi
 
 #################### Section 7.0 (Format SDA1 EFI Boot Partition) ####################
@@ -351,9 +360,9 @@ mkfs.fat -F32 /dev/sda1
 SECTION7VAR1=$(file -sL /dev/sda1 | grep -o "FAT (32 bit)")
 if	[ ! -z "$SECTION7VAR1" ]
 then
-	echo "EFI Boot Partition has been formatted to Fat32 successfully"
+	echo " " ; echo "EFI Boot Partition has been formatted to Fat32 successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 7 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 7.0: Error detected at section 7 - Command 1" ; exit
 fi
 
 ##################### Section 8.0 (Format SDA2 Boot Partition) ####################
@@ -362,9 +371,9 @@ printf 'y\n' | mkfs.ext4 /dev/sda2
 SECTION8VAR1=$(file -sL /dev/sda2 | grep "ext4 filesystem")
 if	[ ! -z "$SECTION8VAR1" ]
 then
-	echo "Linux Boot Partition has been formatted to Ext4 successfully"
+	echo " " ; echo "Linux Boot Partition has been formatted to Ext4 successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 8 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 8.0: Error detected at section 8 - Command 1" ; exit
 fi
 
 #################### Section 9.0 (Setup of SDA 3 LUKS Partition Encrypted Container) ####################
@@ -383,9 +392,9 @@ chmod 777 expectfile
 SECTION9VAR1=$(ls ~ | grep -o "expectfile")
 if	[ ! -z "$SECTION9VAR1" ]
 then
-	echo "Expect file has been created successfully"
+	echo " " ; echo "Expect file has been created successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 9 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 9.0: Error detected at section 9 - Command 1" ; exit
 fi
 
 expect expectfile
@@ -398,9 +407,7 @@ sleep 2s
 #################### Section 10.0 (Open LUKS Container) ####################
 
 printf '%s\n' "$LUKSPASSPHRASE" | cryptsetup open --type luks /dev/sda3 lvm
-echo " "
-echo "LUKS Container has been opened with the provided passphrase successfully "
-echo " "
+echo " " ; echo "LUKS Container has been opened with the provided passphrase successfully " ; echo " "
 sleep 2s
 
 #################### Section 11.0 (Setup Physical Volume) ####################
@@ -409,9 +416,9 @@ pvcreate --dataalignment 1m /dev/mapper/lvm
 SECTION11VAR1=$(pvs | grep -o "/dev/mapper/lvm")
 if	[ ! -z "$SECTION11VAR1" ]
 then
-	echo "LUKS Physical volume has been setup successfully"
+	echo " " ; echo "LUKS Physical volume has been setup successfully" ; echo " " ; 
 else
-	clear ; echo "Error detected at section 11 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 11.0: Error detected at section 11 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -421,9 +428,9 @@ vgcreate volgroup0 /dev/mapper/lvm
 SECTION12VAR1=$(vgdisplay volgroup0 | grep -o "volgroup0")
 if	[ ! -z "$SECTION12VAR1" ]
 then
-	echo "LVM Volume Group has been setup successfully"
+	echo " " ; echo "LVM Volume Group has been setup successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 12 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 12.0: Error detected at section 12 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -433,9 +440,9 @@ lvcreate -L 50GB volgroup0 -n lv_root
 SECTION13VAR1=$(lvdisplay | grep -o "/dev/volgroup0/lv_root")
 if	[ ! -z "$SECTION13VAR1" ]
 then
-	echo "LVM Root Volume has been setup successfully"
+	echo " " ; echo "LVM Root Volume has been setup successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 13 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 13.0: Error detected at section 13 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -445,9 +452,9 @@ lvcreate -l 100%FREE volgroup0 -n lv_home
 SECTION13VAR2=$(lvdisplay | grep -o "/dev/volgroup0/lv_home")
 if	[ ! -z "$SECTION13VAR2" ]
 then
-	echo "LVM Home Volume has been setup successfully"
+	echo " " ; echo "LVM Home Volume has been setup successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 13 - Command 2" ; exit
+	clear ; echo " " ; echo "Section 13.0: Error detected at section 13 - Command 2" ; exit
 fi
 sleep 2s
 
@@ -457,9 +464,9 @@ mkfs.ext4 /dev/volgroup0/lv_root
 SECTION14VAR1=$(file -sL /dev/volgroup0/lv_root | grep -o "ext4")
 if	[ ! -z "$SECTION14VAR1" ]
 then
-	echo "LVM Root Volume has been formatted to Ext4 successfully"
+	echo " " ; echo "LVM Root Volume has been formatted to Ext4 successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 14 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 14.0: Error detected at section 14 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -469,9 +476,9 @@ mkfs.ext4 /dev/volgroup0/lv_home
 SECTION15VAR1=$(file -sL /dev/volgroup0/lv_home | grep -o "ext4")
 if	[ ! -z "$SECTION15VAR1" ]
 then
-	echo "LVM Home Volume has been formatted to Ext4 successfully"
+	echo " " ; echo "LVM Home Volume has been formatted to Ext4 successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 15 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 15.0: Error detected at section 15 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -481,9 +488,9 @@ mount /dev/volgroup0/lv_root /mnt
 SECTION16VAR1=$(lsblk /dev/volgroup0/lv_root | grep -o "/mnt")
 if	[ ! -z "$SECTION16VAR1" ]
 then
-	echo "LVM Root Volume mounted to /mnt successfully"
+	echo " " ; echo "LVM Root Volume mounted to /mnt successfully" ; echo " " ; 
 else
-	clear ; echo "Error detected at section 16 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 16.0: Error detected at section 16 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -491,9 +498,9 @@ mkdir /mnt/home
 SECTION16VAR2=$(ls /mnt | grep "home")
 if	[ ! -z "$SECTION16VAR2" ]
 then
-	echo "Home Directory created successfully"
+	echo " " ; echo "Home Directory created successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 16 - Command 2" ; exit
+	clear ; echo " " ; echo "Section 16.0: Error detected at section 16 - Command 2" ; exit
 fi
 sleep 2s
 
@@ -501,9 +508,9 @@ mount /dev/volgroup0/lv_home /mnt/home
 SECTION16VAR3=$(lsblk | grep "volgroup0-lv_home" | grep -o "/mnt/home")
 if	[ ! -z "$SECTION16VAR3" ]
 then
-	echo "LVM Home Volume mounted to /mnt successfully"
+	echo " " ; echo "LVM Home Volume mounted to /mnt successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 16 - Command 3" ; exit
+	clear ; echo " " ; echo "Section 16.0: Error detected at section 16 - Command 3" ; exit
 fi
 sleep 2s
 
@@ -511,9 +518,9 @@ mkdir /mnt/boot
 SECTION16VAR4=$(ls /mnt | grep -o "boot")
 if	[ ! -z "$SECTION16VAR4" ]
 then
-	echo "Boot Directory created successfully"
+	echo " " ; echo "Boot Directory created successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 16 - Command 4" ; exit
+	clear ; echo " " ; echo "Section 16.0: Error detected at section 16 - Command 4" ; exit
 fi
 sleep 2s
 
@@ -521,9 +528,9 @@ mount /dev/sda2 /mnt/boot
 SECTION16VAR5=$(lsblk /dev/sda2 | grep -o "/mnt/boot")
 if	[ ! -z "$SECTION16VAR5" ]
 then
-	echo "Linux Boot Partition mounted to /mnt/boot successfully"
+	echo " " ; echo "Linux Boot Partition mounted to /mnt/boot successfully" ; echo " " ; 
 else
-	clear ; echo "Error detected at section 16 - Command 5" ; exit
+	clear ; echo " " ; echo "Section 16.0: Error detected at section 16 - Command 5" ; exit
 fi
 sleep 2s
 
@@ -531,9 +538,9 @@ mkdir /mnt/etc
 SECTION16VAR6=$(ls /mnt | grep -o "etc")
 if	[ ! -z "$SECTION16VAR6" ]
 then
-	echo "/mnt/etc Directory created successfully"
+	echo " " ; echo "/mnt/etc Directory created successfully" ; echo " " 
 else
-	clear ; echo "Error detected at section 16 - Command 6" ; exit
+	clear ; echo " " ; echo "Section 16.0: Error detected at section 16 - Command 6" ; exit
 fi
 sleep 2s
 
@@ -543,9 +550,9 @@ genfstab -U -p /mnt >> /mnt/etc/fstab
 SECTION17VAR1=$(grep -o "/dev/mapper/volgroup0-lv_root" /mnt/etc/fstab)
 if	[ ! -z "$SECTION17VAR1" ]
 then
-	echo "fstab file has been generated successfully"
+	echo " " ; echo "fstab file has been generated successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 17 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 17.0: Error detected at section 17 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -555,9 +562,9 @@ printf '\n\n\n' | pacstrap -i /mnt base
 SECTION18VAR1=$(ls /mnt | grep -o "root")
 if	[ ! -z "$SECTION18VAR1" ]
 then
-	echo "Base Arch Linux System has been downloaded into the bootup location successfully"
+	echo " " ; echo "Base Arch Linux System has been downloaded into the bootup location successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 18 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 18.0: Error detected at section 18 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -567,9 +574,9 @@ printf '\n\n\n' | arch-chroot /mnt pacman -S linux-lts linux-lts-headers
 SECTION19VAR1=$(ls /mnt/usr/src | grep -o "linux-lts")
 if	[ ! -z "$SECTION19VAR1" ]
 then
-	echo "Linux LTS has been downloaded and installed into the bootup location successfully"
+	echo " " ; echo "Linux LTS has been downloaded and installed into the bootup location successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 19 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 19.0: Error detected at section 19 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -577,9 +584,9 @@ printf '\n\n\n' | arch-chroot /mnt pacman -S linux-lts-headers
 SECTION19VAR2=$(ls /mnt/var/lib/pacman/local | grep -o "linux-lts-headers")
 if	[ ! -z "$SECTION19VAR2" ]
 then
-	echo "Linux LTS Headers have been downloaded and installed into the bootup location successfully"
+	echo " " ; echo "Linux LTS Headers have been downloaded and installed into the bootup location successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 19 - Command 2" ; exit
+	clear ; echo " " ; echo "Section 19.0: Error detected at section 19 - Command 2" ; exit
 fi
 sleep 2s
 
@@ -591,9 +598,9 @@ printf '\n\n\n' | arch-chroot /mnt pacman -S linux-firmware
 SECTION20VAR1=$(ls /mnt/var/lib/pacman/local | grep -o "linux-firmware")
 if	[ ! -z "$SECTION20VAR1" ]
 then
-	echo "Linux Firmware files have been downloaded and installed successfully"
+	echo " " ; echo "Linux Firmware files have been downloaded and installed successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 20 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 20.0: Error detected at section 20 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -603,9 +610,9 @@ printf '\n\n\n' | arch-chroot /mnt pacman -S nano
 SECTION21VAR1=$(arch-chroot /mnt which nano | grep -o "nano")
 if	[ ! -z "$SECTION21VAR1" ]
 then
-	echo "Nano Text Editor Software has been downloaded and installed successfully"
+	echo " " ; echo "Nano Text Editor Software has been downloaded and installed successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 21 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 21.0: Error detected at section 21 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -613,9 +620,9 @@ printf '\n\n\n' | arch-chroot /mnt pacman -S vim
 SECTION21VAR2=$(arch-chroot /mnt which vim | grep -o "vim")
 if	[ ! -z "$SECTION21VAR2" ]
 then
-	echo "Vim Text Editor Software has been downloaded and installed successfully"
+	echo " " ; echo "Vim Text Editor Software has been downloaded and installed successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 21 - Command 2" ; exit
+	clear ; echo " " ; echo "Section 21.0: Error detected at section 21 - Command 2" ; exit
 fi
 sleep 2s
 
@@ -629,25 +636,23 @@ printf '\n\n\n' | arch-chroot /mnt pacman -S openssh
 SECTION23VAR1=$(arch-chroot /mnt which sshd | grep -o "sshd")
 if	[ ! -z "$SECTION23VAR1" ]
 then
-	echo "OpenSSH has been downloaded and installed successfully"
+	echo " " ; echo "OpenSSH has been downloaded and installed successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 23 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 23.0: Error detected at section 23 - Command 1" ; exit
 fi
 sleep 2s
 
 printf '\n\n\n' | arch-chroot /mnt pacman -S networkmanager
-echo " "
-echo "NetworkManager has been downloaded and installed successfully "
-echo " "
+echo " " ; echo "NetworkManager has been downloaded and installed successfully " ; echo " "
 sleep 2s
 
 printf '\n\n\n' | arch-chroot /mnt pacman -S wpa_supplicant
 SECTION23VAR3=$(arch-chroot /mnt which wpa_supplicant | grep -o "wpa_supplicant")
 if	[ ! -z "$SECTION23VAR3" ]
 then
-	echo "WPA_Supplicant Software has been downloaded and installed successfully"
+	echo " " ; echo "WPA_Supplicant Software has been downloaded and installed successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 23 - Command 3" ; exit
+	clear ; echo " " ; echo "Section 23.0: Error detected at section 23 - Command 3" ; exit
 fi
 sleep 2s
 
@@ -661,9 +666,9 @@ printf '\n\n\n' | arch-chroot /mnt pacman -S netctl
 SECTION23VAR5=$(arch-chroot /mnt which netctl | grep -o "netctl")
 if	[ ! -z "$SECTION23VAR5" ]
 then
-	echo "Netctl Software has been downloaded and installed successfully"
+	echo " " ; echo "Netctl Software has been downloaded and installed successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 23 - Command 5" ; exit
+	clear ; echo " " ; echo "Section 23.0: Error detected at section 23 - Command 5" ; exit
 fi
 sleep 2s
 
@@ -671,9 +676,9 @@ printf '\n\n\n' | arch-chroot /mnt pacman -S dhcpcd
 SECTION23VAR6=$(arch-chroot /mnt which dhcpcd | grep -o "dhcpcd")
 if	[ ! -z "$SECTION23VAR6" ]
 then
-	echo "DHCPCD Software has been downloaded and installed successfully"
+	echo " " ; echo "DHCPCD Software has been downloaded and installed successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 23 - Command 6" ; exit
+	clear ; echo " " ; echo "Section 23.0: Error detected at section 23 - Command 6" ; exit
 fi
 sleep 2s
 
@@ -681,9 +686,9 @@ printf '\n\n\n' | arch-chroot /mnt pacman -S dialog
 SECTION23VAR7=$(arch-chroot /mnt which dialog | grep -o "dialog")
 if	[ ! -z "$SECTION23VAR7" ]
 then
-	echo "Dialog has been downloaded and installed successfully"
+	echo " " ; echo "Dialog has been downloaded and installed successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 23 - Command 7" ; exit
+	clear ; echo " " ; echo "Section 23.0: Error detected at section 23 - Command 7" ; exit
 fi
 sleep 2s
 
@@ -699,9 +704,9 @@ arch-chroot /mnt systemctl enable NetworkManager
 SECTION24VAR1=$(ls /mnt/usr/lib/systemd/system | grep -w "NetworkManager.service.d")
 if	[ ! -z "$SECTION24VAR1" ]
 then
-	echo "Network Manager has been enabled successfully"
+	echo " " ; echo "Network Manager has been enabled successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 24 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 24.0: Error detected at section 24 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -709,9 +714,9 @@ arch-chroot /mnt systemctl enable dhcpcd
 SECTION24VAR2=$(ls /mnt/usr/lib/systemd/system | grep -o "dhcpcd.service")
 if	[ ! -z "$SECTION24VAR2" ]
 then
-	echo "DHCP Service has been enabled successfully"
+	echo " " ; echo "DHCP Service has been enabled successfully" ; echo " " 
 else
-	clear ; echo "Error detected at section 24 - Command 2" ; exit
+	clear ; echo " " ; echo "Section 24.0: Error detected at section 24 - Command 2" ; exit
 fi
 sleep 2s
 
@@ -719,9 +724,9 @@ arch-chroot /mnt systemctl enable sshd
 SECTION24VAR3=$(ls /mnt/usr/lib/systemd/system | grep "sshd.service")
 if	[ ! -z "$SECTION24VAR3" ]
 then
-	echo "SSH Service has been enabled successfully"
+	echo " " ; echo "SSH Service has been enabled successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 24 - Command 3" ; exit
+	clear ; echo " " ; echo "Section 24.0: Error detected at section 24 - Command 3" ; exit
 fi
 sleep 2s
 
@@ -731,9 +736,9 @@ arch-chroot /mnt sed -i "s/block/block encrypt lvm2/" /etc/mkinitcpio.conf
 SECTION25VAR1=$(grep "HOOKS=(base udev autodetect modconf block encrypt lvm2)" /mnt/etc/mkinitcpio.conf | grep -o "encrypt")
 if	[ ! -z "$SECTION25VAR1" ]
 then
-	echo "LVM Encryption has been configured ready for first bootup successfully"
+	echo " " ; echo "LVM Encryption has been configured ready for first bootup successfully" ; echo " " 
 else
-	clear ; echo "Error detected at section 25 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 25.0: Error detected at section 25 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -741,9 +746,9 @@ arch-chroot /mnt mkinitcpio -p linux-lts
 SECTION25VAR2=$(ls /mnt/boot | grep "initramfs-linux-lts.img")
 if	[ ! -z "$SECTION25VAR2" ]
 then
-	echo "Linux LTS System has been initilaized successfully"
+	echo " " ; echo "Linux LTS System has been initilaized successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 25 - Command 2" ; exit
+	clear ; echo " " ; echo "Section 25.0: Error detected at section 25 - Command 2" ; exit
 fi
 sleep 2s
 
@@ -753,9 +758,9 @@ arch-chroot /mnt sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen
 SECTION26VAR1=$(grep -o "#en_AU.UTF-8 UTF-8" /mnt/etc/locale.gen | grep -o "en_AU.UTF-8")
 if	[ -z "$SECTION26VAR1" ]
 then
-	echo "Australian Location Settings have been enabled successfully"
+	echo " " ; echo "Australian Location Settings have been enabled successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 26 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 26.0: Error detected at section 26 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -763,9 +768,9 @@ echo "LANG=en_AU.UTF-8" > /mnt/etc/locale.conf
 SECTION26VAR2=$(grep -o "LANG=en_AU.UTF-8" /mnt/etc/locale.conf)
 if	[ ! -z "$SECTION26VAR2" ]
 then
-	echo "Australian Language Settings have been enabled successfully"
+	echo " " ; echo "Australian Language Settings have been enabled successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 26 - Command 2" ; exit
+	clear ; echo " " ; echo "Section 26.0: Error detected at section 26 - Command 2" ; exit
 fi
 sleep 2s
 
@@ -779,9 +784,9 @@ cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
 SECTION26VAR4=$(grep -o "##Server" /mnt/etc/pacman.d/mirrorlist)
 if	[ ! -z "$SECTION26VAR4" ]
 then
-	echo "Mirrorlist file has been configured ready for first bootup successfully"
+	echo " " ; echo "Mirrorlist file has been configured ready for first bootup successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 26 - Command 4" ; exit
+	clear ; echo " " ; echo "Section 26.0: Error detected at section 26 - Command 4" ; exit
 fi
 sleep 2s
 
@@ -791,9 +796,9 @@ echo "$CLASSIFICATION$HOSTNAME" > /mnt/etc/hostname
 SECTION27VAR1=$(grep "$CLASSIFICATION$HOSTNAME" /mnt/etc/hostname)
 if	[ ! -z "$SECTION27VAR1" ]
 then
-	echo "Hostname has been configured successfully"
+	echo " " ; echo "Hostname has been configured successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 27 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 27.0: Error detected at section 27 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -805,27 +810,27 @@ echo "127.0.0.1   localhost" >> /mnt/etc/hosts
 SECTION28VAR1=$(grep -o "127.0.0.1" /mnt/etc/hosts)
 if	[ ! -z "$SECTION28VAR1" ]
 then
-	echo "Hosts file line 1 modification completed successfully"
+	echo " " ; echo "Hosts file line 1 modification completed successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 28 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 28.0: Error detected at section 28 - Command 1" ; exit
 fi
 
 echo "::1   localhost" >> /mnt/etc/hosts
 SECTION28VAR2=$(grep -o "::1" /mnt/etc/hosts)
 if	[ ! -z "$SECTION28VAR2" ]
 then
-	echo "Hosts file line 2 modification completed successfully"
+	echo " " ; echo "Hosts file line 2 modification completed successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 28 - Command 2" ; exit
+	clear ; echo " " ; echo "Section 28.0: Error detected at section 28 - Command 2" ; exit
 fi
 
 echo "127.0.1.1   $CLASSIFICATION$HOSTNAME.localdomain   $CLASSIFICATION$HOSTNAME" >> /mnt/etc/hosts
 SECTION28VAR3=$(grep -o "$CLASSIFICATION$HOSTNAME.localdomain" /mnt/etc/hosts)
 if	[ ! -z "$SECTION28VAR3" ]
 then
-	echo "Hosts file line 3 modification completed successfully"
+	echo " " ; echo "Hosts file line 3 modification completed successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 28 - Command 3" ; exit
+	clear ; echo " " ; echo "Section 28.0: Error detected at section 28 - Command 3" ; exit
 fi
 echo "Host file has been configured successfully "
 
@@ -835,9 +840,9 @@ printf '\n\n\n' | arch-chroot /mnt pacman -S sudo
 SECTION29VAR1=$(arch-chroot /mnt which sudo | grep -o "sudo")
 if	[ ! -z "$SECTION29VAR1" ]
 then
-	echo "Sudo Software package has been downloaded and installed successfully"
+	echo " " ; echo "Sudo Software package has been downloaded and installed successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 29 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 29.0: Error detected at section 29 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -878,9 +883,9 @@ printf '\n\n\n' | arch-chroot /mnt pacman -S efibootmgr
 SECTION33VAR2=$(which efibootmgr | grep -o "efibootmgr")
 if	[ ! -z "$SECTION33VAR2" ]
 then
-	echo "EFI Boot Manager has been downloaded and installed successfully"
+	echo " " ; echo "EFI Boot Manager has been downloaded and installed successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 33 - Command 2" ; exit
+	clear ; echo " " ; echo "Section 33.0: Error detected at section 33 - Command 2" ; exit
 fi
 sleep 2s
 
@@ -893,9 +898,9 @@ printf '\n\n\n' | arch-chroot /mnt pacman -S os-prober
 SECTION33VAR4=$(arch-chroot /mnt which os-prober | grep -o "os-prober")
 if	[ ! -z "$SECTION33VAR4" ]
 then
-	echo "OS-Prober has been downloaded and installed successfully"
+	echo " " ; echo "OS-Prober has been downloaded and installed successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 33 - Command 4" ; exit
+	clear ; echo " " ; echo "Section 33.0: Error detected at section 33 - Command 4" ; exit
 fi
 sleep 2s
 
@@ -903,9 +908,9 @@ printf '\n\n\n' | arch-chroot /mnt pacman -S mtools
 SECTION33VAR5=$(arch-chroot /mnt which mtools | grep -o "mtools")
 if	[ ! -z "$SECTION33VAR5" ]
 then
-	echo "MTools has been downloaded and installed successfully"
+	echo " " ; echo "MTools has been downloaded and installed successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 33 - Command 5" ; exit
+	clear ; echo " " ; echo "Section 33.0: Error detected at section 33 - Command 5" ; exit
 fi
 sleep 2s
 
@@ -915,9 +920,9 @@ arch-chroot /mnt sed -i "s/#GRUB_ENABLE_CRYPTODISK=y/GRUB_ENABLE_CRYPTODISK=y/" 
 SECTION34VAR1=$(grep -o "#GRUB_ENABLE_CRYPTODISK=y" /mnt/etc/default/grub)
 if	[ -z "$SECTION34VAR1" ]
 then
-	echo "Grub Crypto Disk Boot Setting 1 has been configured successfully"
+	echo " " ; echo "Grub Crypto Disk Boot Setting 1 has been configured successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 34 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 34.0: Error detected at section 34 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -925,9 +930,9 @@ arch-chroot /mnt sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"loglevel=3 quiet\"/GRUB_
 SECTION34VAR2=$(grep -o "loglevel=3 cryptdevice=/dev/sda3:volgroup0:allow-discards quiet" /mnt/etc/default/grub | grep -o "cryptdevice")
 if	[ ! -z "$SECTION34VAR2" ]
 then
-	echo "Grub Crypto Disk Boot Setting 2 has been configured successfully"
+	echo " " ; echo "Grub Crypto Disk Boot Setting 2 has been configured successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 34 - Command 2" ; exit
+	clear ; echo " " ; echo "Section 34.0: Error detected at section 34 - Command 2" ; exit
 fi
 sleep 2s
 
@@ -937,9 +942,9 @@ arch-chroot /mnt mkdir /boot/EFI
 SECTION35VAR1=$(ls /mnt/boot | grep -o "EFI")
 if	[ ! -z "$SECTION35VAR5" ]
 then
-	echo "EFI bootup directory has been created successfully"
+	echo " " ; echo "EFI bootup directory has been created successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 35 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 35.0: Error detected at section 35 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -947,9 +952,9 @@ arch-chroot /mnt mount /dev/sda1 /boot/EFI
 SECTION35VAR2=$(lsblk /dev/sda1 | grep -o "/mnt/boot/EFI")
 if	[ ! -z "$SECTION35VAR2" ]
 then
-	echo "EFI boot partition has been mounted successfully"
+	echo " " ; echo "EFI boot partition has been mounted successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 35 - Command 2" ; exit
+	clear ; echo " " ; echo "Section 35.0: Error detected at section 35 - Command 2" ; exit
 fi
 sleep 2s
 
@@ -959,9 +964,9 @@ arch-chroot /mnt grub-install --target=x86_64-efi --bootloader-id=grub_uefi --re
 SECTION36VAR1=$(ls /mnt/usr/bin | grep -o "grub-install")
 if	[ ! -z "$SECTION36VAR1" ]
 then
-	echo "Grub boot loader has been installed ready for bootup successfully"
+	echo " " ; echo "Grub boot loader has been installed ready for bootup successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 36 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 36.0: Error detected at section 36 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -971,9 +976,9 @@ arch-chroot /mnt mkdir /boot/grub/locale
 SECTION37VAR1=$(ls /mnt/boot/grub | grep -o "locale")
 if	[ ! -z "$SECTION37VAR1" ]
 then
-	echo "Grub locale file has been created successfully"
+	echo " " ; echo "Grub locale file has been created successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 37 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 37.0: Error detected at section 37 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -981,9 +986,9 @@ arch-chroot /mnt cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/lo
 SECTION37VAR2=$(ls /mnt/boot/grub/locale | grep -o "en.mo")
 if	[ ! -z "$SECTION37VAR2" ]
 then
-	echo "Grub English locale settings have been setup successfully"
+	echo " " ; echo "Grub English locale settings have been setup successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 37 - Command 2" ; exit
+	clear ; echo " " ; echo "Section 37.0: Error detected at section 37 - Command 2" ; exit
 fi
 sleep 2s
 
@@ -999,9 +1004,9 @@ arch-chroot /mnt fallocate -l 4G /swapfile
 SECTION38VAR1=$(ls -la /mnt | grep "swapfile" | grep -o "4294967296")
 if	[ ! -z "$SECTION38VAR1" ]
 then
-	echo "Harddrive space has been allocated for swapfile successfully"
+	echo " " ; echo "Harddrive space has been allocated for swapfile successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 38 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 38.0: Error detected at section 38 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -1009,9 +1014,9 @@ arch-chroot /mnt chmod 600 /swapfile
 SECTION38VAR2=$(ls -la /mnt | grep "swapfile" | grep -o "\-rw-------")
 if	[ ! -z "$SECTION38VAR2" ]
 then
-	echo "Swapfile Security permissions have been configured successfully"
+	echo " " ; echo "Swapfile Security permissions have been configured successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 38 - Command 2" ; exit
+	clear ; echo " " ; echo "Section 38.0: Error detected at section 38 - Command 2" ; exit
 fi
 sleep 2s
 
@@ -1027,9 +1032,9 @@ arch-chroot /mnt cp /etc/fstab /etc/fstab.bak
 SECTION39VAR1=$(ls /mnt/etc | grep -o "fstab.bak")
 if	[ ! -z "$SECTION39VAR1" ]
 then
-	echo "fstab backup file has been created successfully"
+	echo " " ; echo "fstab backup file has been created successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 39 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 39.0: Error detected at section 39 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -1039,9 +1044,9 @@ echo '/swapfile none swap sw 0 0' >> /mnt/etc/fstab
 SECTION40VAR1=$(grep -o "/swapfile none swap sw 0 0" /mnt/etc/fstab | grep -o "swapfile")
 if	[ ! -z "$SECTION40VAR1" ]
 then
-	echo "swapfile boot settings have been enabled in fstab successfully"
+	echo " " ; echo "swapfile boot settings have been enabled in fstab successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 40 - Command 1" ; exit
+	clear ; echo " " ; echo "Section 40.0: Error detected at section 40 - Command 1" ; exit
 fi
 sleep 2s
 
@@ -1081,9 +1086,9 @@ arch-chroot /mnt systemctl enable gdm.service
 SECTION44VAR2=$(ls -la /mnt/usr/lib/systemd/system | grep -o "gdm.service")
 if	[ ! -z "$SECTION44VAR2" ]
 then
-	echo "GNOME GUI Service has been enabled successfully"
+	echo " " ; echo "GNOME GUI Service has been enabled successfully" ; echo " "
 else
-	clear ; echo "Error detected at section 44 - Command 2" ; exit
+	clear ; echo " " ; echo "Section 44.0: Error detected at section 44 - Command 2" ; exit
 fi
 sleep 2s
 
