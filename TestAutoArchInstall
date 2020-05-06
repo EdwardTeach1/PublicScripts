@@ -259,8 +259,8 @@ done
 
 #################### Section 5.0 (Install Expect Shell) ####################
 
-#@printf '\n\n\n' | pacman -Syy expect
-#@SECTION5VAR1=$(which expect)
+#@printf '\n\n\n' | pacman -S expect
+#@SECTION5VAR1=$(which expect | grep -o "expect")
 #@if	[ ! -z "$SECTION5VAR1" ]
 #@then
 #@	echo "Expect Shell has been installed successfully"
