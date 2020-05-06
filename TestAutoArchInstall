@@ -758,7 +758,7 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 #################### Section 28.0 (Configure Hostname) ####################
 
 #@echo "$CLASSIFICATION$HOSTNAME" > /mnt/etc/hostname
-#@SECTION28VAR1=$(echo "$CLASSIFICATION$HOSTNAME")
+#@SECTION28VAR1=$(grep "$CLASSIFICATION$HOSTNAME" /mnt/et/hostname)
 #@if	[ ! -z "$SECTION28VAR1" ]
 #@then
 #@	echo "Hostname has been configured successfully"
@@ -772,7 +772,7 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 #@echo " " >> /mnt/etc/hosts
 
 #@echo "127.0.0.1   localhost" >> /mnt/etc/hosts
-#@SECTION29VAR1=$(cat /mnt/etc/hosts | grep 127.0.0.1)
+#@SECTION29VAR1=$(grep "127.0.0.1" /mnt/etc/hosts)
 #@if	[ ! -z "$SECTION29VAR1" ]
 #@then
 #@	echo "Hosts file line 1 modification completed successfully"
@@ -781,8 +781,7 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 #@fi
 
 #@echo "::1   localhost" >> /mnt/etc/hosts
-#@echo "$CLASSIFICATION$HOSTNAME" > /mnt/etc/hostname
-#@SECTION29VAR2=$(cat /mnt/etc/hosts | grep ::1)
+#@SECTION29VAR2=$(grep "::1" /mnt/etc/hosts)
 #@if	[ ! -z "$SECTION29VAR2" ]
 #@then
 #@	echo "Hosts file line 2 modification completed successfully"
@@ -791,7 +790,7 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 #@fi
 
 #@echo "127.0.1.1   $CLASSIFICATION$HOSTNAME.localdomain   $CLASSIFICATION$HOSTNAME" >> /mnt/etc/hosts
-#@SECTION29VAR3=$(cat /mnt/etc/hosts | grep $(echo "$CLASSIFICATION$HOSTNAME.localdomain"))
+#@SECTION29VAR3=$(grep "$CLASSIFICATION$HOSTNAME.localdomain" /mnt/etc/hosts)
 #@if	[ ! -z "$SECTION29VAR3" ]
 #@then
 #@	echo "Hosts file line 3 modification completed successfully"
