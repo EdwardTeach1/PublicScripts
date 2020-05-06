@@ -260,9 +260,13 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 #################### Section 5.0 (Install Expect Shell) ####################
 
 #@printf '\n\n\n' | pacman -Syy expect
-#@echo " "
-#@echo "Expect Shell has been installed successfully "
-#@echo " "
+#@SECTION5VAR1=$(which expect)
+#@if	[ ! -z "$SECTION5VAR1" ]
+#@then
+#@	echo "Expect Shell has been installed successfully"
+#@else
+#@	clear ; echo "Error detected at section 5 - Command 1" ; exit
+#@fi
 #@sleep 2s
 
 #################### Section 6.0 (Setup HDD Partitions for Installation) ####################
@@ -602,7 +606,7 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 #################### Section 21.0 (Install Text Editor Packages to CHROOT) ####################
 
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S nano
-#@SECTION21VAR1=$(ls /mnt/usr/share | grep -o nano)
+#@SECTION21VAR1=$(which nano)
 #@if	[ ! -z "$SECTION21VAR1" ]
 #@then
 #@	echo "Nano Text Editor Software has been downloaded and installed successfully"
@@ -612,7 +616,7 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 #@sleep 2s
 
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S vim
-#@SECTION21VAR2=$(ls /mnt/usr/share | grep -o vim)
+#@SECTION21VAR2=$(which vim | grep -o vim)
 #@if	[ ! -z "$SECTION21VAR2" ]
 #@then
 #@	echo "Vim Text Editor Software has been downloaded and installed successfully"
@@ -621,73 +625,73 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 #@fi
 #@sleep 2s
 
-#################### Section 22.0 (Install Base Developer Packages and SSH to CHROOT) ####################
+#################### Section 22.0 (Install Base Developer Packages to CHROOT) ####################
 
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S base-devel
 
+#################### Section 23.0 (Install Software Packages to CHROOT) ####################
+
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S openssh
-#@SECTION22VAR2=$(ls /mnt/var/lib/pacman/local | grep -o openssh)
-#@if	[ ! -z "$SECTION22VAR2" ]
+#@SECTION23VAR1=$(ls /mnt/var/lib/pacman/local | grep -o openssh)
+#@if	[ ! -z "$SECTION23VAR1" ]
 #@then
 #@	echo "OpenSSH has been downloaded and installed successfully"
 #@else
-#@	clear ; echo "Error detected at section 22 - Command 2" ; exit
+#@	clear ; echo "Error detected at section 23 - Command 1" ; exit
 #@fi
 #@sleep 2s
 
-#@arch-chroot /mnt systemctl enable sshd
-#@SECTION22VAR3=$(ls /mnt/usr/lib/systemd/system | grep sshd.service)
-#@if	[ ! -z "$SECTION22VAR3" ]
+#@printf '\n\n\n' | arch-chroot /mnt pacman -S networkmanager
+#@echo " "
+#@echo "NetworkManager has been downloaded and installed successfully "
+#@echo " "
+#@sleep 2s
+
+#@printf '\n\n\n' | arch-chroot /mnt pacman -S wpa_supplicant
+#@SECTION23VAR3=$(which wpa_supplicant)
+#@if	[ ! -z "$SECTION23VAR3" ]
 #@then
-#@	echo "SSH Service has been enabled successfully"
+#@	echo "WPA_Supplicant Software has been downloaded and installed successfully"
 #@else
-#@	clear ; echo "Error detected at section 22 - Command 3" ; exit
+#@	clear ; echo "Error detected at section 23 - Command 3" ; exit
 #@fi
 #@sleep 2s
 
-#################### Section 23.0 (Install Networking Utility Packages to CHROOT) ####################
-
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S networkmanager wpa_supplicant wireless_tools netctl
+#@printf '\n\n\n' | arch-chroot /mnt pacman -S wireless_tools
 #@echo " "
-#@echo "NetworkManager, WPA_Supplicant, Wireless_Tools and Netctl Software Packages have been downloaded and installed successfully "
+#@echo "Wireless_Tools has been downloaded and installed successfully "
 #@echo " "
 #@sleep 2s
 
-#@arch-chroot /mnt systemctl enable NetworkManager
-#@SECTION23VAR2=$(ls /mnt/usr/lib/systemd/system | grep -w NetworkManager.service.d)
-#@if	[ ! -z "$SECTION23VAR2" ]
+#@printf '\n\n\n' | arch-chroot /mnt pacman -S netctl
+#@SECTION23VAR5=$(which netctl)
+#@if	[ ! -z "$SECTION23VAR5" ]
 #@then
-#@	echo "Network Manager has been enabled successfully"
+#@	echo "Netctl Software has been downloaded and installed successfully"
 #@else
-#@	clear ; echo "Error detected at section 23 - Command 2" ; exit
+#@	clear ; echo "Error detected at section 23 - Command 5" ; exit
 #@fi
 #@sleep 2s
 
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S dhcpcd
-#@echo " "
-#@echo "NetworkManager, WPA_Supplicant, Wireless_Tools and Netctl Software Packages have been downloaded and installed successfully "
-#@echo " "
-#@sleep 2s
-
-#@arch-chroot /mnt systemctl enable dhcpcd
-#@SECTION23VAR4=$(ls /mnt/usr/lib/systemd/system | grep -w dhcpcd.service)
-#@if	[ ! -z "$SECTION23VAR4" ]
+#@SECTION23VAR6=$(which dhcpcd)
+#@if	[ ! -z "$SECTION23VAR6" ]
 #@then
-#@	echo "DHCP Service has been enabled successfully"
+#@	echo "DHCPCD Software has been downloaded and installed successfully"
 #@else
-#@	clear ; echo "Error detected at section 23 - Command 4" ; exit
+#@	clear ; echo "Error detected at section 23 - Command 6" ; exit
 #@fi
 #@sleep 2s
 
-#################### Section 24.0 (Install Dialog to CHROOT) ####################
-
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S dialog
-#@echo " "
-#@echo "Dialog has been downloaded and installed successfully "
-#@echo " "
+#@SECTION23VAR7=$(which dialog)
+#@if	[ ! -z "$SECTION23VAR7" ]
+#@then
+#@	echo "Dialog has been downloaded and installed successfully"
+#@else
+#@	clear ; echo "Error detected at section 23 - Command 7" ; exit
+#@fi
 #@sleep 2s
-
-#################### Section 25.0 (Install LVM2 Packages to CHROOT) ####################
 
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S lvm2
 #@echo " "
@@ -695,47 +699,79 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 #@echo " "
 #@sleep 2s
 
-#################### Section 26.0 (Enable Encryption and LVM2 functionality to CHROOT) ####################
+#################### Section 24.0 (Enable Services) ####################
+
+#@arch-chroot /mnt systemctl enable NetworkManager
+#@SECTION24VAR1=$(ls /mnt/usr/lib/systemd/system | grep -w NetworkManager.service.d)
+#@if	[ ! -z "$SECTION24VAR1" ]
+#@then
+#@	echo "Network Manager has been enabled successfully"
+#@else
+#@	clear ; echo "Error detected at section 24 - Command 1" ; exit
+#@fi
+#@sleep 2s
+
+#@arch-chroot /mnt systemctl enable dhcpcd
+#@SECTION24VAR2=$(ls /mnt/usr/lib/systemd/system | grep -w dhcpcd.service)
+#@if	[ ! -z "$SECTION24VAR2" ]
+#@then
+#@	echo "DHCP Service has been enabled successfully"
+#@else
+#@	clear ; echo "Error detected at section 24 - Command 2" ; exit
+#@fi
+#@sleep 2s
+
+#@arch-chroot /mnt systemctl enable sshd
+#@SECTION24VAR3=$(ls /mnt/usr/lib/systemd/system | grep sshd.service)
+#@if	[ ! -z "$SECTION24VAR3" ]
+#@then
+#@	echo "SSH Service has been enabled successfully"
+#@else
+#@	clear ; echo "Error detected at section 24 - Command 3" ; exit
+#@fi
+#@sleep 2s
+
+#################### Section 25.0 (Enable Encryption and LVM2 functionality to CHROOT) ####################
 
 #@arch-chroot /mnt sed -i "s/block/block encrypt lvm2/" /etc/mkinitcpio.conf
-#@SECTION26VAR1=$(cat /mnt/etc/mkinitcpio.conf | grep HOOKS=\(base\ udev\ autodetect\ modconf\ block\ encrypt\ lvm2)
-#@if	[ ! -z "$SECTION26VAR1" ]
+#@SECTION25VAR1=$(cat /mnt/etc/mkinitcpio.conf | grep HOOKS=\(base\ udev\ autodetect\ modconf\ block\ encrypt\ lvm2)
+#@if	[ ! -z "$SECTION25VAR1" ]
 #@then
 #@	echo "LVM Encryption has been configured ready for first bootup successfully"
+#@else
+#@	clear ; echo "Error detected at section 25 - Command 1" ; exit
+#@fi
+#@sleep 2s
+
+#@arch-chroot /mnt mkinitcpio -p linux-lts
+#@SECTION25VAR2=$(ls /mnt/boot | grep initramfs-linux-lts.img)
+#@if	[ ! -z "$SECTION25VAR2" ]
+#@then
+#@	echo "Linux LTS System has been initilaized successfully"
+#@else
+#@	clear ; echo "Error detected at section 25 - Command 2" ; exit
+#@fi
+#@sleep 2s
+
+#################### Section 26.0 (Configure Language and Locale Settings) ####################
+
+#@arch-chroot /mnt sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen
+#@SECTION26VAR1=$(cat /mnt/etc/locale.gen | grep -o \#en_AU.UTF-8\ UTF-8)
+#@if	[ -z "$SECTION26VAR1" ]
+#@then
+#@	echo "Australian Location Settings have been enabled successfully"
 #@else
 #@	clear ; echo "Error detected at section 26 - Command 1" ; exit
 #@fi
 #@sleep 2s
 
-#@arch-chroot /mnt mkinitcpio -p linux-lts
-#@SECTION26VAR2=$(ls /mnt/boot | grep initramfs-linux-lts.img)
-#@if	[ ! -z "$SECTION26VAR2" ]
-#@then
-#@	echo "Linux LTS System has been initilaized successfully"
-#@else
-#@	clear ; echo "Error detected at section 26 - Command 2" ; exit
-#@fi
-#@sleep 2s
-
-#################### Section 27.0 (Configure Language and Locale Settings) ####################
-
-#@arch-chroot /mnt sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen
-#@SECTION27VAR1=$(cat /mnt/etc/locale.gen | grep -o \#en_AU.UTF-8\ UTF-8)
-#@if	[ -z "$SECTION27VAR1" ]
-#@then
-#@	echo "Australian Location Settings have been enabled successfully"
-#@else
-#@	clear ; echo "Error detected at section 27 - Command 1" ; exit
-#@fi
-#@sleep 2s
-
 #@echo "LANG=en_AU.UTF-8" > /mnt/etc/locale.conf
-#@SECTION27VAR2=$(grep -o LANG=en_AU.UTF-8 /mnt/etc/locale.conf)
-#@if	[ ! -z "$SECTION27VAR2" ]
+#@SECTION26VAR2=$(grep -o LANG=en_AU.UTF-8 /mnt/etc/locale.conf)
+#@if	[ ! -z "$SECTION26VAR2" ]
 #@then
 #@	echo "Australian Language Settings have been enabled successfully"
 #@else
-#@	clear ; echo "Error detected at section 27 - Command 2" ; exit
+#@	clear ; echo "Error detected at section 26 - Command 2" ; exit
 #@fi
 #@sleep 2s
 
@@ -746,66 +782,72 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 #@sleep 2s
 
 #@cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
-#@SECTION27VAR4=$(grep \#\#Server /etc/pacman.d/mirrorlist)
-#@if	[ ! -z "$SECTION27VAR4" ]
+#@SECTION26VAR4=$(grep \#\#Server /etc/pacman.d/mirrorlist)
+#@if	[ ! -z "$SECTION26VAR4" ]
 #@then
 #@	echo "Mirrorlist file has been configured ready for first bootup successfully"
 #@else
-#@	clear ; echo "Error detected at section 27 - Command 4" ; exit
+#@	clear ; echo "Error detected at section 26 - Command 4" ; exit
 #@fi
 #@sleep 2s
 
-#################### Section 28.0 (Configure Hostname) ####################
+#################### Section 27.0 (Configure Hostname) ####################
 
 #@echo "$CLASSIFICATION$HOSTNAME" > /mnt/etc/hostname
-#@SECTION28VAR1=$(grep "$CLASSIFICATION$HOSTNAME" /mnt/etc/hostname)
-#@if	[ ! -z "$SECTION28VAR1" ]
+#@SECTION27VAR1=$(grep "$CLASSIFICATION$HOSTNAME" /mnt/etc/hostname)
+#@if	[ ! -z "$SECTION27VAR1" ]
 #@then
 #@	echo "Hostname has been configured successfully"
 #@else
-#@	clear ; echo "Error detected at section 28 - Command 1" ; exit
+#@	clear ; echo "Error detected at section 27 - Command 1" ; exit
 #@fi
 #@sleep 2s
 
-#################### Section 29.0 (Configure Hosts File) ####################
+#################### Section 28.0 (Configure Hosts File) ####################
 
 #@echo " " >> /mnt/etc/hosts
 
 #@echo "127.0.0.1   localhost" >> /mnt/etc/hosts
-#@SECTION29VAR1=$(grep "127.0.0.1" /mnt/etc/hosts)
-#@if	[ ! -z "$SECTION29VAR1" ]
+#@SECTION28VAR1=$(grep "127.0.0.1" /mnt/etc/hosts)
+#@if	[ ! -z "$SECTION28VAR1" ]
 #@then
 #@	echo "Hosts file line 1 modification completed successfully"
 #@else
-#@	clear ; echo "Error detected at section 29 - Command 1" ; exit
+#@	clear ; echo "Error detected at section 28 - Command 1" ; exit
 #@fi
 
 #@echo "::1   localhost" >> /mnt/etc/hosts
-#@SECTION29VAR2=$(grep "::1" /mnt/etc/hosts)
-#@if	[ ! -z "$SECTION29VAR2" ]
+#@SECTION28VAR2=$(grep "::1" /mnt/etc/hosts)
+#@if	[ ! -z "$SECTION28VAR2" ]
 #@then
 #@	echo "Hosts file line 2 modification completed successfully"
 #@else
-#@	clear ; echo "Error detected at section 29 - Command 2" ; exit
+#@	clear ; echo "Error detected at section 28 - Command 2" ; exit
 #@fi
 
 #@echo "127.0.1.1   $CLASSIFICATION$HOSTNAME.localdomain   $CLASSIFICATION$HOSTNAME" >> /mnt/etc/hosts
-#@SECTION29VAR3=$(grep "$CLASSIFICATION$HOSTNAME.localdomain" /mnt/etc/hosts)
-#@if	[ ! -z "$SECTION29VAR3" ]
+#@SECTION28VAR3=$(grep "$CLASSIFICATION$HOSTNAME.localdomain" /mnt/etc/hosts)
+#@if	[ ! -z "$SECTION28VAR3" ]
 #@then
 #@	echo "Hosts file line 3 modification completed successfully"
 #@else
-#@	clear ; echo "Error detected at section 29 - Command 3" ; exit
+#@	clear ; echo "Error detected at section 28 - Command 3" ; exit
 #@fi
 #@echo "Host file has been configured successfully "
 
-#################### Section 30.0 (Install Sudo and Setup Root Level Password) ####################
+#################### Section 29.0 (Install Sudo and Setup Root Level Password) ####################
 
 #@printf '\n\n\n' | arch-chroot /mnt pacman -S sudo
-#@echo " "
-#@echo "Sudo Software package has been downloaded and installed successfully "
-#@echo " "
+#@SECTION29VAR1=$(which sudo)
+#@if	[ ! -z "$SECTION29VAR1" ]
+#@then
+#@	echo "Sudo Software package has been downloaded and installed successfully"
+#@else
+#@	clear ; echo "Error detected at section 29 - Command 1" ; exit
+#@fi
 #@sleep 2s
+
+#################### Section 30.0 (Set Root Password) ####################
 
 #@printf "$ROOTPASSWORD\n$ROOTPASSWORD" | arch-chroot /mnt passwd
 #@echo " "
