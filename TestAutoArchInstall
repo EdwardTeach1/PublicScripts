@@ -872,9 +872,13 @@ sed -i "s/#Color/Color/" /etc/pacman.conf
 #################### Section 32.0 (Enable Wheel Group) ####################
 
 #@sudo sed -i 's/^#\s*\(%wheel\s\+ALL=(ALL)\s\+ALL\)/\1/' /etc/sudoers
-#@echo " "
-#@echo "Sudo Wheel Group Sudo rights have been enabled successfully "
-#@echo " "
+#@SECTION32VAR1=$(grep "# %wheel ALL=(ALL) ALL" /etc/sudoers)
+#@if	[ -z "$SECTION32VAR1" ]
+#@then
+#@	echo "Sudo Wheel Group Sudo rights have been enabled successfully"
+#@else
+#@	clear ; echo "Error detected at section 32 - Command 1" ; exit
+#@fi
 #@sleep 2s
 
 #################### Section 33.0 (Download GRUB Bootloader Software Packages) ####################
