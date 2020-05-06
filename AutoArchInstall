@@ -555,6 +555,315 @@ then
 	else
 		clear ; echo "Error detected at section 6 - Command 2" ; exit
 	fi
+#!/bin/bash
+
+### To lauch the script automatically type this command: sudo curl https://raw.githubusercontent.com/EdwardTeach1/PublicScripts/master/AutoArchInstall | sudo bash
+
+######################################## START OF SCRIPT ########################################
+
+#################### Section 1.0 (Collection of data) ####################
+HOSTNAME="ViperLaptop"
+A_USERNAME_1="Administrator"
+A_USERPASSWORD_1="Password1"
+ROOTPASSWORD="Password1"
+LUKSPASSPHRASE="1234567890"
+CLASSIFICATION="CLASS1"
+
+## Setup of Default Variables
+OPTION1STATUS="  READY  " && OPTION2STATUS="  READY  " && OPTION3STATUS="  READY  " && OPTION4STATUS="  READY  " && OPTION5STATUS="  READY  "
+OPTION6STATUS="  READY  " && OPTION7STATUS="  READY  " && OPTION8STATUS="  READY  " && OPTION9STATUS="  READY  " && OPTION10STATUS="  READY  "
+STARTSTATUS="READY TO INSTALL"
+
+## Setup of While loop Counters
+OPTION1COUNTER=1 && OPTION2COUNTER=1 && OPTION3COUNTER=1 && OPTION4COUNTER=1 && OPTION5COUNTER=1
+OPTION6COUNTER=1 && OPTION7COUNTER=1 && OPTION8COUNTER=1 && OPTION9COUNTER=1 && OPTION10COUNTER=1
+
+START=$((OPTION1COUNTER+OPTION2COUNTER+OPTION3COUNTER+OPTION4COUNTER+OPTION5COUNTER+OPTION6COUNTER))
+
+while [ $START -lt 100 ]
+do
+START=$((OPTION1COUNTER+OPTION2COUNTER+OPTION3COUNTER+OPTION4COUNTER+OPTION5COUNTER+OPTION6COUNTER))
+if [ $START -lt 6 ]
+then	STARTSTATUS="   NOT READY    "
+else	STARTSTATUS="READY TO INSTALL"
+fi
+clear
+echo "
+                                .--'    ..............             '.............'             '..............     ....''    
+                             '+dmMMd   'hdmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   :dm:.:yh    
+                            +ms.hMMd   'hmmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmdmmmmmmmmmms   :mMmhs+/    
+                           hMhoomMMmo/ 'hmmdmmmmmmmmmy             .dmmdmmmmmmmmmo             .dmdmmmdddmmmms   o-'-/sNM:   
+                           ''''/dNNm:' 'hmmmhyyyyyyyys.............-yyhdddmmmdmdh+.............-yhhhhhhdddmmms   syo//+h+'   
+                                ````   'hmmd+//////////////////////////hmmmmmmdd+/////////////////////odddmmms               
+                                       'hmmd+//////////////////////////hddmmmmdy//////////////////////odddmmms               
+                                       'hmmd+//////yhy''''.://////////odmmmmmmd+//////:........-yyyyyyhdddmmms               
+                              '-/++/'  'hmmd+//////dmy  '-//////////+yddmmmmmds///////.        .dmdmmdddmmmmms               
+                           '+dNd/.     'hmmd+//////dmy'.//////////::ddmmmmmmdh///////:--::::::::syhdmmmmmmmmms   .+o//+o/'   
+                           hMMMoshmho' 'hmmdyyyyyyyddy://///////:. .dmdmmmdmdo/////////////////////+ohddmmmmms  oNN-   +MN:  
+                           hMMy   NMM+ 'hmmdmmmmmmdh+/////////:.   .dmdmmmdmy///////::-.....-:////////+hmmmmms 'mMN    -MMs  
+                           '+ydsoydy/  'hmmmmmdmdho/////////:.     .ddddmdmmdddhh+.'          ':////////hmmmms  -hN+''.hNs'  
+                                       'hmdmddmds/////////:.'  ':://+++dmdmmmmmmdo             '////////smmmms    ':+mNh.'   
+                                       'hmdmdds/////////:-'    '///////dmmddhhhhh+..           .////////ydmmms       ./+/:'  
+                                       'hmddy+/////////-'''''''.///////hmmdh////////-'        .:///////odmmmms               
+                                       'hmdo///////////////////////////hdmmdh+////////:--..--:///////+ydmmmmms               
+                            ./+ooo+-'  'hmdo///////////////////////////hddmmmdyo+//////////////////oydmmmmmmms '...'   ....' 
+                           oNM+''dMMh  'hmdsooooooooo+::::::::::::::ooohmdmmmddmdo.---:::::::---yddmmdmmmmmmms ':mNNo. -yy-' 
+                           '-:./hMNs.  'hmdmmmdddddddy             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   h:oNNo.+o   
+                           '/yNNy/'.:' 'hmmmmmmmmmmmmy             .dmmmmmmmmmmmmo             .dmmmmmmmmmmmms   h- 'oNNdo   
+                           shhhyyyyhy' 'oyyyyyyyyyyyyo             .syyyyyyyyyyyy/             'syyyyyyyyyyyy+ .:yo-  '+h/ 
+"
+echo " "
+
+if [ -z "$HOSTNAME" ]
+then	OPTION1COUNTER=0 && OPTION1STATUS="NOT READY"
+fi
+if [ -z "$A_USERNAME_1" ]
+then	OPTION2COUNTER=0 && OPTION2STATUS="NOT READY"
+fi
+if [ -z "$A_USERPASSWORD_1" ]
+then	OPTION3COUNTER=0 && OPTION3STATUS="NOT READY"
+fi
+if [ -z "$ROOTPASSWORD" ]
+then	OPTION4COUNTER=0 && OPTION4STATUS="NOT READY"
+fi
+if [ -z "$LUKSPASSPHRASE" ]
+then	OPTION5COUNTER=0 && OPTION5STATUS="NOT READY"
+fi
+if [ -z "$CLASSIFICATION" ]
+then	OPTION6COUNTER=0 && OPTION6STATUS="NOT READY"
+fi
+echo	'						    Welcome to the 462SQN Arch Installation Script.'
+echo	" "
+echo	"Configure the following options before starting the Installation"
+echo	" "
+echo	" 1 - Configure a Hostname for this Installation. Default = ViperLaptop ------------------- [ $OPTION1STATUS ] ---------- : $HOSTNAME "
+echo	" 2 - Configure an Administrative Account Username. Default Username = Administrator ------ [ $OPTION2STATUS ] ---------- : $A_USERNAME_1 "
+echo	" 3 - Configure the Adminstrative Account Password. Default Password = Password1 ---------- [ $OPTION3STATUS ] ---------- : $A_USERPASSWORD_1 "
+echo	" 4 - Set the Root Password. Default = Password1 ------------------------------------------ [ $OPTION4STATUS ] ---------- : $ROOTPASSWORD"
+echo	" 5 - Set PassPhrase for LVM Drive Encryption. Default = 1234567890 ----------------------- [ $OPTION5STATUS ] ---------- : $LUKSPASSPHRASE "
+echo	" 6 - Select the Classification of the system. Default = CLASS1 --------------------------- [ $OPTION6STATUS ] ---------- : $CLASSIFICATION "
+echo	" 9 - START the Installation. Type the number 9 to begin the Installation. ----------------------------------------- [ $STARTSTATUS ]"
+echo	" "
+echo	"Select a number option and press Enter to continue "
+echo	" "
+
+read selection
+
+case	$selection in
+
+	1) read -p 'Enter a new Hostname: ' HOSTNAME &&
+	if [ -z "$HOSTNAME" ]
+		then	OPTION1STATUS="NOT_READY"
+			    OPTION1COUNTER=0
+		else	OPTION1STATUS="  READY  "
+		    	OPTION1COUNTER=1
+	fi ;;
+
+	2) read -p 'Enter a Username: ' A_USERNAME_1 &&	
+	if [ -z "$A_USERNAME_1" ]
+		then	OPTION2STATUS="NOT_READY" && OPTION2COUNTER=0
+		else	OPTION2STATUS="  READY  " && OPTION2COUNTER=1
+	fi ;;
+
+	3) read -p 'Enter a Password: ' A_USERPASSWORD_1 &&
+	if [ -z "$A_USERPASSWORD_1" ]
+		then	OPTION3STATUS="NOT_READY" && OPTION3COUNTER=0
+		else	OPTION3STATUS="  READY  " && OPTION3COUNTER=1
+	fi ;;
+
+	4) read -p 'Enter a Root Password: ' ROOTPASSWORD &&
+	if [ -z "$ROOTPASSWORD" ]
+		then	OPTION4STATUS="NOT_READY" && OPTION4COUNTER=0
+		else	OPTION4STATUS="  READY  " && OPTION4COUNTER=1
+	fi ;;
+
+	5) read -p 'Enter a LUKS Drive Encryption PassPhrase: ' LUKSPASSPHRASE &&
+	if [ -z "$LUKSPASSPHRASE" ]
+		then	OPTION5STATUS="NOT_READY" && OPTION5COUNTER=0
+		else	OPTION5STATUS="  READY  " && OPTION5COUNTER=1
+	fi ;;
+
+	6) CLASSCOUNTER=0
+  while [ $CLASSCOUNTER -eq 0 ]
+  do
+  clear
+  echo	" "
+  echo  "1 - CLASS1"
+  echo  "2 - CLASS2"
+  echo  " "
+  echo	"Select a Classification and press Enter to continue "
+  echo	" "
+  read  CLASSIFICATION
+  case	$CLASSIFICATION in
+    1) CLASSIFICATION=CLASS1 && CLASSCOUNTER=1 ;;
+    2) CLASSIFICATION=CLASS2 && CLASSCOUNTER=1 ;;
+    esac
+    done
+	if [ -z "$CLASSIFICATION" ]
+		then	OPTION6STATUS="NOT_READY" && OPTION6COUNTER=0
+		else	OPTION6STATUS="  READY  " && OPTION6COUNTER=1
+	fi ;;
+
+	9) if	[ $START -eq 6 ]
+		then	
+			read -p "WARNING: This script will wipe all data from the Harddrive /dev/sda. Are you sure you want to continue? Y or N? " InstallStart
+			if      [ "${InstallStart,,}" = "yes" ] || [ "${InstallStart,,}" = "y" ]
+				then    echo "Installing Arch Linux !!!" && sleep 2s
+				else    exit && echo "Installation Aborted !!!" && sleep 2s && clear
+			fi
+		sleep 2s && START=100
+		else	echo 'One of the Options is still required !!! ' && sleep 2s
+	   fi ;;
+esac
+done
+
+#################### Section 2.0 (Delete Hard Drive Partitions) ####################
+
+dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
+SECTION2VAR1=$(lsblk /dev/sda | grep part)
+if	[ -z "$SECTION2VAR1" ]
+then
+	echo "Harddrive partitions have been deleted successfully" && sleep 2s
+else
+	clear ; echo "Error detected at section 2 - Command 1" ; exit
+fi
+
+#################### Section 3.0 (Configure Repository Locations - HTTPS priority) ####################
+
+sed -i "s/#Color/Color/" /etc/pacman.conf
+SECTION3VAR1=$(cat /etc/pacman.conf | grep \#Color)
+if	[ -z "$SECTION3VAR1" ]
+then
+	echo "Bash Colours have been set successfully"
+else
+	clear ; echo "Error detected at section 3 - Command 1" ; exit
+fi
+
+SECTION3VAR2=$(cat /etc/pacman.conf | grep ILoveCandy)
+if	[ ! -z "$SECTION3VAR2" ]
+then
+	echo "PACMAN mode has been enabled already"
+else
+	sed -i '/^#VerbosePkgLists/a ILoveCandy' /etc/pacman.conf
+	SECTION3VAR2=$(cat /etc/pacman.conf | grep ILoveCandy)
+	if	[ -z "$SECTION3VAR2" ]
+	then
+		clear ; echo "Error detected at section 3 - Command 2" ; exit
+	else
+		echo "PACMAN mode has been enabled successfully"
+	fi
+fi
+
+SECTION3VAR3=$(grep \#\#Server /etc/pacman.d/mirrorlist)
+if	[ ! -z "$SECTION3VAR3" ]
+then
+	echo "PACMAN mode has been enabled already"
+else
+	sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
+	SECTION3VAR3=$(cat /etc/pacman.conf | grep ILoveCandy)
+	if	[ -z "$SECTION3VAR3" ]
+	then
+		clear ; echo "Error detected at section 3 - Command 3" ; exit
+	fi
+fi
+
+SECTION3VAR4=$(cat /etc/pacman.d/mirrorlist | grep https://mirror.aarnet.edu.au/pub/archlinux/\\$\repo/os/\\$\arch)
+if	[ ! -z "$SECTION3VAR4" ]
+then
+	echo "First HTTPS Server has been added to the mirrorlist file already"
+else
+	sed -i '/## Generated on/a Server = https://mirror.aarnet.edu.au/pub/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
+	SECTION3VAR4=$(cat /etc/pacman.d/mirrorlist | grep https://mirror.aarnet.edu.au/pub/archlinux/\\$\repo/os/\\$\arch)
+	if	[ -z "$SECTION3VAR4" ]
+	then
+		clear ; echo "Error detected at section 3 - Command 4" ; exit
+	fi
+fi
+
+SECTION3VAR5=$(cat /etc/pacman.d/mirrorlist | grep https://archlinux.mirror.digitalpacific.com.au/\\$\repo/os/\\$\arch)
+if	[ ! -z "$SECTION3VAR5" ]
+then
+	echo "Second HTTPS Server has been added to the mirrorlist file successfully"
+else
+	sed -i '/## Generated on/a Server = https://archlinux.mirror.digitalpacific.com.au/$repo/os/$arch' /etc/pacman.d/mirrorlist
+	SECTION3VAR5=$(cat /etc/pacman.d/mirrorlist | grep https://archlinux.mirror.digitalpacific.com.au/\\$\repo/os/\\$\arch)
+	if	[ -z "$SECTION3VAR5" ]
+	then
+		clear ; echo "Error detected at section 3 - Command 5" ; exit
+	fi
+fi
+
+SECTION3VAR6=$(cat /etc/pacman.d/mirrorlist | grep https://syd.mirror.rackspace.com/archlinux/\\$\repo/os/\\$\arch)
+if	[ ! -z "$SECTION3VAR6" ]
+then
+	echo "Third HTTPS Server has been added to the mirrorlist file successfully"
+else
+	sed -i '/## Generated on/a Server = https://syd.mirror.rackspace.com/archlinux/$repo/os/$arch' /etc/pacman.d/mirrorlist
+	SECTION3VAR6=$(cat /etc/pacman.d/mirrorlist | grep https://syd.mirror.rackspace.com/archlinux/\\$\repo/os/\\$\arch)
+	if	[ -z "$SECTION3VAR6" ]
+	then
+		clear ; echo "Error detected at section 3 - Command 6" ; exit
+	fi
+fi
+
+#################### Section 4.0 (Download Latest Arch Linux Packages) ####################
+
+pacman -Syyy
+echo " "
+echo "Latest Arch Linux Packages have been downloaded successfully "
+echo " "
+sleep 2s
+
+#################### Section 5.0 (Install Expect Shell) ####################
+
+printf '\n\n\n' | pacman -Syy expect
+echo " "
+echo "Expect Shell has been installed successfully "
+echo " "
+sleep 2s
+
+#################### Section 6.0 (Setup HDD Partitions for Installation) ####################
+
+### First Classification Option
+if		[ "$CLASSIFICATION" = "CLASS1" ]
+then
+	echo "label: gpt" > partition-table
+	echo "device: /dev/sda" >> partition-table
+	echo "unit: sectors" >> partition-table
+	echo "first-lba: 2048" >> partition-table
+	echo "last-lba: 1000215182" >> partition-table
+	echo " " >> partition-table
+	echo "/dev/sda1 : start=           2048, size=     2097152, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B"   >> partition-table
+	echo "/dev/sda2 : start=        2099200, size=     2097152, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"   >> partition-table
+	echo "/dev/sda3 : start=        4196352, size=   996018831, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
+	SECTION6VAR1=$(ls ~ | grep -w partition-table)
+	if	[ ! -z "$SECTION6VAR1" ]
+	then
+		echo "Partition Table file has been created successfully"
+	else
+		clear ; echo "Error detected at section 6 - Command 1" ; exit
+	fi
+fi
+
+### Second Classification Option
+if		[ "$CLASSIFICATION" = "CLASS2" ]
+then
+	echo "label: gpt" > partition-table
+	echo "device: /dev/sda" >> partition-table
+	echo "unit: sectors" >> partition-table
+	echo "first-lba: 2048" >> partition-table
+	echo "last-lba: 1000215182" >> partition-table
+	echo " " >> partition-table
+	echo "/dev/sda1 : start=           2048, size=     2097152, type=C12A7328-F81F-11D2-BA4B-00A0C93EC93B"   >> partition-table
+	echo "/dev/sda2 : start=        2099200, size=     2097152, type=0FC63DAF-8483-4772-8E79-3D69D8477DE4"   >> partition-table
+	echo "/dev/sda3 : start=        4196352, size=   996018831, type=E6D6D379-F507-44C2-A23C-238F2A3DF928" >> partition-table
+	SECTION6VAR2=$(ls ~ | grep -w partition-table)
+	if	[ ! -z "$SECTION6VAR2" ]
+	then
+		echo "Partition Table file has been created successfully"
+	else
+		clear ; echo "Error detected at section 6 - Command 2" ; exit
+	fi
 fi
 ### Third Classification Option
 if		[ "$CLASSIFICATION" = "CLASS3" ]
@@ -644,15 +953,6 @@ echo " "
 sleep 2s
 
 #################### Section 10.0 (Open LUKS Container) ####################
-
-if	[  ] has been done
-then	echo it has been done
-else
-	do it command
-	if	[  ] hasn't been done after that
-	then	display error. refer to section blah
-	fi
-fi
 
 printf '%s\n' "$LUKSPASSPHRASE" | cryptsetup open --type luks /dev/sda3 lvm
 echo " "
@@ -812,17 +1112,35 @@ sleep 2s
 #################### Section 18.0 (Download Base Arch Linux into Mount location) ####################
 
 printf '\n\n\n' | pacstrap -i /mnt base
-echo " "
-echo "Base Arch Linux System has been downloaded into the bootup location successfully "
-echo " "
+SECTION18VAR1=$(ls /mnt | grep -o root)
+if	[ ! -z "$SECTION18VAR1" ]
+then
+	echo "Base Arch Linux System has been downloaded into the bootup location successfully"
+else
+	clear ; echo "Error detected at section 18 - Command 1" ; exit
+fi
 sleep 2s
 
 #################### Section 19.0 (Install Linux LTS Version to CHROOT) ####################
 
 printf '\n\n\n' | arch-chroot /mnt pacman -S linux-lts linux-lts-headers
-echo " "
-echo "Linux LTS and Headers have been downloaded and installed into the bootup location successfully "
-echo " "
+SECTION19VAR1=$(ls /mnt/usr/src | grep -o linux-lts)
+if	[ ! -z "$SECTION19VAR1" ]
+then
+	echo "Linux LTS has been downloaded and installed into the bootup location successfully"
+else
+	clear ; echo "Error detected at section 19 - Command 1" ; exit
+fi
+sleep 2s
+
+printf '\n\n\n' | arch-chroot /mnt pacman -S linux-lts-headers
+SECTION19VAR2=$(ls /mnt/var/lib/pacman/local | grep -o linux-lts-headers)
+if	[ ! -z "$SECTION19VAR2" ]
+then
+	echo "Linux LTS Headers have been downloaded and installed into the bootup location successfully"
+else
+	clear ; echo "Error detected at section 19 - Command 2" ; exit
+fi
 sleep 2s
 
 #################### Section 20.0 (Install Linux Firmware to CHROOT) ####################
@@ -830,31 +1148,59 @@ sleep 2s
 ###note need to install firmware (aic94xx;wd719x) most likely from Arch Linux AUR
 
 printf '\n\n\n' | arch-chroot /mnt pacman -S linux-firmware
-echo " "
-echo "Linux Firmware files have been downloaded and installed successfully "
-echo " "
+SECTION20VAR1=$(ls /mnt/var/lib/pacman/local | grep -o linux-firmware)
+if	[ ! -z "$SECTION20VAR1" ]
+then
+	echo "Linux Firmware files have been downloaded and installed successfully"
+else
+	clear ; echo "Error detected at section 20 - Command 1" ; exit
+fi
 sleep 2s
 
 #################### Section 21.0 (Install Text Editor Packages to CHROOT) ####################
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S nano vim
-echo " "
-echo "Text Editor Software has been downloaded and installed successfully "
-echo " "
+printf '\n\n\n' | arch-chroot /mnt pacman -S nano
+SECTION21VAR1=$(ls /mnt/usr/share | grep -o nano)
+if	[ ! -z "$SECTION21VAR1" ]
+then
+	echo "Nano Text Editor Software has been downloaded and installed successfully"
+else
+	clear ; echo "Error detected at section 21 - Command 1" ; exit
+fi
+sleep 2s
+
+printf '\n\n\n' | arch-chroot /mnt pacman -S vim
+SECTION21VAR2=$(ls /mnt/usr/share | grep -o vim)
+if	[ ! -z "$SECTION21VAR2" ]
+then
+	echo "Vim Text Editor Software has been downloaded and installed successfully"
+else
+	clear ; echo "Error detected at section 21 - Command 2" ; exit
+fi
 sleep 2s
 
 #################### Section 22.0 (Install Base Developer Packages and SSH to CHROOT) ####################
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S base-devel openssh
-echo " "
-echo "Linux Base Devel and OpenSSH has been downloaded and installed successfully "
-echo " "
+printf '\n\n\n' | arch-chroot /mnt pacman -S base-devel
+
+printf '\n\n\n' | arch-chroot /mnt pacman -S openssh
+SECTION22VAR2=$(ls /mnt/var/lib/pacman/local | grep -o openssh)
+if	[ ! -z "$SECTION22VAR2" ]
+then
+	echo "OpenSSH has been downloaded and installed successfully"
+else
+	clear ; echo "Error detected at section 22 - Command 2" ; exit
+fi
 sleep 2s
 
 arch-chroot /mnt systemctl enable sshd
-echo " "
-echo "SSH has been enabled successfully "
-echo " "
+SECTION22VAR3=$(ls /mnt/usr/lib/systemd/system | grep sshd.service)
+if	[ ! -z "$SECTION22VAR3" ]
+then
+	echo "SSH Service has been enabled successfully"
+else
+	clear ; echo "Error detected at section 22 - Command 3" ; exit
+fi
 sleep 2s
 
 #################### Section 23.0 (Install Networking Utility Packages to CHROOT) ####################
@@ -866,15 +1212,29 @@ echo " "
 sleep 2s
 
 arch-chroot /mnt systemctl enable NetworkManager
+SECTION23VAR2=$(ls /mnt/usr/lib/systemd/system | grep -w NetworkManager.service.d)
+if	[ ! -z "$SECTION23VAR2" ]
+then
+	echo "Network Manager has been enabled successfully"
+else
+	clear ; echo "Error detected at section 23 - Command 2" ; exit
+fi
+sleep 2s
+
+printf '\n\n\n' | arch-chroot /mnt pacman -S dhcpcd
 echo " "
-echo "Network Manager has been enabled successfully "
+echo "NetworkManager, WPA_Supplicant, Wireless_Tools and Netctl Software Packages have been downloaded and installed successfully "
 echo " "
 sleep 2s
 
 arch-chroot /mnt systemctl enable dhcpcd
-echo " "
-echo "DHCP Service has been enabled successfully "
-echo " "
+SECTION23VAR4=$(ls /mnt/usr/lib/systemd/system | grep -w dhcpcd.service)
+if	[ ! -z "$SECTION23VAR4" ]
+then
+	echo "DHCP Service has been enabled successfully"
+else
+	clear ; echo "Error detected at section 23 - Command 4" ; exit
+fi
 sleep 2s
 
 #################### Section 24.0 (Install Dialog to CHROOT) ####################
@@ -896,23 +1256,45 @@ sleep 2s
 #################### Section 26.0 (Enable Encryption and LVM2 functionality to CHROOT) ####################
 
 arch-chroot /mnt sed -i "s/block/block encrypt lvm2/" /etc/mkinitcpio.conf
-echo " "
-echo "LVM Encryption has been configured ready for first bootup successfully "
-echo " "
+SECTION26VAR1=$(cat /mnt/etc/mkinitcpio.conf | grep HOOKS=\(base\ udev\ autodetect\ modconf\ block\ encrypt\ lvm2)
+if	[ ! -z "$SECTION26VAR1" ]
+then
+	echo "LVM Encryption has been configured ready for first bootup successfully"
+else
+	clear ; echo "Error detected at section 26 - Command 1" ; exit
+fi
 sleep 2s
 
 arch-chroot /mnt mkinitcpio -p linux-lts
-echo " "
-echo "Linux LTS System has been initilaized successfully "
-echo " "
+SECTION26VAR2=$(ls /mnt/boot | grep initramfs-linux-lts.img)
+if	[ ! -z "$SECTION26VAR2" ]
+then
+	echo "Linux LTS System has been initilaized successfully"
+else
+	clear ; echo "Error detected at section 26 - Command 2" ; exit
+fi
 sleep 2s
 
 #################### Section 27.0 (Configure Language and Locale Settings) ####################
 
 arch-chroot /mnt sed -i "s/#en_AU.UTF-8/en_AU.UTF-8/" /etc/locale.gen
-echo " "
-echo "Australian Location Settings have been enabled successfully "
-echo " "
+SECTION27VAR1=$(cat /mnt/etc/locale.gen | grep -o \#en_AU.UTF-8\ UTF-8)
+if	[ ! -z "$SECTION27VAR1" ]
+then
+	echo "Australian Location Settings have been enabled successfully"
+else
+	clear ; echo "Error detected at section 27 - Command 1" ; exit
+fi
+sleep 2s
+
+echo "LANG=en_AU.UTF-8" > /mnt/etc/locale.conf
+SECTION27VAR2=$(cat /mnt/etc/locale.conf | grep -o LANG=en_AU.UTF-8)
+if	[ ! -z "$SECTION27VAR2" ]
+then
+	echo "Australian Language Settings have been enabled successfully"
+else
+	clear ; echo "Error detected at section 27 - Command 2" ; exit
+fi
 sleep 2s
 
 arch-chroot /mnt locale-gen
@@ -921,37 +1303,60 @@ echo "Location configuration has been generated successfully "
 echo " "
 sleep 2s
 
-echo "LANG=en_AU.UTF-8" > /mnt/etc/locale.conf
-echo " "
-echo "Australian English Language settings have been configured successfully "
-echo " "
-sleep 2s
-
 cp /etc/pacman.d/mirrorlist /mnt/etc/pacman.d/mirrorlist
-echo " "
-echo "Mirrolist file has been configured ready for first bootup successfully "
-echo " "
+SECTION27VAR4=$(grep \#\#Server /etc/pacman.d/mirrorlist)
+if	[ ! -z "$SECTION27VAR4" ]
+then
+	echo "Mirrolist file has been configured ready for first bootup successfully"
+else
+	clear ; echo "Error detected at section 27 - Command 4" ; exit
+fi
 sleep 2s
 
 #################### Section 28.0 (Configure Hostname) ####################
 
 echo "$CLASSIFICATION$HOSTNAME" > /mnt/etc/hostname
-echo " "
-echo "Hostname has been configured successfully "
-echo " "
+SECTION28VAR1=$(grep $(echo "$CLASSIFICATION$HOSTNAME"))
+if	[ ! -z "$SECTION28VAR1" ]
+then
+	echo "Hostname has been configured successfully"
+else
+	clear ; echo "Error detected at section 28 - Command 1" ; exit
+fi
 sleep 2s
 
 #################### Section 29.0 (Configure Hosts File) ####################
 
-echo "127.0.0.1  localhost" >> /mnt/etc/hosts
+echo " " >> /mnt/etc/hosts
 
-echo "::1  localhost" >> /mnt/etc/hosts
+echo "127.0.0.1   localhost" >> /mnt/etc/hosts
+SECTION29VAR1=$(cat /mnt/etc/hosts | grep 127.0.0.1)
+if	[ ! -z "$SECTION29VAR1" ]
+then
+	echo "Hosts file line 1 modification completed successfully"
+else
+	clear ; echo "Error detected at section 29 - Command 1" ; exit
+fi
 
-echo "127.0.1.1  $CLASSIFICATION$HOSTNAME.localdomain $CLASSIFICATION$HOSTNAME" >> /mnt/etc/hosts
-echo " "
+echo "::1   localhost" >> /mnt/etc/hosts
+echo "$CLASSIFICATION$HOSTNAME" > /mnt/etc/hostname
+SECTION29VAR2=$(cat /mnt/etc/hosts | grep ::1)
+if	[ ! -z "$SECTION29VAR2" ]
+then
+	echo "Hosts file line 2 modification completed successfully"
+else
+	clear ; echo "Error detected at section 29 - Command 2" ; exit
+fi
+
+echo "127.0.1.1   $CLASSIFICATION$HOSTNAME.localdomain   $CLASSIFICATION$HOSTNAME" >> /mnt/etc/hosts
+SECTION29VAR3=$(cat /mnt/etc/hosts | grep $(echo "$CLASSIFICATION$HOSTNAME.localdomain"))
+if	[ ! -z "$SECTION29VAR3" ]
+then
+	echo "Hosts file line 3 modification completed successfully"
+else
+	clear ; echo "Error detected at section 29 - Command 3" ; exit
+fi
 echo "Host file has been configured successfully "
-echo " "
-sleep 2s
 
 #################### Section 30.0 (Install Sudo and Setup Root Level Password) ####################
 
