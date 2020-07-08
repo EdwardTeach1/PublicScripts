@@ -606,7 +606,7 @@ done
 #################### Section 21.0 (Install Text Editor Packages to CHROOT) ####################
 
 #@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S nano
-#@SECTION21VAR1=$(arch-chroot /mnt which nano | grep -o "nano")
+#@SECTION21VAR1=$(which nano | grep -o "nano")
 #@if	[ ! -z "$SECTION21VAR1" ]
 #@then
 #@	echo " " ; echo "Nano Text Editor Software has been downloaded and installed successfully" ; echo " "
@@ -616,7 +616,7 @@ done
 #@sleep 2s
 
 #@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S vim
-#@SECTION21VAR2=$(arch-chroot /mnt which vim | grep -o "vim")
+#@SECTION21VAR2=$(which vim | grep -o "vim")
 #@if	[ ! -z "$SECTION21VAR2" ]
 #@then
 #@	echo " " ; echo "Vim Text Editor Software has been downloaded and installed successfully" ; echo " "
