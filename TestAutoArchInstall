@@ -1,6 +1,6 @@
 #!/bin/bash
 
-### To lauch the script automatically type this command: sudo curl https://raw.githubusercontent.com/EdwardTeach1/PublicScripts/master/AutoArchInstall | sudo bash & 2>&1 | tee installlog.txt
+### To lauch the script automatically type this command: sudo curl https://raw.githubusercontent.com/EdwardTeach1/PublicScripts/master/AutoArchInstall | sudo bash
 
 ######################################## START OF SCRIPT ########################################
 
