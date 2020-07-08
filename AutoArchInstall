@@ -5,27 +5,27 @@
 ######################################## START OF SCRIPT ########################################
 
 #################### Section 1.0 (Collection of data) ####################
-HOSTNAME="ViperLaptop"
-A_USERNAME_1="Administrator"
-A_USERPASSWORD_1="Password1"
-ROOTPASSWORD="Password1"
-LUKSPASSPHRASE="1234567890"
-CLASSIFICATION="CLASS1"
+HOSTNAME="ViperLaptop"			### Sets Default Menu Option and configuration for the Hostname
+A_USERNAME_1="Administrator"		### Sets Default Menu Option and configuration for the Admin Account Username
+A_USERPASSWORD_1="Password1"		### Sets Default Menu Option and configuration for the Admin Account Password
+ROOTPASSWORD="Password1"		### Sets Default Menu Option and configuration for the Root Password
+LUKSPASSPHRASE="1234567890"		### Sets Default Menu Option and configuration for the LUKS Harddrive Encryption PassPhrase
+CLASSIFICATION="CLASS1"			### Sets Default Menu Option and configuration for the System Classification
 
-## Setup of Default Variables
-OPTION1STATUS="  READY  " && OPTION2STATUS="  READY  " && OPTION3STATUS="  READY  " && OPTION4STATUS="  READY  " && OPTION5STATUS="  READY  "
-OPTION6STATUS="  READY  " && OPTION7STATUS="  READY  " && OPTION8STATUS="  READY  " && OPTION9STATUS="  READY  " && OPTION10STATUS="  READY  "
+### Menu Options Status to Display when Ready
+OPTION1STATUS="  READY  " ; OPTION2STATUS="  READY  " ; OPTION3STATUS="  READY  " ; OPTION4STATUS="  READY  " ; OPTION5STATUS="  READY  "
+OPTION6STATUS="  READY  " ; OPTION7STATUS="  READY  " ; OPTION8STATUS="  READY  " ; OPTION9STATUS="  READY  " ; OPTION10STATUS="  READY  "
 STARTSTATUS="READY TO INSTALL"
 
-## Setup of While loop Counters
-OPTION1COUNTER=1 && OPTION2COUNTER=1 && OPTION3COUNTER=1 && OPTION4COUNTER=1 && OPTION5COUNTER=1
-OPTION6COUNTER=1 && OPTION7COUNTER=1 && OPTION8COUNTER=1 && OPTION9COUNTER=1 && OPTION10COUNTER=1
-
+### Setup of Counters for menu to compute when ready to proceed with the Installation
+OPTION1COUNTER=1 ; OPTION2COUNTER=1 ; OPTION3COUNTER=1 ; OPTION4COUNTER=1 ; OPTION5COUNTER=1
+OPTION6COUNTER=1 ; OPTION7COUNTER=1 ; OPTION8COUNTER=1 ; OPTION9COUNTER=1 ; OPTION10COUNTER=1
 START=$((OPTION1COUNTER+OPTION2COUNTER+OPTION3COUNTER+OPTION4COUNTER+OPTION5COUNTER+OPTION6COUNTER))
 
-while [ $START -lt 100 ]
+### Pre-Installation Menu
+while [ $START -lt 100 ]	### Menu Displays while Counters until Installation start is selected
 do
-START=$((OPTION1COUNTER+OPTION2COUNTER+OPTION3COUNTER+OPTION4COUNTER+OPTION5COUNTER+OPTION6COUNTER))
+START=$((OPTION1COUNTER+OPTION2COUNTER+OPTION3COUNTER+OPTION4COUNTER+OPTION5COUNTER+OPTION6COUNTER))	### Calculation of Menu Status
 if [ $START -lt 6 ]
 then	STARTSTATUS="   NOT READY    "
 else	STARTSTATUS="READY TO INSTALL"
@@ -37,7 +37,7 @@ echo "
                             +ms.hMMd   'hmmmmmmmmmmmmh             .dmmmmmmmmmmmmo             .dmdmmmmmmmmmms   :mMmhs+/
                            hMhoomMMmo/ 'hmmdmmmmmmmmmy             .dmmdmmmmmmmmmo             .dmdmmmdddmmmms   o-'-/sNM:
                            ''''/dNNm:' 'hmmmhyyyyyyyys.............-yyhdddmmmdmdh+.............-yhhhhhhdddmmms   syo//+h+'
-                                ````   'hmmd+//////////////////////////hmmmmmmdd+/////////////////////odddmmms
+                                    ````   'hmmd+//////////////////////////hmmmmmmdd+/////////////////////odddmmms
                                        'hmmd+//////////////////////////hddmmmmdy//////////////////////odddmmms
                                        'hmmd+//////yhy''''.://////////odmmmmmmd+//////:........-yyyyyyhdddmmms
                               '-/++/'  'hmmd+//////dmy  '-//////////+yddmmmmmds///////.        .dmdmmdddmmmmms
@@ -57,25 +57,25 @@ echo "
 "
 echo " "
 
-if [ -z "$HOSTNAME" ]
-then	OPTION1COUNTER=0 && OPTION1STATUS="NOT READY"
+if [ -z "$HOSTNAME" ]					### If Hostname variable has no input sets counter to zero and display Not Ready status
+then	OPTION1COUNTER=0 ; OPTION1STATUS="NOT READY"
 fi
-if [ -z "$A_USERNAME_1" ]
-then	OPTION2COUNTER=0 && OPTION2STATUS="NOT READY"
+if [ -z "$A_USERNAME_1" ]				### If Admin Account Username variable has no input sets counter to zero and display Not Ready status
+then	OPTION2COUNTER=0 ; OPTION2STATUS="NOT READY"
 fi
-if [ -z "$A_USERPASSWORD_1" ]
-then	OPTION3COUNTER=0 && OPTION3STATUS="NOT READY"
+if [ -z "$A_USERPASSWORD_1" ]				### If Admin Account Password variable has no input sets counter to zero and display Not Ready status
+then	OPTION3COUNTER=0 ; OPTION3STATUS="NOT READY"
 fi
-if [ -z "$ROOTPASSWORD" ]
-then	OPTION4COUNTER=0 && OPTION4STATUS="NOT READY"
+if [ -z "$ROOTPASSWORD" ]				### If Root Password variable has no input sets counter to zero and display Not Ready status
+then	OPTION4COUNTER=0 ; OPTION4STATUS="NOT READY"
 fi
-if [ -z "$LUKSPASSPHRASE" ]
-then	OPTION5COUNTER=0 && OPTION5STATUS="NOT READY"
+if [ -z "$LUKSPASSPHRASE" ]				### If LUKS Harddrive Encryption PassPhrase variable has no input sets counter to zero and display Not Ready status
+then	OPTION5COUNTER=0 ; OPTION5STATUS="NOT READY"
 fi
-if [ -z "$CLASSIFICATION" ]
-then	OPTION6COUNTER=0 && OPTION6STATUS="NOT READY"
+if [ -z "$CLASSIFICATION" ]				### If Classification variable has no input sets counter to zero and display Not Ready status
+then	OPTION6COUNTER=0 ; OPTION6STATUS="NOT READY"
 fi
-echo	'						    Welcome to the 462SQN Arch Installation Script.'
+echo	'						    Welcome to the 462SQN Arch Installation Script.'		### Pre-Installation Menu Display
 echo	" "
 echo	"Configure the following options before starting the Installation"
 echo	" "
@@ -94,36 +94,34 @@ read selection
 
 case	$selection in
 
-	1) read -p 'Enter a new Hostname: ' HOSTNAME &&
+	1) read -p 'Enter a new Hostname: ' HOSTNAME ;
 	if [ -z "$HOSTNAME" ]
-		then	OPTION1STATUS="NOT_READY"
-			    OPTION1COUNTER=0
-		else	OPTION1STATUS="  READY  "
-		    	OPTION1COUNTER=1
+		then	OPTION1STATUS="NOT_READY" ; OPTION1COUNTER=0
+		else	OPTION1STATUS="  READY  " ; OPTION1COUNTER=1
 	fi ;;
 
-	2) read -p 'Enter a Username: ' A_USERNAME_1 &&	
+	2) read -p 'Enter a Username: ' A_USERNAME_1 ;
 	if [ -z "$A_USERNAME_1" ]
-		then	OPTION2STATUS="NOT_READY" && OPTION2COUNTER=0
-		else	OPTION2STATUS="  READY  " && OPTION2COUNTER=1
+		then	OPTION2STATUS="NOT_READY" ; OPTION2COUNTER=0
+		else	OPTION2STATUS="  READY  " ; OPTION2COUNTER=1
 	fi ;;
 
-	3) read -p 'Enter a Password: ' A_USERPASSWORD_1 &&
+	3) read -p 'Enter a Password: ' A_USERPASSWORD_1 ;
 	if [ -z "$A_USERPASSWORD_1" ]
-		then	OPTION3STATUS="NOT_READY" && OPTION3COUNTER=0
-		else	OPTION3STATUS="  READY  " && OPTION3COUNTER=1
+		then	OPTION3STATUS="NOT_READY" ; OPTION3COUNTER=0
+		else	OPTION3STATUS="  READY  " ; OPTION3COUNTER=1
 	fi ;;
 
-	4) read -p 'Enter a Root Password: ' ROOTPASSWORD &&
+	4) read -p 'Enter a Root Password: ' ROOTPASSWORD ;
 	if [ -z "$ROOTPASSWORD" ]
-		then	OPTION4STATUS="NOT_READY" && OPTION4COUNTER=0
-		else	OPTION4STATUS="  READY  " && OPTION4COUNTER=1
+		then	OPTION4STATUS="NOT_READY" ; OPTION4COUNTER=0
+		else	OPTION4STATUS="  READY  " ; OPTION4COUNTER=1
 	fi ;;
 
-	5) read -p 'Enter a LUKS Drive Encryption PassPhrase: ' LUKSPASSPHRASE &&
+	5) read -p 'Enter a LUKS Drive Encryption PassPhrase: ' LUKSPASSPHRASE ;
 	if [ -z "$LUKSPASSPHRASE" ]
-		then	OPTION5STATUS="NOT_READY" && OPTION5COUNTER=0
-		else	OPTION5STATUS="  READY  " && OPTION5COUNTER=1
+		then	OPTION5STATUS="NOT_READY" ; OPTION5COUNTER=0
+		else	OPTION5STATUS="  READY  " ; OPTION5COUNTER=1
 	fi ;;
 
 	6) CLASSCOUNTER=0
@@ -138,34 +136,34 @@ case	$selection in
   echo	" "
   read  CLASSIFICATION
   case	$CLASSIFICATION in
-    1) CLASSIFICATION=CLASS1 && CLASSCOUNTER=1 ;;
-    2) CLASSIFICATION=CLASS2 && CLASSCOUNTER=1 ;;
+    1) CLASSIFICATION=CLASS1 ; CLASSCOUNTER=1 ;;
+    2) CLASSIFICATION=CLASS2 ; CLASSCOUNTER=1 ;;
     esac
     done
 	if [ -z "$CLASSIFICATION" ]
-		then	OPTION6STATUS="NOT_READY" && OPTION6COUNTER=0
-		else	OPTION6STATUS="  READY  " && OPTION6COUNTER=1
+		then	OPTION6STATUS="NOT_READY" ; OPTION6COUNTER=0
+		else	OPTION6STATUS="  READY  " ; OPTION6COUNTER=1
 	fi ;;
 
 	9) if	[ $START -eq 6 ]
-		then	
+		then
 			echo " "
-			read -p "WARNING: This script will wipe all data from the Harddrive /dev/sda. Are you sure you want to continue? Y or N? " InstallStart
-			if      [ "${InstallStart,,}" = "yes" ] || [ "${InstallStart,,}" = "y" ]
-				then    echo "Installing Arch Linux !!!" && sleep 2s
-				else    exit && echo "Installation Aborted !!!" && sleep 2s && clear
+			read -p "WARNING: This script will wipe all data from the Harddrive /dev/sda. Proceed with the Installation? [Y/n] " InstallStart
+			if      [ "${InstallStart,,}" = "yes" ] || [ "${InstallStart,,}" = "y" ] || [ "${InstallStart,,}" = "" ]
+				then    echo "Installing Arch Linux !!!" ; sleep 2s
+				else    exit ; echo "Installation Aborted !!!" ; sleep 2s ; clear
 			fi
-		sleep 2s && START=100
-		else	echo 'Complete All Options before proceding !!! ' && sleep 2s
+		sleep 2s ; START=100
+		else	echo 'Complete All Options before proceding !!! ' ; sleep 2s
 	   fi ;;
 esac
 done
 
 #################### Section 2.0 (Delete Hard Drive Partitions) ####################
 
-dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc
-SECTION2VAR1=$(lsblk /dev/sda | grep part)
-if	[ -z "$SECTION2VAR1" ]
+dd if=/dev/zero of=/dev/sda bs=512 count=1 conv=notrunc		### Delete current Partitions
+SECTION2VAR1=$(lsblk /dev/sda | grep part)				### Sets harddrive partitions as condition variable
+if	[ -z "$SECTION2VAR1" ]						### If condition variable is blank then partitions have been deleted
 then
 	echo " " ; echo "Section 2.0: Harddrive partitions have been deleted successfully" ; echo " "
 else
@@ -174,9 +172,9 @@ fi
 
 #################### Section 3.0 (Configure Repository Locations - HTTPS priority) ####################
 
-sed -i "s/#Color/Color/" /etc/pacman.conf
-SECTION3VAR1=$(grep "#Color" /etc/pacman.conf)
-if	[ -z "$SECTION3VAR1" ]
+sed -i "s/#Color/Color/" /etc/pacman.conf				### Activates Colours in Script
+SECTION3VAR1=$(grep "#Color" /etc/pacman.conf)			### Searches for De-Activated Colour setting and sets condition variable
+if	[ -z "$SECTION3VAR1" ]						### If condition variable is blank then Colour settings has been changed
 then
 	echo " " ; echo "Bash Colours have been set successfully" ; echo " " 
 else
@@ -203,7 +201,7 @@ if	[ ! -z "$SECTION3VAR3" ]
 then
 	echo " " ; echo "PACMAN mode has been enabled already" ; echo " "
 else
-	sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist && sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
+	sed -i "s/Server/##Server/g" /etc/pacman.d/mirrorlist ; sed -i '/## Australia/{n;s/##Server/Server/}' /etc/pacman.d/mirrorlist
 	SECTION3VAR3=$(grep "##Server" /etc/pacman.d/mirrorlist)
 	if	[ -z "$SECTION3VAR3" ]
 	then
@@ -558,7 +556,8 @@ sleep 2s
 
 #################### Section 18.0 (Download Base Arch Linux into Mount location) ####################
 
-printf '\n\n\n' | pacstrap -i /mnt base
+printf '\n\n\n\n\n' | pacstrap -i /mnt base
+sleep 2s
 SECTION18VAR1=$(ls /mnt | grep -o "root")
 if	[ ! -z "$SECTION18VAR1" ]
 then
@@ -570,7 +569,7 @@ sleep 2s
 
 #################### Section 19.0 (Install Linux LTS Version to CHROOT) ####################
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S linux-lts linux-lts-headers
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S linux-lts linux-lts-headers
 SECTION19VAR1=$(ls /mnt/usr/src | grep -o "linux-lts")
 if	[ ! -z "$SECTION19VAR1" ]
 then
@@ -580,7 +579,7 @@ else
 fi
 sleep 2s
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S linux-lts-headers
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S linux-lts-headers
 SECTION19VAR2=$(ls /mnt/var/lib/pacman/local | grep -o "linux-lts-headers")
 if	[ ! -z "$SECTION19VAR2" ]
 then
@@ -594,7 +593,7 @@ sleep 2s
 
 ###note need to install firmware (aic94xx;wd719x) most likely from Arch Linux AUR
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S linux-firmware
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S linux-firmware
 SECTION20VAR1=$(ls /mnt/var/lib/pacman/local | grep -o "linux-firmware")
 if	[ ! -z "$SECTION20VAR1" ]
 then
@@ -606,8 +605,8 @@ sleep 2s
 
 #################### Section 21.0 (Install Text Editor Packages to CHROOT) ####################
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S nano
-SECTION21VAR1=$(arch-chroot /mnt which nano | grep -o "nano")
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S nano
+SECTION21VAR1=$(which nano | grep -o "nano")
 if	[ ! -z "$SECTION21VAR1" ]
 then
 	echo " " ; echo "Nano Text Editor Software has been downloaded and installed successfully" ; echo " "
@@ -616,8 +615,8 @@ else
 fi
 sleep 2s
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S vim
-SECTION21VAR2=$(arch-chroot /mnt which vim | grep -o "vim")
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S vim
+SECTION21VAR2=$(which vim | grep -o "vim")
 if	[ ! -z "$SECTION21VAR2" ]
 then
 	echo " " ; echo "Vim Text Editor Software has been downloaded and installed successfully" ; echo " "
@@ -628,11 +627,11 @@ sleep 2s
 
 #################### Section 22.0 (Install Base Developer Packages to CHROOT) ####################
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S base-devel
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S base-devel
 
 #################### Section 23.0 (Install Software Packages to CHROOT) ####################
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S openssh
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S openssh
 SECTION23VAR1=$(arch-chroot /mnt which sshd | grep -o "sshd")
 if	[ ! -z "$SECTION23VAR1" ]
 then
@@ -642,11 +641,11 @@ else
 fi
 sleep 2s
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S networkmanager
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S networkmanager
 echo " " ; echo "NetworkManager has been downloaded and installed successfully " ; echo " "
 sleep 2s
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S wpa_supplicant
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S wpa_supplicant
 SECTION23VAR3=$(arch-chroot /mnt which wpa_supplicant | grep -o "wpa_supplicant")
 if	[ ! -z "$SECTION23VAR3" ]
 then
@@ -656,13 +655,13 @@ else
 fi
 sleep 2s
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S wireless_tools
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S wireless_tools
 echo " "
 echo "Wireless_Tools has been downloaded and installed successfully "
 echo " "
 sleep 2s
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S netctl
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S netctl
 SECTION23VAR5=$(arch-chroot /mnt which netctl | grep -o "netctl")
 if	[ ! -z "$SECTION23VAR5" ]
 then
@@ -672,7 +671,7 @@ else
 fi
 sleep 2s
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S dhcpcd
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S dhcpcd
 SECTION23VAR6=$(arch-chroot /mnt which dhcpcd | grep -o "dhcpcd")
 if	[ ! -z "$SECTION23VAR6" ]
 then
@@ -682,7 +681,7 @@ else
 fi
 sleep 2s
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S dialog
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S dialog
 SECTION23VAR7=$(arch-chroot /mnt which dialog | grep -o "dialog")
 if	[ ! -z "$SECTION23VAR7" ]
 then
@@ -733,7 +732,7 @@ sleep 2s
 #################### Section 25.0 (Enable Encryption and LVM2 functionality to CHROOT) ####################
 
 arch-chroot /mnt sed -i "s/block/block encrypt lvm2/" /etc/mkinitcpio.conf
-SECTION25VAR1=$(grep "HOOKS=(base udev autodetect modconf block encrypt lvm2)" /mnt/etc/mkinitcpio.conf | grep -o "encrypt")
+SECTION25VAR1=$(grep "HOOKS=(base udev autodetect modconf block encrypt lvm2 filesystems" /mnt/etc/mkinitcpio.conf | grep -o "encrypt")
 if	[ ! -z "$SECTION25VAR1" ]
 then
 	echo " " ; echo "LVM Encryption has been configured ready for first bootup successfully" ; echo " " 
@@ -836,7 +835,7 @@ echo "Host file has been configured successfully "
 
 #################### Section 29.0 (Install Sudo and Setup Root Level Password) ####################
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S sudo
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S sudo
 SECTION29VAR1=$(arch-chroot /mnt which sudo | grep -o "sudo")
 if	[ ! -z "$SECTION29VAR1" ]
 then
@@ -874,12 +873,12 @@ sudo sed -i 's/^#\s*\(%wheel\s\+ALL=(ALL)\s\+ALL\)/\1/' /etc/sudoers
 
 #################### Section 33.0 (Download GRUB Bootloader Software Packages) ####################
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S grub
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S grub
 echo " "
 echo "GRUB Software packages have been downloaded and installed successfully "
 sleep 2s
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S efibootmgr
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S efibootmgr
 SECTION33VAR2=$(which efibootmgr | grep -o "efibootmgr")
 if	[ ! -z "$SECTION33VAR2" ]
 then
@@ -889,12 +888,12 @@ else
 fi
 sleep 2s
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S dosfstools
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S dosfstools
 echo " "
 echo "DOS Filesystem Tools has been downloaded and installed successfully"
 sleep 2s
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S os-prober
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S os-prober
 SECTION33VAR4=$(arch-chroot /mnt which os-prober | grep -o "os-prober")
 if	[ ! -z "$SECTION33VAR4" ]
 then
@@ -904,7 +903,7 @@ else
 fi
 sleep 2s
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S mtools
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S mtools
 SECTION33VAR5=$(arch-chroot /mnt which mtools | grep -o "mtools")
 if	[ ! -z "$SECTION33VAR5" ]
 then
@@ -940,7 +939,7 @@ sleep 2s
 
 arch-chroot /mnt mkdir /boot/EFI
 SECTION35VAR1=$(ls /mnt/boot | grep -o "EFI")
-if	[ ! -z "$SECTION35VAR5" ]
+if	[ ! -z "$SECTION35VAR1" ]
 then
 	echo " " ; echo "EFI bootup directory has been created successfully" ; echo " "
 else
@@ -1052,7 +1051,7 @@ sleep 2s
 
 #################### Section 41.0 (Install Intel Software Packages) ####################
 
-printf '\n\n\n' | arch-chroot /mnt pacman -S intel-ucode
+printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S intel-ucode
 echo " "
 echo "Intel Software has been downloaded and installed successfully "
 echo " "
@@ -1060,7 +1059,7 @@ sleep 2s
 
 #################### Section 42.0 (Install GUI Base Software) ####################
 
-printf '\n\n\n' |  arch-chroot /mnt pacman -S xorg xorg-server
+printf '\n\n\n\n\n' |  arch-chroot /mnt pacman -S xorg xorg-server
 echo " "
 echo "GUI Software has been downloaded and installed successfully "
 echo " "
@@ -1068,7 +1067,7 @@ sleep 2s
 
 #################### Section 43.0 (Install MESA Package) ####################
 
-printf '\n\n\n' |  arch-chroot /mnt pacman -S mesa
+printf '\n\n\n\n\n' |  arch-chroot /mnt pacman -S mesa
 echo " "
 echo "mesa software has been downloaded and installed successfully "
 echo " "
