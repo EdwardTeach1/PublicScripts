@@ -556,7 +556,7 @@ done
 
 #################### Section 18.0 (Download Base Arch Linux into Mount location) ####################
 
-#@printf '\n\n\n' | pacstrap -i /mnt base
+#@printf '\n\n\n\n\n' | pacstrap -i /mnt base
 #@sleep 2s
 #@SECTION18VAR1=$(ls /mnt | grep -o "root")
 #@if	[ ! -z "$SECTION18VAR1" ]
