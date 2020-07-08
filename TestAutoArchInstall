@@ -939,7 +939,7 @@ done
 
 #@arch-chroot /mnt mkdir /boot/EFI
 #@SECTION35VAR1=$(ls /mnt/boot | grep -o "EFI")
-#@if	[ ! -z "$SECTION35VAR5" ]
+#@if	[ ! -z "$SECTION35VAR1" ]
 #@then
 #@	echo " " ; echo "EFI bootup directory has been created successfully" ; echo " "
 #@else
