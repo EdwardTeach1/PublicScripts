@@ -732,7 +732,7 @@ done
 #################### Section 25.0 (Enable Encryption and LVM2 functionality to CHROOT) ####################
 
 #@arch-chroot /mnt sed -i "s/block/block encrypt lvm2/" /etc/mkinitcpio.conf
-#@SECTION25VAR1=$(grep "HOOKS=(base udev autodetect modconf block encrypt lvm2)" /mnt/etc/mkinitcpio.conf | grep -o "encrypt")
+#@SECTION25VAR1=$(grep "HOOKS=(base udev autodetect modconf block encrypt lvm2 filesystems" /mnt/etc/mkinitcpio.conf | grep -o "encrypt")
 #@if	[ ! -z "$SECTION25VAR1" ]
 #@then
 #@	echo " " ; echo "LVM Encryption has been configured ready for first bootup successfully" ; echo " " 
