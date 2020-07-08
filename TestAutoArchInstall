@@ -60,7 +60,7 @@ echo " "
 if [ -z "$HOSTNAME" ]					### If Hostname variable has no input sets counter to zero and display Not Ready status
 then	OPTION1COUNTER=0 ; OPTION1STATUS="NOT READY"
 fi
-if [ -z "$A_USERNAME_1" ]]				### If Admin Account Username variable has no input sets counter to zero and display Not Ready status
+if [ -z "$A_USERNAME_1" ]				### If Admin Account Username variable has no input sets counter to zero and display Not Ready status
 then	OPTION2COUNTER=0 ; OPTION2STATUS="NOT READY"
 fi
 if [ -z "$A_USERPASSWORD_1" ]				### If Admin Account Password variable has no input sets counter to zero and display Not Ready status
