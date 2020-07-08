@@ -569,7 +569,7 @@ done
 
 #################### Section 19.0 (Install Linux LTS Version to CHROOT) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S linux-lts linux-lts-headers
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S linux-lts linux-lts-headers
 #@SECTION19VAR1=$(ls /mnt/usr/src | grep -o "linux-lts")
 #@if	[ ! -z "$SECTION19VAR1" ]
 #@then
@@ -579,7 +579,7 @@ done
 #@fi
 #@sleep 2s
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S linux-lts-headers
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S linux-lts-headers
 #@SECTION19VAR2=$(ls /mnt/var/lib/pacman/local | grep -o "linux-lts-headers")
 #@if	[ ! -z "$SECTION19VAR2" ]
 #@then
@@ -593,7 +593,7 @@ done
 
 ###note need to install firmware (aic94xx;wd719x) most likely from Arch Linux AUR
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S linux-firmware
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S linux-firmware
 #@SECTION20VAR1=$(ls /mnt/var/lib/pacman/local | grep -o "linux-firmware")
 #@if	[ ! -z "$SECTION20VAR1" ]
 #@then
@@ -605,7 +605,7 @@ done
 
 #################### Section 21.0 (Install Text Editor Packages to CHROOT) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S nano
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S nano
 #@SECTION21VAR1=$(arch-chroot /mnt which nano | grep -o "nano")
 #@if	[ ! -z "$SECTION21VAR1" ]
 #@then
@@ -615,7 +615,7 @@ done
 #@fi
 #@sleep 2s
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S vim
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S vim
 #@SECTION21VAR2=$(arch-chroot /mnt which vim | grep -o "vim")
 #@if	[ ! -z "$SECTION21VAR2" ]
 #@then
@@ -627,11 +627,11 @@ done
 
 #################### Section 22.0 (Install Base Developer Packages to CHROOT) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S base-devel
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S base-devel
 
 #################### Section 23.0 (Install Software Packages to CHROOT) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S openssh
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S openssh
 #@SECTION23VAR1=$(arch-chroot /mnt which sshd | grep -o "sshd")
 #@if	[ ! -z "$SECTION23VAR1" ]
 #@then
@@ -641,11 +641,11 @@ done
 #@fi
 #@sleep 2s
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S networkmanager
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S networkmanager
 #@echo " " ; echo "NetworkManager has been downloaded and installed successfully " ; echo " "
 #@sleep 2s
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S wpa_supplicant
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S wpa_supplicant
 #@SECTION23VAR3=$(arch-chroot /mnt which wpa_supplicant | grep -o "wpa_supplicant")
 #@if	[ ! -z "$SECTION23VAR3" ]
 #@then
@@ -655,13 +655,13 @@ done
 #@fi
 #@sleep 2s
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S wireless_tools
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S wireless_tools
 #@echo " "
 #@echo "Wireless_Tools has been downloaded and installed successfully "
 #@echo " "
 #@sleep 2s
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S netctl
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S netctl
 #@SECTION23VAR5=$(arch-chroot /mnt which netctl | grep -o "netctl")
 #@if	[ ! -z "$SECTION23VAR5" ]
 #@then
@@ -671,7 +671,7 @@ done
 #@fi
 #@sleep 2s
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S dhcpcd
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S dhcpcd
 #@SECTION23VAR6=$(arch-chroot /mnt which dhcpcd | grep -o "dhcpcd")
 #@if	[ ! -z "$SECTION23VAR6" ]
 #@then
@@ -681,7 +681,7 @@ done
 #@fi
 #@sleep 2s
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S dialog
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S dialog
 #@SECTION23VAR7=$(arch-chroot /mnt which dialog | grep -o "dialog")
 #@if	[ ! -z "$SECTION23VAR7" ]
 #@then
@@ -835,7 +835,7 @@ done
 
 #################### Section 29.0 (Install Sudo and Setup Root Level Password) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S sudo
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S sudo
 #@SECTION29VAR1=$(arch-chroot /mnt which sudo | grep -o "sudo")
 #@if	[ ! -z "$SECTION29VAR1" ]
 #@then
@@ -873,12 +873,12 @@ done
 
 #################### Section 33.0 (Download GRUB Bootloader Software Packages) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S grub
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S grub
 #@echo " "
 #@echo "GRUB Software packages have been downloaded and installed successfully "
 #@sleep 2s
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S efibootmgr
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S efibootmgr
 #@SECTION33VAR2=$(which efibootmgr | grep -o "efibootmgr")
 #@if	[ ! -z "$SECTION33VAR2" ]
 #@then
@@ -888,12 +888,12 @@ done
 #@fi
 #@sleep 2s
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S dosfstools
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S dosfstools
 #@echo " "
 #@echo "DOS Filesystem Tools has been downloaded and installed successfully"
 #@sleep 2s
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S os-prober
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S os-prober
 #@SECTION33VAR4=$(arch-chroot /mnt which os-prober | grep -o "os-prober")
 #@if	[ ! -z "$SECTION33VAR4" ]
 #@then
@@ -903,7 +903,7 @@ done
 #@fi
 #@sleep 2s
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S mtools
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S mtools
 #@SECTION33VAR5=$(arch-chroot /mnt which mtools | grep -o "mtools")
 #@if	[ ! -z "$SECTION33VAR5" ]
 #@then
@@ -1051,7 +1051,7 @@ done
 
 #################### Section 41.0 (Install Intel Software Packages) ####################
 
-#@printf '\n\n\n' | arch-chroot /mnt pacman -S intel-ucode
+#@printf '\n\n\n\n\n' | arch-chroot /mnt pacman -S intel-ucode
 #@echo " "
 #@echo "Intel Software has been downloaded and installed successfully "
 #@echo " "
@@ -1059,7 +1059,7 @@ done
 
 #################### Section 42.0 (Install GUI Base Software) ####################
 
-#@printf '\n\n\n' |  arch-chroot /mnt pacman -S xorg xorg-server
+#@printf '\n\n\n\n\n' |  arch-chroot /mnt pacman -S xorg xorg-server
 #@echo " "
 #@echo "GUI Software has been downloaded and installed successfully "
 #@echo " "
@@ -1067,7 +1067,7 @@ done
 
 #################### Section 43.0 (Install MESA Package) ####################
 
-#@printf '\n\n\n' |  arch-chroot /mnt pacman -S mesa
+#@printf '\n\n\n\n\n' |  arch-chroot /mnt pacman -S mesa
 #@echo " "
 #@echo "mesa software has been downloaded and installed successfully "
 #@echo " "
