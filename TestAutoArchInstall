@@ -148,7 +148,7 @@ case	$selection in
 	9) if	[ $START -eq 6 ]
 		then
 			echo " "
-			read -p "WARNING: This script will wipe all data from the Harddrive /dev/sda. Proceed with the Installation? [Y/n]? " InstallStart
+			read -p "WARNING: This script will wipe all data from the Harddrive /dev/sda. Proceed with the Installation? [Y/n] " InstallStart
 			if      [ "${InstallStart,,}" = "yes" ] || [ "${InstallStart,,}" = "y" ] || [ "${InstallStart,,}" = "" ]
 				then    echo "Installing Arch Linux !!!" ; sleep 2s
 				else    exit ; echo "Installation Aborted !!!" ; sleep 2s ; clear
