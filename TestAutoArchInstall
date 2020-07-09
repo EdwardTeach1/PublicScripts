@@ -697,6 +697,12 @@ done
 #@echo " "
 #@sleep 2s
 
+#@# sudo pacman -S go
+#@# sudo pacman -S git
+#@# git clone https://
+#@# makepkg -si
+
+
 #################### Section 24.0 (Enable Services) ####################
 
 #@arch-chroot /mnt systemctl enable NetworkManager
