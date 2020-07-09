@@ -1,0 +1,12 @@
+Arch Commands
+
+pacman -Syu                                 # Update and Install system software
+pacman -R 'packagetoremove'                 # Removes a software package
+pacman -Rns'packagetoremove'                # Removes software package and its dependancies
+pacman -S 'packagetoinstall'                # Install a package using package manager
+
+yay -S 'packagetoinstall'                   # Install a package using yay package manager
+yay -Syu                                    # Update and Install System Software for base packages and AUR packages
+yay -Yc                                     # Remove un-needed dependancies
+yay -R 'packagetoremove'                    # Removes a package using yay package manager
+yay -Rns'packagetoremove'                   # Removes software package and its dependancies using yay
